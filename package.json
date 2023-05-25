@@ -39,6 +39,7 @@
   "devDependencies": {
     "dotenv": "^16.0.3",
     "eslint-config-prettier": "^8.8.0",
+    "react-router-dom": "^6.11.2",
     "typescript": "^5.0.4"
   },
   "overrides": {

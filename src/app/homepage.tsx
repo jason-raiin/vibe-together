@@ -1,5 +1,7 @@
 import React from 'react';
 import { LOGIN_URL_PARAMS } from '../spotify/constants';
+// TODO: use URLSearchParams
+// TODO: add scope to user auth
 
 const HomePage = () => {
   return (
