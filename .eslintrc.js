@@ -8,8 +8,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  overrides: [
-  ],
+  overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -17,11 +16,7 @@ module.exports = {
     project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
   },
-  plugins: [
-    'react',
-    '@typescript-eslint/eslint-plugin',
-  ],
+  plugins: ['react', '@typescript-eslint/eslint-plugin'],
   ignorePatterns: ['.eslintrc.js'],
-  rules: {
-  },
-}
+  rules: {},
+};
