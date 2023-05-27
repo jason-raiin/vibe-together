@@ -11,7 +11,6 @@ const CallBack = () => {
 
   const spotifyService = new SpotifyService();
   const user_response_json = spotifyService.getAccessToken(userCode);
-  console.log('lul');
 
   return (
     <div>
