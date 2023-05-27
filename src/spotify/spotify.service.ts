@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } from './constants';
-import { access } from 'fs';
 
 export const authString = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
   'base64',

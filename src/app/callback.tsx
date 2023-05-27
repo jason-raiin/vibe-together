@@ -6,17 +6,17 @@ import { SpotifyService } from '../spotify/spotify.service';
 
 const CallBack = () => {
   const [searchParams] = useSearchParams();
-  const usercode = searchParams.get('code');
-  const spotifyservice = new SpotifyService();
+  const userCode = searchParams.get('code');
+  if (!userCode) return <p>dies of cringe</p>;
 
-  if (usercode) {
-    const user_response_json = spotifyservice.getAccessToken(usercode);
-  }
+  const spotifyService = new SpotifyService();
+  const user_response_json = spotifyService.getAccessToken(userCode);
+  console.log('lul');
 
   return (
     <div>
       <h1>User</h1>
-      <p>Code: {usercode}</p>
+      <p>Code: {userCode}</p>
     </div>
   );
 };
