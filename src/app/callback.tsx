@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
 
 function CallBack() {
-  const [userProfile, setUserProfile] = useState({});
+  const [artists, setArtists] = useState([]);
   const spotifyService = new SpotifyService();
 
   const [searchParams] = useSearchParams();
@@ -14,15 +14,19 @@ function CallBack() {
     spotifyService
       .getAccessToken(code)
       .then((accessToken) => spotifyService.getUserProfile(accessToken))
-      .then((userProfile) => setUserProfile(userProfile));
+      .then((userProfile) => setArtists(userProfile.items))
+      .catch((e) => console.error(e.message));
   }, []);
 
-  console.log(userProfile);
+  const artistList = artists.map((x) => {
+    return <li key={x}>{x}</li>;
+  });
 
   return (
     <div>
       <h1>User</h1>
       <p>Code: {code}</p>
+      <ul>Artists: {artistList}</ul>
     </div>
   );
 }
