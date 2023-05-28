@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
-//TODO: once user_top_read json is returned, redirect to profile page and display top albums/songs/artists
-//TODO: figure out how to get the json data from async function helpppp
 
-const CallBack = () => {
-  const [searchParams] = useSearchParams();
-  const userCode = searchParams.get('code');
-  if (!userCode) return <p>dies of cringe</p>;
-
+function CallBack() {
+  const [userProfile, setUserProfile] = useState({});
   const spotifyService = new SpotifyService();
-  const user_response_json = spotifyService.getAccessToken(userCode);
+
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get('code');
+  if (!code) throw new Error('no code');
+
+  useEffect(() => {
+    spotifyService
+      .getAccessToken(code)
+      .then((accessToken) => spotifyService.getUserProfile(accessToken))
+      .then((userProfile) => setUserProfile(userProfile));
+  }, []);
+
+  console.log(userProfile);
 
   return (
     <div>
       <h1>User</h1>
-      <p>Code: {userCode}</p>
+      <p>Code: {code}</p>
     </div>
   );
-};
+}
 
 export default CallBack;

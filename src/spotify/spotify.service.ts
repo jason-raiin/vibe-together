@@ -1,10 +1,5 @@
 import axios from 'axios';
-import { Buffer } from 'buffer';
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } from './constants';
-
-export const authString = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
-  'base64',
-);
+import { AUTH_STRING, REDIRECT_URI } from './constants';
 
 //TODO: OOP-ify the functions
 //TODO: add functions to retrieve historical user data
@@ -12,9 +7,6 @@ export const authString = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString(
 //TODO: constant list could be expanded
 
 export class SpotifyService {
-  accessToken = '';
-  refreshToken = '';
-
   async getAccessToken(code: string) {
     try {
       const payload = {
@@ -27,47 +19,37 @@ export class SpotifyService {
         payload,
         {
           headers: {
-            Authorization: `Basic ${authString}`,
+            Authorization: `Basic ${AUTH_STRING}`,
             'Content-Type': 'application/x-www-form-urlencoded',
           },
         },
       );
 
-      this.accessToken = response.data.access_token;
-      const tokenType = response.data.token_type;
-      const scope = response.data.scope;
-      this.refreshToken = response.data.refresh_token;
+      const { access_token, token_type, scope, refresh_token } = response.data;
 
-      console.log('accessToken:', this.accessToken);
-      console.log('refreshToken:', this.refreshToken);
+      console.log(access_token);
+      console.log(refresh_token);
+      console.log(token_type);
       console.log(scope);
 
-      const url = `https://api.spotify.com/v1/me/top/artists`;
-      const response2 = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${this.accessToken}`,
-        },
-      });
-
-      console.log('User Profile:', response2.data);
-      return response2;
+      return access_token;
     } catch (error) {
       console.error('Failed to get access token:');
     }
   }
 
-  async getUserProfile() {
+  async getUserProfile(accessToken: string) {
     try {
-      console.log('accessToken:', this.accessToken);
+      console.log('accessToken:', accessToken);
       const url = `https://api.spotify.com/v1/me/top/artists`;
       const response = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${this.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
 
       console.log('User Profile:', response.data);
-      return response;
+      return response.data;
     } catch (error) {
       console.error('Failed to get user profile:');
     }
