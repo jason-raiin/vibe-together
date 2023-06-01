@@ -7,8 +7,8 @@ import { Model } from 'mongoose';
 @Injectable()
 export class RoomsService {
   constructor(
-    @InjectModel(Room.name) private roomModel: Model<Room>,
-    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Room.name, 'core') private roomModel: Model<Room>,
+    @InjectModel(User.name, 'core') private userModel: Model<User>,
   ) {}
 
   async createNewRoom(userId: string) {
