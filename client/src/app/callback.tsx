@@ -10,13 +10,13 @@ function CallBack() {
   const code = searchParams.get('code');
   if (!code) throw new Error('no code');
 
-  /* useEffect(() => {
+  useEffect(() => {
     spotifyService
       .getAccessToken(code)
-      .then((accessToken) => spotifyService.getUserProfile(accessToken))
-      .then((userProfile) => setArtists(userProfile.items))
+      .then((accessToken) => spotifyService.getUserTopArtists(accessToken))
+      .then((topArtists) => setArtists(topArtists.items))
       .catch((e) => console.error(e));
-  }, []); */
+  }, []);
 
   const artistList = artists.map((x) => {
     return (

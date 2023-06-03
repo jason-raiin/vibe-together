@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Headers, Param, Post } from '@nestjs/common';
 import { SpotifyService } from './spotify.service';
 
 @Controller('spotify')
@@ -15,18 +15,18 @@ export class SpotifyController {
     return await this.spotifyService.getArtist(id);
   }
 
-  @Get('/usertoken')
-  async getAccessToken(@Body('code') code: string) {
+  @Post('/usertoken')
+  async getAccessToken(@Headers('code') code: string) {
     return await this.spotifyService.getUserAccessToken(code);
   }
 
   @Get('/me')
-  async getCurrentUser(@Body('access_token') accessToken: string) {
+  async getCurrentUser(@Headers('access_token') accessToken: string) {
     return await this.spotifyService.getCurrentUser(accessToken);
   }
 
   @Get('/me/top/artists')
-  async getCurrentUserTopArtists(@Body('access_token') accessToken: string) {
+  async getCurrentUserTopArtists(@Headers('access_token') accessToken: string) {
     return await this.spotifyService.getCurrentUserTopArtists(accessToken);
   }
 }
