@@ -10,10 +10,10 @@ export class Room {
   id: string;
 
   @Prop({ required: true })
-  url: string;
+  name: string;
 
   @Prop({ required: true })
-  users: User[];
+  users: string[];
 }
 
 export const RoomSchema = SchemaFactory.createForClass(Room);

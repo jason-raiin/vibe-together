@@ -19,5 +19,6 @@ import { User, UserSchema } from 'src/users/users.schema';
   ],
   controllers: [RoomsController],
   providers: [RoomsService],
+  exports: [RoomsService],
 })
 export class RoomsModule {}
