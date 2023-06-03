@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
 
 function CallBack() {
-  const [artists, setArtists] = useState([{ name: '' }]);
+  const [artists, setArtists] = useState([{ name: '', id: '' }]);
   const spotifyService = new SpotifyService();
 
   const [searchParams] = useSearchParams();
@@ -19,7 +19,11 @@ function CallBack() {
   }, []);
 
   const artistList = artists.map((x) => {
-    return <li key={x.name}>{x.name}</li>;
+    return (
+      <li key={x.name}>
+        {x.name} : {x.id}
+      </li>
+    );
   });
 
   return (

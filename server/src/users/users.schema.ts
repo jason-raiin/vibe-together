@@ -8,9 +8,6 @@ export class User {
   @Prop({ required: true })
   id: string;
 
-  @Prop({ required: true })
-  url: string;
-
   @Prop()
   topArtists: string[];
 }
