@@ -5,8 +5,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import HomePage from './app/homepage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CallBack from './app/callback';
 import { SpotifyService } from './spotify/spotify.service';
+import CallBack from './app/callback';
 
 export default function App() {
   const [login, setLogin] = useState(false);
