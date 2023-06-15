@@ -1,12 +1,17 @@
 import React from 'react';
 import { LOGIN_URL_PARAMS } from '../spotify/constants';
+import JoinRoom from '../components/joinroom';
+import Button from '@mui/material/Button';
 
 const HomePage = () => {
   return (
     <div>
       <h1>Music Room</h1>
       <p>Connect and Compare Your Music Tastes</p>
-      <a href={LOGIN_URL_PARAMS}> Login to Spotify</a>
+      <Button variant="contained" href={LOGIN_URL_PARAMS}>
+        Login to Spotify
+      </Button>
+      <JoinRoom />
     </div>
   );
 };
