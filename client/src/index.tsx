@@ -7,6 +7,7 @@ import HomePage from './app/homepage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SpotifyService } from './spotify/spotify.service';
 import CallBack from './app/callback';
+import LoggedInHomePage from './app/loggedinhomepage';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -29,7 +30,11 @@ export default function App() {
   return (
     <div>
       {login ? (
-        <div>Aha u have logged in!</div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoggedInHomePage />} />
+          </Routes>
+        </BrowserRouter>
       ) : (
         <BrowserRouter>
           <Routes>
