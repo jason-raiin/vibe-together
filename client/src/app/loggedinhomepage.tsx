@@ -1,7 +1,11 @@
 import React from 'react';
 
 const LoggedInHomePage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <p>what</p>
+    </div>
+  );
 };
 
 export default LoggedInHomePage;

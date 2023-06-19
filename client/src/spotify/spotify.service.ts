@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { BACKEND_PATHS, BACKEND_URI } from './constants';
+import {
+  AUTH_STRING,
+  BACKEND_PATHS,
+  BACKEND_URI,
+  REDIRECT_URI,
+  SPOTIFY_TOKEN_URL,
+} from './constants';
 
 export class SpotifyService {
   constructor() {
@@ -7,25 +13,58 @@ export class SpotifyService {
   }
 
   async getAccessToken(code: string) {
+    console.log(AUTH_STRING);
     try {
-      const url = `${BACKEND_URI}${BACKEND_PATHS.userToken}`;
-      const headers = { code };
+      const payload = {
+        code: code,
+        redirect_uri: REDIRECT_URI,
+        grant_type: 'authorization_code',
+      };
+      const response = await axios.post(SPOTIFY_TOKEN_URL, payload, {
+        headers: {
+          Authorization: `Basic ${AUTH_STRING}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
 
-      console.log(url);
+      const { access_token, refresh_token, expires_in } = response.data;
 
-      const response = await axios.get(url, { headers });
-      if (!response.data.access_token) throw new Error('no access token');
-      console.log(response.data.access_token);
+      console.log('Access Token: ', access_token);
+      console.log('Refresh Token: ', refresh_token);
+      console.log('Expires In: ', expires_in);
 
-      localStorage.setItem('accessToken', response.data.access_token);
-
-      return response.data.access_token;
-    } catch (e) {
-      console.error(e);
+      return access_token;
+    } catch (error) {
+      console.error('Failed to get access token:');
     }
   }
 
-  isValidAccessToken = async (code: string) => {
+  async refreshAccessToken(refreshToken: string) {
+    try {
+      const payload = {
+        refresh_token: refreshToken,
+        grant_type: 'refresh_token',
+      };
+      const response = await axios.post(SPOTIFY_TOKEN_URL, payload, {
+        headers: {
+          Authorization: `Basic ${AUTH_STRING}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+      const { access_token, refresh_token, expires_in } = response.data;
+
+      console.log('Access Token: ', access_token);
+      console.log('Refresh Token: ', refresh_token);
+      console.log('Expires In: ', expires_in);
+
+      return access_token;
+    } catch (error) {
+      console.error('Failed to refresh access token:');
+    }
+  }
+
+  async isValidAccessToken(code: string) {
     try {
       const url = `${BACKEND_URI}${BACKEND_PATHS.userToken}`;
       const headers = { code };
@@ -41,29 +80,22 @@ export class SpotifyService {
     }
 
     return false;
-  };
+  }
 
   async getUserProfile(accessToken: string) {
     try {
-      const url = `${BACKEND_URI}${BACKEND_PATHS.me}`;
-      const headers = { accessToken };
+      console.log('Access Token: ', accessToken);
+      const url = `https://api.spotify.com/v1/me/top/artists`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-      const response = await axios.get(url, { headers });
+      console.log('User Profile:', response.data);
       return response.data;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async getUserTopArtists(accessToken: string) {
-    try {
-      const url = `${BACKEND_URI}${BACKEND_PATHS.topArtists}`;
-      const headers = { accessToken };
-
-      const response = await axios.get(url, { headers });
-      return response.data;
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error('Failed to get user profile:');
     }
   }
 }

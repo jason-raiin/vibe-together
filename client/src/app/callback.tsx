@@ -13,7 +13,7 @@ function CallBack() {
   useEffect(() => {
     spotifyService
       .getAccessToken(code)
-      .then((accessToken) => spotifyService.getUserTopArtists(accessToken))
+      .then((accessToken) => spotifyService.getUserProfile(accessToken))
       .then((topArtists) => setArtists(topArtists.items))
       .catch((e) => console.error(e));
   }, []);
