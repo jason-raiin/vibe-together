@@ -33,6 +33,8 @@ export class SpotifyService {
       console.log('Refresh Token: ', refresh_token);
       console.log('Expires In: ', expires_in);
 
+      localStorage.setItem('accessToken', access_token);
+
       return access_token;
     } catch (error) {
       console.error('Failed to get access token:');
@@ -64,14 +66,13 @@ export class SpotifyService {
     }
   }
 
-  async isValidAccessToken(code: string) {
+  async isValidAccessToken(accessToken: string) {
     try {
-      const url = `${BACKEND_URI}${BACKEND_PATHS.userToken}`;
-      const headers = { code };
-
-      console.log(url);
-
-      const response = await axios.get(url, { headers });
+      const response = await axios.get('https://api.spotify.com/v1/me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       if (response.status === 200) {
         return true;
       }

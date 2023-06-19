@@ -19,6 +19,7 @@ export default function App() {
     const isValidToken = async (accessToken: string) => {
       const result = await spotifyservice.isValidAccessToken(accessToken);
       console.log(accessToken);
+      console.log(result);
 
       setLogin(result);
     };
