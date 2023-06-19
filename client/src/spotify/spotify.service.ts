@@ -82,20 +82,60 @@ export class SpotifyService {
     return false;
   }
 
+  async getUserTopArtists(accessToken: string) {
+    console.log('Access Token: ', accessToken);
+    const url = `https://api.spotify.com/v1/me/top/artists`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  }
+
   async getUserProfile(accessToken: string) {
     try {
       console.log('Access Token: ', accessToken);
-      const url = `https://api.spotify.com/v1/me/top/artists`;
+      const url = `https://api.spotify.com/v1/me/`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
 
-      console.log('User Profile:', response.data);
       return response.data;
     } catch (error) {
       console.error('Failed to get user profile:');
+    }
+  }
+
+  async getUserTopTracks(accessToken: string) {
+    try {
+      console.log('Access Token: ', accessToken);
+      const url = `https://api.spotify.com/v1/me/top/tracks`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get user profile:');
+      return { items: [] };
+    }
+  }
+
+  async getUserAll(accessToken: string) {
+    try {
+      return {
+        userProfile: this.getUserProfile(accessToken),
+        topArtists: this.getUserTopArtists(accessToken),
+        topTracks: this.getUserTopTracks(accessToken),
+      };
+    } catch (error) {
+      console.error(error);
     }
   }
 }
