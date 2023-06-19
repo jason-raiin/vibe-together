@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
+import { redirect } from 'react-router-dom';
 
-function CallBack() {
-  const [profile, setProfile] = useState({ id: '', display_name: '' });
-  const [artists, setArtists] = useState([{ name: '', id: '' }]);
-  const [tracks, setTracks] = useState([{ name: '', id: '' }]);
+const CallBack = () => {
+  const [success, setSuccess] = useState(false);
 
   const spotifyService = new SpotifyService();
 
@@ -16,47 +15,17 @@ function CallBack() {
   useEffect(() => {
     spotifyService
       .getAccessToken(code)
-      .then((accessToken) => {
-        return {
-          userProfile: spotifyService.getUserProfile(accessToken),
-          topArtists: spotifyService.getUserTopArtists(accessToken),
-          topTracks: spotifyService.getUserTopTracks(accessToken),
-        };
-      })
-      .then(async ({ userProfile, topArtists, topTracks }) => {
-        setProfile(await userProfile);
-        setArtists((await topArtists).items);
-        setTracks((await topTracks).items);
+      .then(async () => {
+        redirect('');
       })
       .catch((e) => console.error(e));
+
+    if (success) {
+      redirect('');
+    }
   }, []);
 
-  const artistList = artists.map((x) => {
-    return (
-      <li key={x.name}>
-        {x.name} : {x.id}
-      </li>
-    );
-  });
-
-  const trackList = tracks.map((x) => {
-    return (
-      <li key={x.name}>
-        {x.name} : {x.id}
-      </li>
-    );
-  });
-
-  const displayName = profile?.display_name;
-
-  return (
-    <div>
-      <h1>User Profile for {displayName}</h1>
-      <p>Code: {code}</p>
-      <ol>Artists: {artistList}</ol>
-      <ol>Tracks: {trackList}</ol>
-    </div>
-  );
-}
+  return <div>not working</div>;
+};
 
 export default CallBack;
