@@ -1,9 +1,7 @@
-import { join } from 'path';
 import { useState } from 'react';
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useActionData } from 'react-router-dom';
 
 const JoinRoom: React.FC = () => {
   const [position, setPosition] = useState('nullState');

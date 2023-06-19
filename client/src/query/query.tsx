@@ -10,7 +10,7 @@ export const ping = async () => {
   }
 };
 
-export const newUser = async (user: any) => {
+export const newUser = async (user: unknown) => {
   try {
     const payload = { user };
     const response = await axios.post(`${BACKEND_URI}/user/new`, payload);

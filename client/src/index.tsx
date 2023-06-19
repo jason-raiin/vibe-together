@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SpotifyService } from './spotify/spotify.service';
 import CallBack from './app/callback';
 import LoggedInHomePage from './app/loggedinhomepage';
+import Header from './components/header';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -30,6 +31,7 @@ export default function App() {
 
   return (
     <div>
+      <Header />
       {login ? (
         <BrowserRouter>
           <Routes>

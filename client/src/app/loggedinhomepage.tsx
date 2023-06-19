@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SpotifyService } from '../spotify/spotify.service';
+import { newUser } from '../query/query';
 
 const LoggedInHomePage = () => {
   const [profile, setProfile] = useState({ id: '', display_name: '' });
@@ -26,6 +27,11 @@ const LoggedInHomePage = () => {
         setProfile(await userProfile);
         setArtists((await topArtists).items);
         setTracks((await topTracks).items);
+        newUser({
+          userProfile: await userProfile,
+          topArtists: await topArtists,
+          topTracks: await topTracks,
+        });
       })
       .catch((e) => console.error(e));
   }, []);

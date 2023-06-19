@@ -1,9 +1,5 @@
-import {
-  BadRequestException,
-  Injectable,
-  ServiceUnavailableException,
-} from '@nestjs/common';
-import { User, UserDocument } from './users.schema';
+import { Injectable } from '@nestjs/common';
+import { User } from './users.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -19,14 +15,17 @@ export class UsersService {
       topTracks: user.topTracks.items,
     });
 
-    const existingUser = await this.userModel.findOne({ id: newUser.id });
-    if (existingUser) throw new BadRequestException('User already exists!');
+    const existingUser = await this.userModel.findOne({
+      id: newUser.id,
+    });
 
-    const result = newUser.save();
-    if (!result)
-      throw new ServiceUnavailableException('Write to database failed!');
-
-    return result;
+    if (existingUser) {
+      existingUser.topArtists = newUser.topArtists;
+      existingUser.topTracks = newUser.topTracks;
+      return existingUser.save();
+    } else {
+      return newUser.save();
+    }
   }
 
   async getUser(id: string) {
