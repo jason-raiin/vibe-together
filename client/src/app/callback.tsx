@@ -47,11 +47,11 @@ function CallBack() {
     );
   });
 
-  const displayname = profile.display_name;
+  const displayName = profile?.display_name;
 
   return (
     <div>
-      <h1>User Profile for {displayname}</h1>
+      <h1>User Profile for {displayName}</h1>
       <p>Code: {code}</p>
       <ol>Artists: {artistList}</ol>
       <ol>Tracks: {trackList}</ol>

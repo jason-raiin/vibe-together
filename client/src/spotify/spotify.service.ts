@@ -83,15 +83,19 @@ export class SpotifyService {
   }
 
   async getUserTopArtists(accessToken: string) {
-    console.log('Access Token: ', accessToken);
-    const url = `https://api.spotify.com/v1/me/top/artists`;
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    try {
+      console.log('Access Token: ', accessToken);
+      const url = `https://api.spotify.com/v1/me/top/artists`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-    return response.data;
+      return response.data;
+    } catch (e) {
+      console.error('Failed to get user profile:');
+    }
   }
 
   async getUserProfile(accessToken: string) {
