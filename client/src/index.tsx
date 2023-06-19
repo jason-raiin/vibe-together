@@ -9,23 +9,23 @@ import { SpotifyService } from './spotify/spotify.service';
 import CallBack from './app/callback';
 import LoggedInHomePage from './app/loggedinhomepage';
 import Header from './components/header';
+import { LoginService } from './spotify/login.service';
 
 export default function App() {
   const [login, setLogin] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    const spotifyservice = new SpotifyService();
+    const refreshToken = localStorage.getItem('refreshToken');
+    const loginservice = new LoginService();
 
-    const isValidToken = async (accessToken: string) => {
-      const result = await spotifyservice.isValidAccessToken(accessToken);
-      console.log(accessToken);
-      console.log(result);
-
+    const isValidToken = async (accessToken: string, refreshToken: string) => {
+      const result = await loginservice.isValidUser(accessToken, refreshToken);
       setLogin(result);
     };
-    if (accessToken != null) {
-      isValidToken(accessToken);
+
+    if (accessToken != null && refreshToken != null) {
+      isValidToken(accessToken, refreshToken);
     }
   }, []);
 

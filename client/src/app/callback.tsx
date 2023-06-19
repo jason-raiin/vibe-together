@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { redirect, useSearchParams } from 'react-router-dom';
+import { redirect, useSearchParams, useNavigate } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
 
 const CallBack = () => {
-  const [success, setSuccess] = useState(false);
-
   const spotifyService = new SpotifyService();
+  const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
@@ -14,14 +13,10 @@ const CallBack = () => {
   useEffect(() => {
     spotifyService
       .getAccessToken(code)
-      .then(async () => {
-        redirect('');
+      .then(() => {
+        navigate('/');
       })
       .catch((e) => console.error(e));
-
-    if (success) {
-      redirect('');
-    }
   }, []);
 
   return <div>not working</div>;
