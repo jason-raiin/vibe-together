@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { redirect, useSearchParams, useNavigate } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
 
-const CallBack = () => {
+const CallBack: React.FC = () => {
   const spotifyService = new SpotifyService();
   const navigate = useNavigate();
 

@@ -1,10 +1,15 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 
-const Header: React.FC = () => {
-  function logOut(): void {
+interface ChildComponentProps {
+  refreshPage: () => void;
+}
+
+const Header: React.FC<ChildComponentProps> = ({ refreshPage }) => {
+  const logOut = () => {
     localStorage.removeItem('accessToken');
-  }
+    refreshPage();
+  };
 
   return (
     <div>

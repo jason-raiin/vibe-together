@@ -14,6 +14,10 @@ import { LoginService } from './spotify/login.service';
 export default function App() {
   const [login, setLogin] = useState(false);
 
+  function refreshPage() {
+    setLogin(false);
+  }
+
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
@@ -31,7 +35,7 @@ export default function App() {
 
   return (
     <div>
-      <Header />
+      <Header refreshPage={refreshPage} />
       {login ? (
         <BrowserRouter>
           <Routes>
