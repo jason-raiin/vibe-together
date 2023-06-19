@@ -130,16 +130,4 @@ export class SpotifyService {
       return { items: [] };
     }
   }
-
-  async getUserAll(accessToken: string) {
-    try {
-      return {
-        userProfile: this.getUserProfile(accessToken),
-        topArtists: this.getUserTopArtists(accessToken),
-        topTracks: this.getUserTopTracks(accessToken),
-      };
-    } catch (error) {
-      console.error(error);
-    }
-  }
 }
