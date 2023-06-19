@@ -1,19 +1,8 @@
 import axios from 'axios';
-import {
-  AUTH_STRING,
-  BACKEND_PATHS,
-  BACKEND_URI,
-  REDIRECT_URI,
-  SPOTIFY_TOKEN_URL,
-} from './constants';
+import { AUTH_STRING, REDIRECT_URI, SPOTIFY_TOKEN_URL } from './constants';
 
 export class SpotifyService {
-  constructor() {
-    if (!BACKEND_URI) throw new Error('No backend URL provided');
-  }
-
   async getAccessToken(code: string) {
-    console.log(AUTH_STRING);
     try {
       const payload = {
         code: code,
@@ -28,10 +17,6 @@ export class SpotifyService {
       });
 
       const { access_token, refresh_token, expires_in } = response.data;
-
-      console.log('Access Token: ', access_token);
-      console.log('Refresh Token: ', refresh_token);
-      console.log('Expires In: ', expires_in);
 
       localStorage.setItem('accessToken', access_token);
 
@@ -55,10 +40,6 @@ export class SpotifyService {
       });
 
       const { access_token, refresh_token, expires_in } = response.data;
-
-      console.log('Access Token: ', access_token);
-      console.log('Refresh Token: ', refresh_token);
-      console.log('Expires In: ', expires_in);
 
       return access_token;
     } catch (error) {
@@ -85,7 +66,6 @@ export class SpotifyService {
 
   async getUserTopArtists(accessToken: string) {
     try {
-      console.log('Access Token: ', accessToken);
       const url = `https://api.spotify.com/v1/me/top/artists`;
       const response = await axios.get(url, {
         headers: {
@@ -101,7 +81,6 @@ export class SpotifyService {
 
   async getUserProfile(accessToken: string) {
     try {
-      console.log('Access Token: ', accessToken);
       const url = `https://api.spotify.com/v1/me/`;
       const response = await axios.get(url, {
         headers: {
@@ -117,7 +96,6 @@ export class SpotifyService {
 
   async getUserTopTracks(accessToken: string) {
     try {
-      console.log('Access Token: ', accessToken);
       const url = `https://api.spotify.com/v1/me/top/tracks`;
       const response = await axios.get(url, {
         headers: {
@@ -128,7 +106,6 @@ export class SpotifyService {
       return response.data;
     } catch (error) {
       console.error('Failed to get user profile:');
-      return { items: [] };
     }
   }
 }

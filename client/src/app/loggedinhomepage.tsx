@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
-import { access } from 'fs';
 
 const LoggedInHomePage = () => {
   const [profile, setProfile] = useState({ id: '', display_name: '' });

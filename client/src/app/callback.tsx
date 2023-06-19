@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SpotifyService } from '../spotify/spotify.service';
+import { newUser } from '../query/query';
 
 function CallBack() {
   const [profile, setProfile] = useState({ id: '', display_name: '' });
@@ -27,6 +28,11 @@ function CallBack() {
         setProfile(await userProfile);
         setArtists((await topArtists).items);
         setTracks((await topTracks).items);
+        newUser({
+          userProfile: await userProfile,
+          topArtists: await topArtists,
+          topTracks: await topTracks,
+        });
       })
       .catch((e) => console.error(e));
   }, []);

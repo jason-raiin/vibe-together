@@ -8,8 +8,14 @@ export class User {
   @Prop({ required: true })
   id: string;
 
+  @Prop({ required: true })
+  displayName: string;
+
   @Prop()
-  topArtists: string[];
+  topArtists: [];
+
+  @Prop()
+  topTracks: [];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
