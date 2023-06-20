@@ -1,53 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import { SpotifyService } from '../spotify/spotify.service';
-import { newUser } from '../query/query';
+import { getUser, isValidAccessToken } from '../spotify/spotify';
+import { newUser } from '../query/users';
+import { TopArtists } from '../dtos/topArtists.dto';
+import { TopTracks } from '../dtos/topTracks.dto';
+import { UserProfile } from '../dtos/userProfile.dto';
 
 const LoggedInHomePage = () => {
-  const [profile, setProfile] = useState({ id: '', display_name: '' });
-  const [artists, setArtists] = useState([{ name: '', id: '' }]);
-  const [tracks, setTracks] = useState([{ name: '', id: '' }]);
-
-  const spotifyService = new SpotifyService();
+  const [profile, setProfile] = useState({} as UserProfile);
+  const [artists, setArtists] = useState({} as TopArtists);
+  const [tracks, setTracks] = useState({} as TopTracks);
 
   const accessToken = localStorage.getItem('accessToken');
 
   if (!accessToken) throw new Error('no code');
 
   useEffect(() => {
-    spotifyService
-      .isValidAccessToken(accessToken)
-      .then(() => {
-        return {
-          userProfile: spotifyService.getUserProfile(accessToken),
-          topArtists: spotifyService.getUserTopArtists(accessToken),
-          topTracks: spotifyService.getUserTopTracks(accessToken),
-        };
-      })
+    isValidAccessToken(accessToken)
+      .then(() => getUser(accessToken))
       .then(async ({ userProfile, topArtists, topTracks }) => {
-        setProfile(await userProfile);
-        setArtists((await topArtists).items);
-        setTracks((await topTracks).items);
+        setProfile(userProfile);
+        setArtists(topArtists);
+        setTracks(topTracks);
         newUser({
-          userProfile: await userProfile,
-          topArtists: await topArtists,
-          topTracks: await topTracks,
+          userProfile,
+          topArtists,
+          topTracks,
         });
       })
       .catch((e) => console.error(e));
   }, []);
 
-  const artistList = artists.map((x) => {
+  const artistList = artists.items?.map((artist) => {
     return (
-      <li key={x.name}>
-        {x.name} : {x.id}
+      <li key={artist.name}>
+        {artist.name} : {artist.id}
       </li>
     );
   });
 
-  const trackList = tracks.map((x) => {
+  const trackList = tracks.items?.map((track) => {
     return (
-      <li key={x.name}>
-        {x.name} : {x.id}
+      <li key={track.name}>
+        {track.name} : {track.id}
       </li>
     );
   });

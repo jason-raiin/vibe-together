@@ -2,9 +2,6 @@ import React from 'react';
 import { LOGIN_URL_PARAMS } from '../spotify/constants';
 import JoinRoom from '../components/joinroom';
 import Button from '@mui/material/Button';
-import { ping } from '../query/query';
-
-ping();
 
 const HomePage = () => {
   return (

@@ -5,11 +5,10 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import HomePage from './app/homepage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { SpotifyService } from './spotify/spotify.service';
 import CallBack from './app/callback';
 import LoggedInHomePage from './app/loggedinhomepage';
 import Header from './components/header';
-import { LoginService } from './spotify/login.service';
+import { isValidUser } from './spotify/login';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -21,10 +20,9 @@ export default function App() {
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
-    const loginservice = new LoginService();
 
     const isValidToken = async (accessToken: string, refreshToken: string) => {
-      const result = await loginservice.isValidUser(accessToken, refreshToken);
+      const result = await isValidUser(accessToken, refreshToken);
       setLogin(result);
     };
 

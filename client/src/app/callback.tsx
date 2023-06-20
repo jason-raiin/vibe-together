@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { redirect, useSearchParams, useNavigate } from 'react-router-dom';
-import { SpotifyService } from '../spotify/spotify.service';
+import React, { useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { getAccessToken } from '../spotify/spotify';
 
 const CallBack: React.FC = () => {
-  const spotifyService = new SpotifyService();
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -11,11 +10,8 @@ const CallBack: React.FC = () => {
   if (!code) throw new Error('no code');
 
   useEffect(() => {
-    spotifyService
-      .getAccessToken(code)
-      .then(() => {
-        navigate('/');
-      })
+    getAccessToken(code)
+      .then(() => navigate('/'))
       .catch((e) => console.error(e));
   }, []);
 

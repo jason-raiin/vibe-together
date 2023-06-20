@@ -6,7 +6,7 @@ export type RoomDocument = Room & Document;
 
 @Schema()
 export class Room {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   id: string;
 
   @Prop({ required: true })
