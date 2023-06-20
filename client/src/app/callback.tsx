@@ -15,7 +15,7 @@ const CallBack: React.FC = () => {
       .catch((e) => console.error(e));
   }, []);
 
-  return <div>not working</div>;
+  return <div></div>;
 };
 
 export default CallBack;

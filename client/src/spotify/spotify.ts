@@ -33,7 +33,7 @@ export const getAccessToken = async (code: string): Promise<string> => {
 
     return access_token;
   } catch (error) {
-    console.error('Failed to get access token:');
+    console.error('Failed to get access token:', error);
   }
 
   return '';
@@ -67,7 +67,7 @@ export const refreshAccessToken = async (
 
     return access_token;
   } catch (error) {
-    console.error('Failed to refresh access token:');
+    console.error('Failed to refresh access token', error);
   }
 
   return '';
@@ -110,8 +110,8 @@ export const getUser = async (accessToken: string): Promise<User> => {
 
     const user = { userProfile, topArtists, topTracks };
     return user;
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error('Failed to get user:', error);
   }
 
   return {

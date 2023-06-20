@@ -1,4 +1,4 @@
-import { Body, Controller, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
 
 @Controller('room')
@@ -18,6 +18,11 @@ export class RoomsController {
     @Body('userId') userId: string,
     @Body('roomId') roomId: string,
   ) {
-    return await this.roomsService.addNewUserByRoom(roomId, userId);
+    return await this.roomsService.addNewUserToRoom(roomId, userId);
+  }
+
+  @Get('/:id')
+  async getRoom(@Param('id') id: string) {
+    return await this.roomsService.getRoom(id);
   }
 }

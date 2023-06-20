@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUser, isValidAccessToken } from '../spotify/spotify';
-import { newUser } from '../query/users';
+import { addUpdateUser } from '../query/users';
 import { TopArtists } from '../dtos/topArtists.dto';
 import { TopTracks } from '../dtos/topTracks.dto';
 import { UserProfile } from '../dtos/userProfile.dto';
@@ -17,15 +17,11 @@ const LoggedInHomePage = () => {
   useEffect(() => {
     isValidAccessToken(accessToken)
       .then(() => getUser(accessToken))
-      .then(async ({ userProfile, topArtists, topTracks }) => {
-        setProfile(userProfile);
-        setArtists(topArtists);
-        setTracks(topTracks);
-        newUser({
-          userProfile,
-          topArtists,
-          topTracks,
-        });
+      .then(async (user) => {
+        setProfile(user.userProfile);
+        setArtists(user.topArtists);
+        setTracks(user.topTracks);
+        addUpdateUser(user);
       })
       .catch((e) => console.error(e));
   }, []);

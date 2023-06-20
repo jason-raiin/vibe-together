@@ -7,10 +7,11 @@ import { Model } from 'mongoose';
 export class UsersService {
   constructor(@InjectModel(User.name, 'core') private userModel: Model<User>) {}
 
-  async createNewUser(user: any) {
+  async addUpdateUser(user: any) {
     const newUser = new this.userModel({
       id: user.userProfile.id,
       displayName: user.userProfile.display_name,
+      images: user.userProfile.images,
       topArtists: user.topArtists.items,
       topTracks: user.topTracks.items,
     });

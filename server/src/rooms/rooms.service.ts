@@ -30,9 +30,11 @@ export class RoomsService {
     const result = await newRoom.save();
     if (!result)
       throw new ServiceUnavailableException('Write to database failed!');
+
+    return { id };
   }
 
-  async addNewUserByRoom(roomId: string, userId: string) {
+  async addNewUserToRoom(roomId: string, userId: string) {
     const room = await this.roomModel.findOne({ id: roomId });
     if (!room) throw new BadRequestException('No such room!');
 
@@ -46,5 +48,11 @@ export class RoomsService {
     const result = await room.save();
     if (!result)
       throw new ServiceUnavailableException('Write to database failed!');
+  }
+
+  async getRoom(roomId: string) {
+    const room = await this.roomModel.findOne({ id: roomId });
+    if (!room) throw new BadRequestException('No such room!');
+    return room;
   }
 }

@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { BACKEND_URI } from './constants';
 
-export const newUser = async (user: unknown) => {
+export const addUpdateUser = async (user: unknown) => {
   try {
     const payload = { user };
-    const response = await axios.post(`${BACKEND_URI}/user/new`, payload);
-    console.log(response);
+    await axios.post(`${BACKEND_URI}/user/`, payload);
   } catch (error) {
-    console.error('Fail');
+    console.error('Failed to add/update new user:', error);
   }
 };

@@ -12,6 +12,9 @@ export class User {
   displayName: string;
 
   @Prop()
+  images: [];
+
+  @Prop()
   topArtists: [];
 
   @Prop()

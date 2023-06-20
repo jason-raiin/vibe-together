@@ -5,13 +5,13 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('/new')
+  @Post('/')
   async newUser(@Body('user') user: any) {
-    return await this.usersService.createNewUser(user);
+    return await this.usersService.addUpdateUser(user);
   }
 
-  @Get('/:id')
-  async getTopArtists(@Param('id') id: string) {
+  @Get('/get')
+  async getUser(@Body('id') id: string) {
     return await this.usersService.getUser(id);
   }
 }
