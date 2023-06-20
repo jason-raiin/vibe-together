@@ -6,7 +6,6 @@ import { TopArtists } from '../dtos/topArtists.dto';
 import { TopTracks } from '../dtos/topTracks.dto';
 
 export const getAccessToken = async (code: string): Promise<string> => {
-  console.log(AUTH_STRING);
   try {
     const payload = {
       code: code,
@@ -92,7 +91,9 @@ export const isValidAccessToken = async (
   return false;
 };
 
-export const getUser = async (accessToken: string): Promise<User> => {
+export const getUserFromSpotify = async (
+  accessToken: string,
+): Promise<User> => {
   try {
     const config = { headers: { Authorization: `Bearer ${accessToken}` } };
 

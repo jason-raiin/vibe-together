@@ -21,6 +21,7 @@ export class UsersService {
     });
 
     if (existingUser) {
+      existingUser.images = newUser.images;
       existingUser.topArtists = newUser.topArtists;
       existingUser.topTracks = newUser.topTracks;
       return existingUser.save();
@@ -31,6 +32,6 @@ export class UsersService {
 
   async getUser(id: string) {
     const user = await this.userModel.findOne({ id: id }, { _id: 0, __v: 0 });
-    return user;
+    return { user };
   }
 }

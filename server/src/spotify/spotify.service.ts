@@ -41,24 +41,6 @@ export class SpotifyService {
     }
   }
 
-  async getUser(id: string) {
-    try {
-      const accessToken = await this.getClientAccessToken();
-      const url = `${SPOTIFY_API_URL}/users/${id}`;
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
-
-      const response = await axios.get(url, { headers });
-      const profile = response.data;
-
-      return profile;
-    } catch (e) {
-      console.error(e.response.data);
-    }
-  }
-
   async getArtist(id: string) {
     try {
       const accessToken = await this.getClientAccessToken();
@@ -69,8 +51,8 @@ export class SpotifyService {
       };
 
       const response = await axios.get(url, { headers });
-      const profile = response.data;
-      return profile;
+      const artist = response.data;
+      return artist;
     } catch (e) {
       console.log(e.response);
     }
