@@ -22,7 +22,7 @@ export default function App() {
     const refreshToken = localStorage.getItem('refreshToken');
 
     const isValidToken = async (accessToken: string, refreshToken: string) => {
-      const result = await isValidUser(accessToken, refreshToken);
+      const { result } = await isValidUser(accessToken, refreshToken);
       setLogin(result);
     };
 

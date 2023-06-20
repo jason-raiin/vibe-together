@@ -7,27 +7,9 @@ import { Model } from 'mongoose';
 export class UsersService {
   constructor(@InjectModel(User.name, 'core') private userModel: Model<User>) {}
 
-  async addUpdateUser(user: any) {
-    const newUser = new this.userModel({
-      id: user.userProfile.id,
-      displayName: user.userProfile.display_name,
-      images: user.userProfile.images,
-      topArtists: user.topArtists.items,
-      topTracks: user.topTracks.items,
-    });
-
-    const existingUser = await this.userModel.findOne({
-      id: newUser.id,
-    });
-
-    if (existingUser) {
-      existingUser.images = newUser.images;
-      existingUser.topArtists = newUser.topArtists;
-      existingUser.topTracks = newUser.topTracks;
-      return existingUser.save();
-    } else {
-      return newUser.save();
-    }
+  async addUpdateUser(user: User) {
+    const result = await this.userModel.updateOne({ id: user.id }, user);
+    return result;
   }
 
   async getUser(id: string) {

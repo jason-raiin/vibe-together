@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { getAccessToken } from '../spotify/spotify';
+import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
+import { addUpdateUser } from '../query/users';
 
 const CallBack: React.FC = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const CallBack: React.FC = () => {
 
   useEffect(() => {
     getAccessToken(code)
+      .then((accessToken) => getUserFromSpotify(accessToken))
+      .then((user) => addUpdateUser(user))
       .then(() => navigate('/'))
       .catch((e) => console.error(e));
   }, []);

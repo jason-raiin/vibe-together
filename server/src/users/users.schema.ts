@@ -14,6 +14,9 @@ export class User {
   @Prop()
   images: [];
 
+  @Prop({ required: true })
+  url: string;
+
   @Prop()
   topArtists: [];
 

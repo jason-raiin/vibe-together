@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { getUserFromSpotify, isValidAccessToken } from '../spotify/spotify';
-import { addUpdateUser, getUser } from '../query/users';
-import { TopArtists } from '../dtos/topArtists.dto';
-import { TopTracks } from '../dtos/topTracks.dto';
-import { UserProfile } from '../dtos/userProfile.dto';
+import { isValidAccessToken } from '../spotify/spotify';
+import { getUser } from '../query/users';
+import { User } from '../dtos/user.dto';
 
 const LoggedInHomePage = () => {
-  const [profile, setProfile] = useState({} as UserProfile);
-  const [artists, setArtists] = useState({} as TopArtists);
-  const [tracks, setTracks] = useState({} as TopTracks);
+  const [user, setUser] = useState({} as User);
 
   const accessToken = localStorage.getItem('accessToken');
-
-  if (!accessToken) throw new Error('no code');
+  if (!accessToken) throw new Error('No access token');
 
   useEffect(() => {
     isValidAccessToken(accessToken)
-      .then(() => getUserFromSpotify(accessToken))
-      .then(async (user) => {
-        setProfile(user.userProfile);
-        setArtists(user.topArtists);
-        setTracks(user.topTracks);
-        addUpdateUser(user);
-      })
+      .then(({ id }) => getUser(id))
+      .then((user) => setUser(user))
       .catch((e) => console.error(e));
   }, []);
 
-  const artistList = artists.items?.map((artist) => {
+  const { id, displayName, url, images, topArtists, topTracks } = user;
+
+  const artistList = topArtists.map((artist) => {
     return (
       <li key={artist.name}>
         {artist.name} : {artist.id}
@@ -34,7 +26,7 @@ const LoggedInHomePage = () => {
     );
   });
 
-  const trackList = tracks.items?.map((track) => {
+  const trackList = topTracks.map((track) => {
     return (
       <li key={track.name}>
         {track.name} : {track.id}
@@ -42,11 +34,11 @@ const LoggedInHomePage = () => {
     );
   });
 
-  const displayName = profile?.display_name;
-
   return (
     <div>
-      <h1>User Profile for {displayName}</h1>
+      <h1>
+        User Profile for <a href={url}>{displayName}</a>
+      </h1>
       <ol>Artists: {artistList}</ol>
       <ol>Tracks: {trackList}</ol>
     </div>

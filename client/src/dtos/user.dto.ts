@@ -1,9 +1,10 @@
-import { TopArtists } from './topArtists.dto';
-import { TopTracks } from './topTracks.dto';
-import { UserProfile } from './userProfile.dto';
+import { Item } from './item.dto';
 
 export interface User {
-  userProfile: UserProfile;
-  topArtists: TopArtists;
-  topTracks: TopTracks;
+  id: string;
+  displayName: string;
+  url: string;
+  images: [];
+  topArtists: Item[];
+  topTracks: Item[];
 }

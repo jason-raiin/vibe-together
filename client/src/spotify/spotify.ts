@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { AUTH_STRING, REDIRECT_URI, SPOTIFY_TOKEN_URL } from './constants';
 import { User } from '../dtos/user.dto';
-import { UserProfile } from '../dtos/userProfile.dto';
-import { TopArtists } from '../dtos/topArtists.dto';
-import { TopTracks } from '../dtos/topTracks.dto';
 
 export const getAccessToken = async (code: string): Promise<string> => {
   try {
@@ -74,7 +71,7 @@ export const refreshAccessToken = async (
 
 export const isValidAccessToken = async (
   accessToken: string,
-): Promise<boolean> => {
+): Promise<{ id: string; result: boolean }> => {
   try {
     const testUrl = 'https://api.spotify.com/v1/me';
     const config = {
@@ -82,13 +79,13 @@ export const isValidAccessToken = async (
         Authorization: `Bearer ${accessToken}`,
       },
     };
-    const response = await axios.get(testUrl, config);
-    if (response.status === 200) return true;
+    const { data, status } = await axios.get(testUrl, config);
+    if (status === 200) return { id: data.id, result: true };
   } catch (error) {
     console.error('Access token is invalid:', error);
   }
 
-  return false;
+  return { id: '', result: false };
 };
 
 export const getUserFromSpotify = async (
@@ -99,25 +96,30 @@ export const getUserFromSpotify = async (
 
     const userProfileUrl = `https://api.spotify.com/v1/me/`;
     const userProfileResponse = await axios.get(userProfileUrl, config);
-    const userProfile = userProfileResponse.data;
+    const { id, external_urls, display_name, images } =
+      userProfileResponse.data;
+    const url = external_urls.spotify;
 
     const topArtistsUrl = `https://api.spotify.com/v1/me/top/artists`;
     const topArtistsResponse = await axios.get(topArtistsUrl, config);
-    const topArtists = topArtistsResponse.data;
+    const topArtists = topArtistsResponse.data.items;
 
     const topTracksUrl = `https://api.spotify.com/v1/me/top/tracks`;
     const topTracksResponse = await axios.get(topTracksUrl, config);
-    const topTracks = topTracksResponse.data;
+    const topTracks = topTracksResponse.data.items;
 
-    const user = { userProfile, topArtists, topTracks };
+    const user = {
+      id,
+      displayName: display_name,
+      images,
+      url,
+      topArtists,
+      topTracks,
+    };
     return user;
   } catch (error) {
     console.error('Failed to get user:', error);
   }
 
-  return {
-    userProfile: {} as UserProfile,
-    topArtists: {} as TopArtists,
-    topTracks: {} as TopTracks,
-  };
+  return {} as User;
 };
