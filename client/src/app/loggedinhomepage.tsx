@@ -18,7 +18,7 @@ const LoggedInHomePage = () => {
 
   const { id, displayName, url, images, topArtists, topTracks } = user;
 
-  const artistList = topArtists.map((artist) => {
+  const artistList = topArtists?.map((artist) => {
     return (
       <li key={artist.name}>
         {artist.name} : {artist.id}
@@ -26,7 +26,7 @@ const LoggedInHomePage = () => {
     );
   });
 
-  const trackList = topTracks.map((track) => {
+  const trackList = topTracks?.map((track) => {
     return (
       <li key={track.name}>
         {track.name} : {track.id}
