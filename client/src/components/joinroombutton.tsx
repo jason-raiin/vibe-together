@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router';
-import { newRoom, joinRoom, getRoom } from '../query/rooms';
+import { newRoom, isValidRoom } from '../query/rooms';
 
 interface ChildComponentProps {
   userId: string;
@@ -11,6 +11,7 @@ interface ChildComponentProps {
 
 const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
   const { userId } = props;
+  const loginStatus = userId === 'broken';
   const [position, setPosition] = useState('nullState');
   const [invalidRoomCode, setInvalidRoomCode] = useState(false);
   const [codeOutput, setCodeOutput] = useState('');
@@ -53,9 +54,10 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
   const submitCodeInput = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     try {
-      await joinRoom(userId, codeInput);
+      const valid = await isValidRoom(codeInput);
+      if (!valid) throw new Error('Invalid Room Code');
       const navigate = useNavigate();
-      navigate('/joinroom');
+      navigate(`/room?=${codeInput}&user=${userId}`);
     } catch (error) {
       console.error(error);
       setInvalidRoomCode(true);
@@ -64,13 +66,17 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
 
   return (
     <div>
-      <Button
-        variant="contained"
-        onClick={displayRoomNameInput}
-        title="Create Room"
-      >
-        Create Room
-      </Button>
+      {loginStatus ? (
+        ''
+      ) : (
+        <Button
+          variant="contained"
+          onClick={displayRoomNameInput}
+          title="Create Room"
+        >
+          Create Room
+        </Button>
+      )}
       <Button variant="contained" onClick={displayRoomInput} title="Join Room">
         Join Room
       </Button>
@@ -99,6 +105,14 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
                 variant="outlined"
                 InputProps={{ readOnly: true }}
               />
+              <Button
+                variant="contained"
+                onClick={() => {
+                  navigator.clipboard.writeText(codeOutput);
+                }}
+              >
+                Copy
+              </Button>
             </div>
           ) : (
             <div></div>

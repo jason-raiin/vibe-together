@@ -9,6 +9,7 @@ interface ChildComponentProps {
 const Header: React.FC<ChildComponentProps> = ({ refreshPage }) => {
   const logOut = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     refreshPage();
   };
 

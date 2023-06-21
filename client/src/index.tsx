@@ -13,10 +13,10 @@ import LoggedInJoinRoom from './app/loggedinjoinroom';
 import JoinRoom from './app/joinroom';
 
 export default function App() {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState('nullstate');
 
   function refreshPage() {
-    setLogin(false);
+    setLogin('loggedOutState');
   }
 
   function refreshLoginStatus() {
@@ -29,11 +29,17 @@ export default function App() {
         refreshToken: string,
       ) => {
         const { result } = await isValidUser(accessToken, refreshToken);
-        setLogin(result);
+        if (result) {
+          setLogin('loggedInState');
+        } else {
+          setLogin('loggedOutState');
+        }
       };
 
       if (accessToken != null && refreshToken != null) {
         isValidToken(accessToken, refreshToken);
+      } else {
+        setLogin('loggedOutState');
       }
     }, []);
   }
@@ -43,7 +49,7 @@ export default function App() {
   return (
     <div>
       <Header refreshPage={refreshPage} />
-      {login ? (
+      {login === 'loggedInState' ? (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LoggedInHomePage />} />
@@ -51,6 +57,9 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       ) : (
+        ''
+      )}
+      {login === 'loggedOutState' ? (
         <BrowserRouter>
           <Routes>
             <Route
@@ -61,6 +70,8 @@ export default function App() {
             <Route path="/joinroom" element={<JoinRoom />} />
           </Routes>
         </BrowserRouter>
+      ) : (
+        ''
       )}
     </div>
   );
