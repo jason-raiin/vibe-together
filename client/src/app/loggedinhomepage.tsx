@@ -16,9 +16,7 @@ const LoggedInHomePage = () => {
       .catch((e) => console.error(e));
   }, []);
 
-  const { id, displayName, url, images, topArtists, topTracks } = user;
-
-  const artistList = topArtists?.map((artist) => {
+  const artistList = user?.topArtists?.map((artist) => {
     return (
       <li key={artist.name}>
         {artist.name} : {artist.id}
@@ -26,7 +24,7 @@ const LoggedInHomePage = () => {
     );
   });
 
-  const trackList = topTracks?.map((track) => {
+  const trackList = user?.topTracks?.map((track) => {
     return (
       <li key={track.name}>
         {track.name} : {track.id}
@@ -37,7 +35,7 @@ const LoggedInHomePage = () => {
   return (
     <div>
       <h1>
-        User Profile for <a href={url}>{displayName}</a>
+        User Profile for <a href={user?.url}>{user?.displayName}</a>
       </h1>
       <ol>Artists: {artistList}</ol>
       <ol>Tracks: {trackList}</ol>
