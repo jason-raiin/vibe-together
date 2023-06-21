@@ -3,7 +3,12 @@ import { LOGIN_URL_PARAMS } from '../spotify/constants';
 import JoinRoom from '../components/joinroom';
 import Button from '@mui/material/Button';
 
-const HomePage = () => {
+interface ChildComponentProps {
+  refreshLoginStatus: () => void;
+}
+
+const HomePage: React.FC<ChildComponentProps> = ({ refreshLoginStatus }) => {
+  refreshLoginStatus();
   return (
     <div>
       <h1>Music Room</h1>

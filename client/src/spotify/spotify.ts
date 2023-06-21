@@ -18,11 +18,9 @@ export const getAccessToken = async (code: string): Promise<string> => {
     const response = await axios.post(SPOTIFY_TOKEN_URL, payload, config);
     const { access_token, refresh_token, expires_in } = response.data;
 
-    /*
     console.log('Access Token: ', access_token);
     console.log('Refresh Token: ', refresh_token);
     console.log('Expires In: ', expires_in);
-    */
 
     localStorage.setItem('accessToken', access_token);
     localStorage.setItem('refreshToken', refresh_token);
@@ -52,11 +50,9 @@ export const refreshAccessToken = async (
     const response = await axios.post(SPOTIFY_TOKEN_URL, data, config);
     const { access_token, refresh_token, expires_in } = response.data;
 
-    /*
     console.log('Access Token: ', access_token);
     console.log('Refresh Token: ', refresh_token);
     console.log('Expires In: ', expires_in);
-    */
 
     localStorage.setItem('accessToken', access_token);
     localStorage.setItem('refreshToken', refresh_token);
