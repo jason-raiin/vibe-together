@@ -17,19 +17,26 @@ export default function App() {
     setLogin(false);
   }
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
+  function refreshLoginStatus() {
+    useEffect(() => {
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
 
-    const isValidToken = async (accessToken: string, refreshToken: string) => {
-      const { result } = await isValidUser(accessToken, refreshToken);
-      setLogin(result);
-    };
+      const isValidToken = async (
+        accessToken: string,
+        refreshToken: string,
+      ) => {
+        const { result } = await isValidUser(accessToken, refreshToken);
+        setLogin(result);
+      };
 
-    if (accessToken != null && refreshToken != null) {
-      isValidToken(accessToken, refreshToken);
-    }
-  }, []);
+      if (accessToken != null && refreshToken != null) {
+        isValidToken(accessToken, refreshToken);
+      }
+    }, []);
+  }
+
+  refreshLoginStatus();
 
   return (
     <div>
@@ -43,7 +50,10 @@ export default function App() {
       ) : (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/"
+              element={<HomePage refreshLoginStatus={refreshLoginStatus} />}
+            />
             <Route path="/callback" element={<CallBack />} />
           </Routes>
         </BrowserRouter>
