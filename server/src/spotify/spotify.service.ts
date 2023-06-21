@@ -54,7 +54,7 @@ export class SpotifyService {
       const artist = response.data;
       return artist;
     } catch (e) {
-      console.log(e.response);
+      console.error(e.response);
     }
   }
 }
