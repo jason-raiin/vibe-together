@@ -9,6 +9,8 @@ import CallBack from './app/callback';
 import LoggedInHomePage from './app/loggedinhomepage';
 import Header from './components/header';
 import { isValidUser } from './spotify/login';
+import LoggedInJoinRoom from './app/loggedinjoinroom';
+import JoinRoom from './app/joinroom';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -45,6 +47,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LoggedInHomePage />} />
+            <Route path="/joinroom" element={<LoggedInJoinRoom />} />
           </Routes>
         </BrowserRouter>
       ) : (
@@ -55,6 +58,7 @@ export default function App() {
               element={<HomePage refreshLoginStatus={refreshLoginStatus} />}
             />
             <Route path="/callback" element={<CallBack />} />
+            <Route path="/joinroom" element={<JoinRoom />} />
           </Routes>
         </BrowserRouter>
       )}

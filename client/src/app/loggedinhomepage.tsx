@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { isValidAccessToken } from '../spotify/spotify';
 import { getUser } from '../query/users';
 import { User } from '../dtos/user.dto';
+import JoinRoomButton from '../components/joinroombutton';
 
-const LoggedInHomePage = () => {
+const LoggedInHomePage: React.FC = () => {
   const [user, setUser] = useState({} as User);
 
   const accessToken = localStorage.getItem('accessToken');
@@ -39,6 +40,7 @@ const LoggedInHomePage = () => {
       </h1>
       <ol>Artists: {artistList}</ol>
       <ol>Tracks: {trackList}</ol>
+      <JoinRoomButton userId={user?.id} />
     </div>
   );
 };

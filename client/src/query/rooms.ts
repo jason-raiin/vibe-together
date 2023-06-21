@@ -4,9 +4,12 @@ import { BACKEND_URI } from './constants';
 export const newRoom = async (userId: string, name: string) => {
   try {
     const payload = { userId, name };
-    await axios.post(`${BACKEND_URI}/room/new`, payload);
+    const response = await axios.post(`${BACKEND_URI}/room/new`, payload);
+    console.log(response);
+    return response.data;
   } catch (error) {
     console.error('Failed to create new room:', error);
+    return '';
   }
 };
 

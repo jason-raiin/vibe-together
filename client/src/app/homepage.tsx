@@ -1,6 +1,6 @@
 import React from 'react';
 import { LOGIN_URL_PARAMS } from '../spotify/constants';
-import JoinRoom from '../components/joinroom';
+import JoinRoomButton from '../components/joinroombutton';
 import Button from '@mui/material/Button';
 
 interface ChildComponentProps {
@@ -16,7 +16,7 @@ const HomePage: React.FC<ChildComponentProps> = ({ refreshLoginStatus }) => {
       <Button variant="contained" href={LOGIN_URL_PARAMS}>
         Login to Spotify
       </Button>
-      <JoinRoom />
+      <JoinRoomButton userId={'broken'} />
     </div>
   );
 };
