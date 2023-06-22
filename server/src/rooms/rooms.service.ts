@@ -84,34 +84,61 @@ export class RoomsService {
     return usersDetails;
   }
 
-  async getRoomTopArtists(usersDetails: UserDocument[]): Promise<Item[]> {
+  async getRoomTopItems(
+    usersDetails: UserDocument[],
+  ): Promise<{ artists: Item[]; tracks: Item[] }> {
     const artists: Item[] = [];
+    const tracks: Item[] = [];
 
     for (const [userIndex, user] of usersDetails.entries()) {
       for (const [rank, userTopArtist] of user.topArtists.entries()) {
         const existingArtist = artists.find((artist, artistIndex) => {
           if (artist.id === userTopArtist.id) {
-            artists[artistIndex].rank += rank;
+            artists[artistIndex].rank += rank - 10;
+            artists[artistIndex].shared += 1;
             return true;
           }
         });
 
         if (!existingArtist) {
           userTopArtist.rank = rank;
-          artists.push();
+          userTopArtist.shared = 1;
+          artists.push(userTopArtist);
+        }
+      }
+
+      for (const [rank, userTopTrack] of user.topTracks.entries()) {
+        const existingTrack = tracks.find((track, trackIndex) => {
+          if (track.id === userTopTrack.id) {
+            tracks[trackIndex].rank += rank - 10;
+            tracks[trackIndex].shared += 1;
+            return true;
+          }
+        });
+
+        if (!existingTrack) {
+          userTopTrack.rank = rank;
+          userTopTrack.shared = 1;
+          tracks.push(userTopTrack);
         }
       }
     }
 
-    artists.sort((x, y) => x.rank - y.rank);
+    const sortTop = (x: Item, y: Item) =>
+      x.shared - y.shared === 0 ? x.rank - y.rank : y.shared - x.shared;
 
-    return artists;
+    artists.sort(sortTop);
+    tracks.sort(sortTop);
+
+    return { artists, tracks };
   }
 
   async updateRoom(roomId: string): Promise<RoomDocument> {
     const room = await this.getRoom(roomId);
     const usersDetails = await this.getRoomDetails(roomId);
-    room.topArtists = await this.getRoomTopArtists(usersDetails);
+    const { artists, tracks } = await this.getRoomTopItems(usersDetails);
+    room.topArtists = artists;
+    room.topTracks = tracks;
     room.save();
 
     return room;

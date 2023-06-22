@@ -5,4 +5,5 @@ export class Item {
   id: string;
   href: Url;
   rank?: number;
+  shared?: number;
 }
