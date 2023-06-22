@@ -16,7 +16,8 @@ export const newRoom = async (userId: string, name: string) => {
 export const joinRoom = async (userId: string, roomId: string) => {
   try {
     const payload = { userId, roomId };
-    await axios.patch(`${BACKEND_URI}/room/join`, payload);
+    const response = await axios.patch(`${BACKEND_URI}/room/join`, payload);
+    console.log(response);
   } catch (error) {
     console.error('Failed to add user to room:', error);
   }

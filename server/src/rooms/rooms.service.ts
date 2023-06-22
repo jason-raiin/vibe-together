@@ -85,7 +85,7 @@ export class RoomsService {
   }
 
   async getRoomsByUser(userId: string): Promise<RoomDocument[]> {
-    const user = await this.roomModel.findOne({ id: userId });
+    const user = await this.userService.getUser(userId);
     if (!user) throw new BadRequestException('No such user!');
 
     const rooms = await this.roomModel.find({ users: userId });

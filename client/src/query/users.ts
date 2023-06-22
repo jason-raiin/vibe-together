@@ -25,9 +25,9 @@ export const getUser = async (userId: string): Promise<User> => {
 export const getRoomsByUser = async (userId: string): Promise<Room[]> => {
   try {
     const { data } = await axios.get(`${BACKEND_URI}/room/all/${userId}`);
-    return data.rooms;
+    return data;
   } catch (error) {
     console.error('Failed to get rooms:', error);
+    return [];
   }
-  return [];
 };
