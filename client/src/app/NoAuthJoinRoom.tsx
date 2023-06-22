@@ -6,6 +6,8 @@ import { LOGIN_URL_PARAMS1, LOGIN_URL_PARAMS2 } from '../spotify/constants';
 const JoinRoom = () => {
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get('room');
+
+  console.log('not logged in');
   return (
     <div>
       <Button

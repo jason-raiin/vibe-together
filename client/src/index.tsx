@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import HomePage from './app/homepage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CallBack from './app/callback';
-import LoggedInHomePage from './app/loggedinhomepage';
 import Header from './components/header';
-import { isValidUser } from './spotify/login';
-import LoggedInJoinRoom from './app/loggedinjoinroom';
-import JoinRoom from './app/joinroom';
+import { User } from './dtos/user.dto';
+import { getUser } from './query/users';
+import { ultimateAccessToken } from './spotify/spotify';
+import AuthUserView from './app/AuthUserView';
+import AuthJoinRoom from './app/AuthJoinRoom';
+import NoAuthJoinRoom from './app/NoAuthJoinRoom';
+import NoAuthDefault from './app/NoAuthDefault';
 
 export default function App() {
   const [login, setLogin] = useState('nullstate');
+  const [userdata, setUserData] = useState({} as User);
 
   function refreshPage() {
     setLogin('loggedOutState');
@@ -28,9 +30,11 @@ export default function App() {
         accessToken: string,
         refreshToken: string,
       ) => {
-        const { result } = await isValidUser(accessToken, refreshToken);
-        if (result) {
+        const response = await ultimateAccessToken(accessToken, refreshToken);
+        if (response.result) {
           setLogin('loggedInState');
+          const tempdata = await getUser(response.id);
+          setUserData(tempdata);
         } else {
           setLogin('loggedOutState');
         }
@@ -52,8 +56,11 @@ export default function App() {
       {login === 'loggedInState' ? (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LoggedInHomePage />} />
-            <Route path="/joinroom" element={<LoggedInJoinRoom />} />
+            <Route path="/" element={<AuthUserView user={userdata} />} />
+            <Route
+              path="/joinroom"
+              element={<AuthJoinRoom user={userdata} />}
+            />
           </Routes>
         </BrowserRouter>
       ) : (
@@ -64,10 +71,12 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={<HomePage refreshLoginStatus={refreshLoginStatus} />}
+              element={
+                <NoAuthDefault refreshLoginStatus={refreshLoginStatus} />
+              }
             />
             <Route path="/callback" element={<CallBack />} />
-            <Route path="/joinroom" element={<JoinRoom />} />
+            <Route path="/joinroom" element={<NoAuthJoinRoom />} />
           </Routes>
         </BrowserRouter>
       ) : (

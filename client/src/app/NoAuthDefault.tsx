@@ -7,7 +7,9 @@ interface ChildComponentProps {
   refreshLoginStatus: () => void;
 }
 
-const HomePage: React.FC<ChildComponentProps> = ({ refreshLoginStatus }) => {
+const NoAuthDefault: React.FC<ChildComponentProps> = ({
+  refreshLoginStatus,
+}) => {
   refreshLoginStatus();
   return (
     <div>
@@ -24,4 +26,4 @@ const HomePage: React.FC<ChildComponentProps> = ({ refreshLoginStatus }) => {
   );
 };
 
-export default HomePage;
+export default NoAuthDefault;

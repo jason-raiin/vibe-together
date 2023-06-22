@@ -57,7 +57,7 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
       const valid = await isValidRoom(codeInput);
       if (!valid) throw new Error('Invalid Room Code');
       const navigate = useNavigate();
-      navigate(`/room?=${codeInput}&user=${userId}`);
+      navigate(`/joinroom?room=${codeInput}&user=${userId}`);
     } catch (error) {
       console.error(error);
       setInvalidRoomCode(true);

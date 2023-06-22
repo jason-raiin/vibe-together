@@ -135,3 +135,21 @@ export const getUserFromSpotify = async (
 
   return {} as User;
 };
+
+export const ultimateAccessToken = async (
+  accessToken: string,
+  refreshToken: string,
+) => {
+  const response = await isValidAccessToken(accessToken);
+  if (!response.result) {
+    try {
+      const newaccessToken = await refreshAccessToken(refreshToken);
+      const newresponse = await isValidAccessToken(newaccessToken);
+      return newresponse;
+    } catch (error) {
+      console.log(error);
+      return response;
+    }
+  }
+  return response;
+};

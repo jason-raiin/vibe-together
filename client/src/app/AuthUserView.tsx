@@ -4,18 +4,12 @@ import { getUser } from '../query/users';
 import { User } from '../dtos/user.dto';
 import JoinRoomButton from '../components/joinroombutton';
 
-const LoggedInHomePage: React.FC = () => {
-  const [user, setUser] = useState({} as User);
+interface ChildComponentProps {
+  user: User;
+}
 
-  const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) throw new Error('No access token');
-
-  useEffect(() => {
-    isValidAccessToken(accessToken)
-      .then(({ id }) => getUser(id))
-      .then((user) => setUser(user))
-      .catch((e) => console.error(e));
-  }, []);
+const AuthUserView: React.FC<ChildComponentProps> = (props) => {
+  const { user } = props;
 
   const artistList = user?.topArtists?.map((artist) => {
     return (
@@ -45,4 +39,4 @@ const LoggedInHomePage: React.FC = () => {
   );
 };
 
-export default LoggedInHomePage;
+export default AuthUserView;
