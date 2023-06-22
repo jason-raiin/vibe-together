@@ -47,7 +47,7 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
   const handleCodeInput = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setNameInput(event.target.value);
+    setCodeInput(event.target.value);
   };
 
   const submitCodeInput = async (event: { preventDefault: () => void }) => {
