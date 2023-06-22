@@ -107,10 +107,12 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
               <Button
                 variant="contained"
                 onClick={() => {
-                  navigator.clipboard.writeText(codeOutput);
+                  navigator.clipboard.writeText(
+                    process.env.REACT_APP_URL + '/joinroom?room=' + codeOutput,
+                  );
                 }}
               >
-                Copy
+                Copy Link
               </Button>
             </div>
           ) : (
