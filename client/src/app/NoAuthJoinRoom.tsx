@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { LOGIN_URL_PARAMS1, LOGIN_URL_PARAMS2 } from '../spotify/constants';
 
-const JoinRoom = () => {
+const noAuthJoinRoom = () => {
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get('room');
 
@@ -20,4 +20,4 @@ const JoinRoom = () => {
   );
 };
 
-export default JoinRoom;
+export default noAuthJoinRoom;
