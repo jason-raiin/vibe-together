@@ -15,7 +15,8 @@ export const addUpdateUser = async (user: User) => {
 export const getUser = async (userId: string): Promise<User> => {
   try {
     const { data } = await axios.get(`${BACKEND_URI}/user/${userId}`);
-    return data.user;
+    console.log(data);
+    return data;
   } catch (error) {
     console.error('Failed to get user:', error);
   }

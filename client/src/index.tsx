@@ -8,13 +8,13 @@ import { User } from './dtos/user.dto';
 import { getUser } from './query/users';
 import { ultimateAccessToken } from './spotify/spotify';
 import CallBack from './app/callback';
-import AuthUserView from './app/AuthUserView';
-import AuthJoinRoom from './app/AuthJoinRoom';
-import NoAuthDefault from './app/NoAuthDefault';
-import NoAuthJoinRoom from './app/NoAuthJoinRoom';
+import AuthUserView from './app/authUserView';
+import AuthJoinRoom from './app/authJoinRoom';
+import NoAuthDefault from './app/noAuthDefault';
+import NoAuthJoinRoom from './app/noAuthJoinRoom';
 
 export default function App() {
-  const [login, setLogin] = useState('nullstate');
+  const [login, setLogin] = useState('loggedOutState');
   const [userdata, setUserData] = useState({} as User);
 
   function refreshPage() {

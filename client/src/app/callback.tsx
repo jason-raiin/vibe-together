@@ -18,7 +18,9 @@ const CallBack: React.FC = () => {
       .then((accessToken) => getUserFromSpotify(accessToken))
       .then((user) => {
         addUpdateUser(user);
+        console.log(user);
         if (isRoom) {
+          console.log('joining room');
           joinRoom(user.id, tempRoom);
         }
       })
