@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import { joinRoom } from '../query/rooms';
 import { User } from '../dtos/user.dto';
 
