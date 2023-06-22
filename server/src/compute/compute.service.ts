@@ -53,7 +53,10 @@ export class ComputeService {
     return { artists, tracks };
   }
 
-  async processRoomTopGenres(topArtists: Item[]): Promise<string[]> {
+  async processRoomTopGenres(
+    topArtists: Artist[],
+    topTracks: Track[],
+  ): Promise<string[]> {
     return [];
   }
 }

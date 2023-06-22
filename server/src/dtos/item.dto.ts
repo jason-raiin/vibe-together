@@ -13,5 +13,5 @@ export class Artist extends Item {
 }
 
 export class Track extends Item {
-  artists: string[];
+  artists: Artist[];
 }

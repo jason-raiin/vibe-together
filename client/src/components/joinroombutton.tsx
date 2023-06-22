@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router';
-import { newRoom, isValidRoom } from '../query/rooms';
+import { newRoom, isRoomJoinable } from '../query/rooms';
 
 interface ChildComponentProps {
   userId: string;
@@ -54,7 +54,7 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
   const submitCodeInput = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     try {
-      const valid = await isValidRoom(codeInput);
+      const valid = await isRoomJoinable(codeInput, userId);
       if (!valid) throw new Error('Invalid Room Code');
       const navigate = useNavigate();
       navigate(`/room?=${codeInput}&user=${userId}`);

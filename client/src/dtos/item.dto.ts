@@ -13,5 +13,5 @@ export interface Artist extends Item {
 }
 
 export interface Track extends Item {
-  artists: string[];
+  artists: Artist[];
 }
