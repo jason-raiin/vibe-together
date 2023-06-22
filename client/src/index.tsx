@@ -3,15 +3,15 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CallBack from './app/callback';
 import Header from './components/header';
 import { User } from './dtos/user.dto';
 import { getUser } from './query/users';
 import { ultimateAccessToken } from './spotify/spotify';
+import CallBack from './app/callback';
 import AuthUserView from './app/AuthUserView';
 import AuthJoinRoom from './app/AuthJoinRoom';
-import NoAuthJoinRoom from './app/NoAuthJoinRoom';
 import NoAuthDefault from './app/NoAuthDefault';
+import NoAuthJoinRoom from './app/NoAuthJoinRoom';
 
 export default function App() {
   const [login, setLogin] = useState('nullstate');
