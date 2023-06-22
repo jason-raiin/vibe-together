@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getRoomsByUser } from '../query/users';
+import { getRoomsByUser, getUser } from '../query/users';
 import Button from '@mui/material/Button';
 import { Room } from '../dtos/room.dto';
 
@@ -12,6 +12,25 @@ const roomView: React.FC<ChildComponentProps> = (props) => {
 
   const roomButtonList = roomList?.map((room) => {
     const [view, setView] = useState(false);
+
+    const roomUserList = room?.users.map((userid) => {
+      try {
+        const containerFunction = async () => {
+          const user = await getUser(userid);
+
+          return (
+            <li key={userid}>
+              <a href={user.url}>{user.displayName}</a>
+            </li>
+          );
+        };
+
+        containerFunction();
+      } catch (error) {
+        console.error(error);
+        return <div></div>;
+      }
+    });
 
     const roomArtistList = room?.topArtists?.map((artist) => {
       return (
@@ -45,6 +64,7 @@ const roomView: React.FC<ChildComponentProps> = (props) => {
         {view ? (
           <div>
             {' '}
+            <ol>Users: {roomUserList}</ol>
             <ol>Artists: {roomArtistList}</ol>
             <ol>Tracks: {roomTrackList}</ol>
           </div>
