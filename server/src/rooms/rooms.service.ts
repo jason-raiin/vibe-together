@@ -11,6 +11,7 @@ import { Model } from 'mongoose';
 import { randomBytes } from 'crypto';
 import { ComputeService } from 'src/compute/compute.service';
 import { UsersService } from 'src/users/users.service';
+import { ARRAY_LIMIT } from './room.constants';
 
 @Injectable()
 export class RoomsService {
@@ -67,6 +68,16 @@ export class RoomsService {
     return updatedRoom;
   }
 
+  async isRoomJoinable(roomId: string, userId: string): Promise<boolean> {
+    const room = await this.getRoom(roomId);
+    const user = await this.userService.getUser(userId);
+
+    if (!room || !user) return false;
+    if (userId in room.users) return false;
+
+    return true;
+  }
+
   async getRoom(roomId: string): Promise<RoomDocument> {
     const room = await this.roomModel.findOne({ id: roomId });
     if (!room) throw new BadRequestException('No such room!');
@@ -99,8 +110,13 @@ export class RoomsService {
     const { artists, tracks } = await this.computeService.processRoomTopItems(
       usersDetails,
     );
-    room.topArtists = artists;
-    room.topTracks = tracks;
+
+    const topArtists = artists.slice(0, ARRAY_LIMIT);
+    const topTracks = tracks.slice(0, ARRAY_LIMIT);
+
+    room.topArtists = topArtists;
+    room.topTracks = topTracks;
+
     room.save();
 
     return room;

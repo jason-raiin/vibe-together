@@ -6,7 +6,7 @@ import {
   SPOTIFY_TOKEN_URL,
 } from './constants';
 import { User } from '../dtos/user.dto';
-import { Item } from '../dtos/item.dto';
+import { Artist, Item, Track } from '../dtos/item.dto';
 
 export const getAccessToken = async (code: string): Promise<string> => {
   try {
@@ -108,11 +108,11 @@ export const getUserFromSpotify = async (
       headers,
       params,
     });
-    const topArtists: Item[] = [];
+    const topArtists: Artist[] = [];
     for (const artist of topArtistsResponse.data.items) {
-      const { id, name, href, external_urls } = artist;
+      const { id, name, href, external_urls, genres, images } = artist;
       const url = external_urls.spotify;
-      topArtists.push({ id, name, href, url });
+      topArtists.push({ id, name, href, url, genres, images });
     }
 
     const topTracksUrl = `https://api.spotify.com/v1/me/top/tracks`;
@@ -120,11 +120,11 @@ export const getUserFromSpotify = async (
       headers,
       params,
     });
-    const topTracks: Item[] = [];
+    const topTracks: Track[] = [];
     for (const track of topTracksResponse.data.items) {
-      const { id, name, href, external_urls } = track;
+      const { id, name, href, external_urls, artists, images } = track;
       const url = external_urls.spotify;
-      topTracks.push({ id, name, href, url });
+      topTracks.push({ id, name, href, url, artists, images });
     }
 
     const user = {

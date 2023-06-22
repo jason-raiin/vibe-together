@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Item } from 'src/dtos/item.dto';
+import { Item, Artist, Track } from 'src/dtos/item.dto';
 import { UserDocument } from 'src/users/users.schema';
 
 @Injectable()
 export class ComputeService {
   async processRoomTopItems(
     usersDetails: UserDocument[],
-  ): Promise<{ artists: Item[]; tracks: Item[] }> {
-    const artists: Item[] = [];
-    const tracks: Item[] = [];
+  ): Promise<{ artists: Artist[]; tracks: Track[] }> {
+    const artists: Artist[] = [];
+    const tracks: Track[] = [];
 
     for (const user of usersDetails) {
       for (const [rank, userTopArtist] of user.topArtists.entries()) {
@@ -51,5 +51,9 @@ export class ComputeService {
     tracks.sort(sortTop);
 
     return { artists, tracks };
+  }
+
+  async processRoomTopGenres(topArtists: Item[]): Promise<string[]> {
+    return [];
   }
 }
