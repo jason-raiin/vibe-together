@@ -1,9 +1,17 @@
-import { Url } from 'url';
-
-export class Item {
+export abstract class Item {
   name: string;
   id: string;
-  href: Url;
+  href: string;
+  url: string;
+  images: [];
   rank?: number;
   shared?: number;
+}
+
+export class Artist extends Item {
+  genres: string[];
+}
+
+export class Track extends Item {
+  artists: Artist[];
 }

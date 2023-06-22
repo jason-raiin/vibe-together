@@ -14,7 +14,7 @@ const AuthUserView: React.FC<ChildComponentProps> = (props) => {
   const artistList = user?.topArtists?.map((artist) => {
     return (
       <li key={artist.name}>
-        {artist.name} : {artist.id}
+        <a href={artist.url}>{artist.name}</a>: {artist.id}
       </li>
     );
   });
@@ -22,7 +22,7 @@ const AuthUserView: React.FC<ChildComponentProps> = (props) => {
   const trackList = user?.topTracks?.map((track) => {
     return (
       <li key={track.name}>
-        {track.name} : {track.id}
+        <a href={track.url}>{track.name}</a>: {track.id}
       </li>
     );
   });

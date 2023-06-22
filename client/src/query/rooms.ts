@@ -30,10 +30,11 @@ export const getRoom = async (roomId: string) => {
   }
 };
 
-export const isValidRoom = async (roomId: string) => {
-  try {
-    return true;
-  } catch (error) {
-    return false;
-  }
+export const isRoomJoinable = async (
+  roomId: string,
+  userId: string,
+): Promise<boolean> => {
+  const payload = { userId, roomId };
+  const response = await axios.patch(`${BACKEND_URI}/room/joinable`, payload);
+  return response.data;
 };

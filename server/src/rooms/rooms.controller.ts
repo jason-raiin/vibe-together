@@ -21,6 +21,14 @@ export class RoomsController {
     return await this.roomsService.addNewUserToRoom(roomId, userId);
   }
 
+  @Patch('joinable')
+  async isRoomJoinable(
+    @Body('userId') userId: string,
+    @Body('roomId') roomId: string,
+  ) {
+    return await this.roomsService.isRoomJoinable(roomId, userId);
+  }
+
   @Get('/:roomId')
   async getRoom(@Param('roomId') roomId: string) {
     return await this.roomsService.getRoom(roomId);
@@ -28,7 +36,7 @@ export class RoomsController {
 
   @Get('/:roomId/details')
   async getUsersInRoom(@Param('roomId') roomId: string) {
-    return await this.roomsService.getRoomDetails(roomId);
+    return await this.roomsService.getRoomUserDetails(roomId);
   }
 
   @Get('/all/:userId')
