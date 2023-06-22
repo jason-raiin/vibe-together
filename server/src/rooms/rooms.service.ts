@@ -23,7 +23,9 @@ export class RoomsService {
   async createNewRoom(
     userId: string,
     name: string,
-  ): Promise<{ roomId: string }> {
+  ): Promise<{ roomId: string; name: string }> {
+    if (!name) throw new BadRequestException('Name cannot be empty!');
+
     const roomId = randomBytes(16).toString('hex');
     const newRoom = new this.roomModel({ id: roomId, name });
 
@@ -37,10 +39,13 @@ export class RoomsService {
 
     this.updateRoom(roomId);
 
-    return { roomId };
+    return { roomId, name };
   }
 
-  async addNewUserToRoom(roomId: string, userId: string): Promise<void> {
+  async addNewUserToRoom(
+    roomId: string,
+    userId: string,
+  ): Promise<RoomDocument> {
     const room = await this.roomModel.findOne({ id: roomId });
     if (!room) throw new BadRequestException('No such room!');
 
@@ -55,7 +60,8 @@ export class RoomsService {
     if (!result)
       throw new ServiceUnavailableException('Write to database failed!');
 
-    this.updateRoom(roomId);
+    const updatedRoom = this.updateRoom(roomId);
+    return updatedRoom;
   }
 
   async getRoom(roomId: string): Promise<RoomDocument> {
@@ -64,8 +70,16 @@ export class RoomsService {
     return room;
   }
 
-  async getUsersDetails(roomId: string): Promise<UserDocument[]> {
-    const { users } = await this.roomModel.findOne({ id: roomId });
+  async getRoomsByUser(userId: string): Promise<RoomDocument[]> {
+    const user = await this.roomModel.findOne({ id: userId });
+    if (!user) throw new BadRequestException('No such user!');
+
+    const rooms = await this.roomModel.find({ users: userId });
+    return rooms;
+  }
+
+  async getRoomDetails(roomId: string): Promise<UserDocument[]> {
+    const { users } = await this.getRoom(roomId);
     const usersDetails = await this.userModel.find({ id: { $in: users } });
     return usersDetails;
   }
@@ -94,10 +108,12 @@ export class RoomsService {
     return artists;
   }
 
-  async updateRoom(roomId: string) {
+  async updateRoom(roomId: string): Promise<RoomDocument> {
     const room = await this.getRoom(roomId);
-    const usersDetails = await this.getUsersDetails(roomId);
+    const usersDetails = await this.getRoomDetails(roomId);
     room.topArtists = await this.getRoomTopArtists(usersDetails);
     room.save();
+
+    return room;
   }
 }

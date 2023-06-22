@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { joinRoomQuery } from '../query/rooms';
+import { joinRoom } from '../query/rooms';
 
 const LoggedInJoinRoom: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -9,15 +9,15 @@ const LoggedInJoinRoom: React.FC = () => {
   const userId = searchParams.get('user');
 
   useEffect(() => {
-    const joinRoom = async () => {
+    const joinRoomEffect = async () => {
       try {
         if (roomId != null && userId != null) {
-          await joinRoomQuery(userId, roomId);
+          await joinRoom(userId, roomId);
         }
       } catch (error) {}
     };
 
-    joinRoom();
+    joinRoomEffect();
     const navigate = useNavigate();
     navigate('/');
   }, []);

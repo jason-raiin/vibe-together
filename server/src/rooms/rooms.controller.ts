@@ -13,7 +13,7 @@ export class RoomsController {
     return await this.roomsService.createNewRoom(userId, name);
   }
 
-  @Patch('add')
+  @Patch('join')
   async addNewUserToRoom(
     @Body('userId') userId: string,
     @Body('roomId') roomId: string,
@@ -21,13 +21,18 @@ export class RoomsController {
     return await this.roomsService.addNewUserToRoom(roomId, userId);
   }
 
-  @Get('/:id')
-  async getRoom(@Param('id') id: string) {
-    return await this.roomsService.getRoom(id);
+  @Get('/:roomId')
+  async getRoom(@Param('roomId') roomId: string) {
+    return await this.roomsService.getRoom(roomId);
   }
 
-  @Get('/:id/users')
-  async getUsersInRoom(@Param('id') id: string) {
-    return await this.roomsService.getUsersDetails(id);
+  @Get('/:roomId/details')
+  async getUsersInRoom(@Param('roomId') roomId: string) {
+    return await this.roomsService.getRoomDetails(roomId);
+  }
+
+  @Get('/all/:userId')
+  async getRoomsByUser(@Param('userId') userId: string) {
+    return await this.roomsService.getRoomsByUser(userId);
   }
 }

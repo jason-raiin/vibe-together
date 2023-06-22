@@ -10,8 +10,8 @@ export class UsersController {
     return await this.usersService.addUpdateUser(user);
   }
 
-  @Get('/:id')
-  async getUser(@Param('id') id: string) {
-    return await this.usersService.getUser(id);
+  @Get('/:userId')
+  async getUser(@Param('userId') userId: string) {
+    return await this.usersService.getUser(userId);
   }
 }

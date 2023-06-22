@@ -20,41 +20,33 @@ export class SpotifyService {
   // spotify queries
 
   async getClientAccessToken() {
-    try {
-      const url = SPOTIFY_TOKEN_URL;
-      const payload = {
-        grant_type: 'client_credentials',
-        client_id: this.CLIENT_ID,
-        client_secret: this.CLIENT_SECRET,
-      };
-      const headers = {
-        Authorization: `Basic ${this.AUTH_STRING}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
+    const url = SPOTIFY_TOKEN_URL;
+    const payload = {
+      grant_type: 'client_credentials',
+      client_id: this.CLIENT_ID,
+      client_secret: this.CLIENT_SECRET,
+    };
+    const headers = {
+      Authorization: `Basic ${this.AUTH_STRING}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
 
-      const response = await axios.post(url, payload, { headers });
-      const { access_token } = response.data;
+    const response = await axios.post(url, payload, { headers });
+    const { access_token } = response.data;
 
-      return access_token;
-    } catch (e) {
-      console.error(e);
-    }
+    return access_token;
   }
 
   async getArtist(id: string) {
-    try {
-      const accessToken = await this.getClientAccessToken();
-      const url = `${SPOTIFY_API_URL}/artists/${id}`;
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
+    const accessToken = await this.getClientAccessToken();
+    const url = `${SPOTIFY_API_URL}/artists/${id}`;
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
 
-      const response = await axios.get(url, { headers });
-      const artist = response.data;
-      return artist;
-    } catch (e) {
-      console.error(e.response);
-    }
+    const response = await axios.get(url, { headers });
+    const artist = response.data;
+    return artist;
   }
 }

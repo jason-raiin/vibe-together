@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
 import { addUpdateUser } from '../query/users';
-import { joinRoomQuery } from '../query/rooms';
+import { joinRoom } from '../query/rooms';
 
 const CallBack: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const CallBack: React.FC = () => {
       .then((user) => {
         addUpdateUser(user);
         if (isRoom) {
-          joinRoomQuery(user.id, tempRoom);
+          joinRoom(user.id, tempRoom);
         }
       })
       .then(() => {
