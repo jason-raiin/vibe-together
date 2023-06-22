@@ -8,7 +8,7 @@ import { User } from './dtos/user.dto';
 import { getUser } from './query/users';
 import { ultimateAccessToken } from './spotify/spotify';
 import CallBack from './app/callback';
-import AuthUserView from './app/authUserView';
+import AuthDefault from './app/authDefault';
 import AuthJoinRoom from './app/authJoinRoom';
 import NoAuthDefault from './app/noAuthDefault';
 import NoAuthJoinRoom from './app/noAuthJoinRoom';
@@ -56,7 +56,7 @@ export default function App() {
       {login === 'loggedInState' ? (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<AuthUserView user={userdata} />} />
+            <Route path="/" element={<AuthDefault user={userdata} />} />
             <Route
               path="/joinroom"
               element={<AuthJoinRoom user={userdata} />}
