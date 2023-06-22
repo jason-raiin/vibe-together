@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { AUTH_STRING, REDIRECT_URI, SPOTIFY_TOKEN_URL } from './constants';
+import {
+  AUTH_STRING,
+  REDIRECT_URI,
+  RETRIEVE_LIMIT,
+  SPOTIFY_TOKEN_URL,
+} from './constants';
 import { User } from '../dtos/user.dto';
 import { Item } from '../dtos/item.dto';
 
@@ -90,7 +95,7 @@ export const getUserFromSpotify = async (
 ): Promise<User> => {
   try {
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const params = { limit: 50 };
+    const params = { limit: RETRIEVE_LIMIT };
 
     const userProfileUrl = `https://api.spotify.com/v1/me/`;
     const userProfileResponse = await axios.get(userProfileUrl, { headers });
@@ -104,9 +109,10 @@ export const getUserFromSpotify = async (
       params,
     });
     const topArtists: Item[] = [];
-    for (const [i, artist] of topArtistsResponse.data.items.entries()) {
-      const { id, name, href } = artist;
-      topArtists.push({ id, name, href });
+    for (const artist of topArtistsResponse.data.items) {
+      const { id, name, href, external_urls } = artist;
+      const url = external_urls.spotify;
+      topArtists.push({ id, name, href, url });
     }
 
     const topTracksUrl = `https://api.spotify.com/v1/me/top/tracks`;
@@ -115,9 +121,10 @@ export const getUserFromSpotify = async (
       params,
     });
     const topTracks: Item[] = [];
-    for (const [i, track] of topTracksResponse.data.items.entries()) {
-      const { id, name, href } = track;
-      topTracks.push({ id, name, href });
+    for (const track of topTracksResponse.data.items) {
+      const { id, name, href, external_urls } = track;
+      const url = external_urls.spotify;
+      topTracks.push({ id, name, href, url });
     }
 
     const user = {

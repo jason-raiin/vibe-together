@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Room, RoomSchema } from './rooms.schema';
 import { UsersModule } from 'src/users/users.module';
 import { User, UserSchema } from 'src/users/users.schema';
+import { ComputeModule } from 'src/compute/compute.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { User, UserSchema } from 'src/users/users.schema';
       'core',
     ),
     UsersModule,
+    ComputeModule,
   ],
   controllers: [RoomsController],
   providers: [RoomsService],

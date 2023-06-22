@@ -28,7 +28,7 @@ export class RoomsController {
 
   @Get('/:roomId/details')
   async getUsersInRoom(@Param('roomId') roomId: string) {
-    return await this.roomsService.getRoomDetails(roomId);
+    return await this.roomsService.getRoomUserDetails(roomId);
   }
 
   @Get('/all/:userId')

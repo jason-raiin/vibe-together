@@ -1,9 +1,8 @@
-import { Url } from 'url';
-
 export class Item {
   name: string;
   id: string;
-  href: Url;
+  href: string;
+  url: string;
   rank?: number;
   shared?: number;
 }

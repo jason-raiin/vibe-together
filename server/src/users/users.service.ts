@@ -18,10 +18,10 @@ export class UsersService {
     }
   }
 
-  async getUser(id: string) {
+  async getUser(id: string): Promise<User> {
     const user = await this.userModel.findOne({ id: id }, { _id: 0, __v: 0 });
     if (!user) throw new BadRequestException('No such user');
 
-    return { user };
+    return user;
   }
 }
