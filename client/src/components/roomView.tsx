@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getRoomsByUser, getUser } from '../query/users';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Room } from '../dtos/room.dto';
 
@@ -13,23 +12,16 @@ const roomView: React.FC<ChildComponentProps> = (props) => {
   const roomButtonList = roomList?.map((room) => {
     const [view, setView] = useState(false);
 
-    const roomUserList = room?.users.map((userid) => {
-      try {
-        const containerFunction = async () => {
-          const user = await getUser(userid);
-
-          return (
-            <li key={userid}>
-              <a href={user.url}>{user.displayName}</a>
-            </li>
-          );
-        };
-
-        containerFunction();
-      } catch (error) {
-        console.error(error);
-        return <div></div>;
+    const toggleView = () => {
+      if (view) {
+        setView(false);
+      } else {
+        setView(true);
       }
+    };
+
+    const roomUserList = room?.users?.map((user) => {
+      return <li key={user}>{user}</li>;
     });
 
     const roomArtistList = room?.topArtists?.map((artist) => {
@@ -48,15 +40,11 @@ const roomView: React.FC<ChildComponentProps> = (props) => {
       );
     });
 
-    const expandView = () => {
-      setView(true);
-    };
-
     return (
       <div key={room.id}>
         <Button
           variant="contained"
-          onClick={expandView}
+          onClick={toggleView}
           title="Create Room Now"
         >
           {room.name}
@@ -75,12 +63,7 @@ const roomView: React.FC<ChildComponentProps> = (props) => {
     );
   });
 
-  return (
-    <div>
-      <h1>Rooms</h1>
-      {roomButtonList}
-    </div>
-  );
+  return <div>{roomButtonList}</div>;
 };
 
 export default roomView;
