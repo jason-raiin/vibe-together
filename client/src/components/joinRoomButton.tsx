@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { newRoom, isRoomJoinable } from '../query/rooms';
+import { isRoomJoinable, newRoom } from '../query/rooms';
 
 interface ChildComponentProps {
   userId: string;
@@ -16,6 +16,7 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
   const [codeOutput, setCodeOutput] = useState('');
   const [codeInput, setCodeInput] = useState('');
   const [nameInput, setNameInput] = useState('');
+  const navigate = useNavigate();
 
   function displayRoomNameInput(): void {
     setPosition('createState');
@@ -52,14 +53,17 @@ const JoinRoomButton: React.FC<ChildComponentProps> = (props) => {
 
   const submitCodeInput = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    try {
-      const valid = await isRoomJoinable(codeInput, userId);
-      if (!valid) throw new Error('Invalid Room Code');
-      const navigate = useNavigate();
+    if (userId === 'broken') {
       navigate(`/joinroom?room=${codeInput}`);
-    } catch (error) {
-      console.error(error);
-      setInvalidRoomCode(true);
+    } else {
+      try {
+        const valid = await isRoomJoinable(codeInput, userId);
+        if (!valid) throw new Error('Invalid Room Code');
+        navigate(`/joinroom?room=${codeInput}`);
+      } catch (error) {
+        console.error(error);
+        setInvalidRoomCode(true);
+      }
     }
   };
 

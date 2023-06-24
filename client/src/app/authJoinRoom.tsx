@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { joinRoom } from '../query/rooms';
 import { User } from '../dtos/user.dto';
+import { joinRoom } from '../query/rooms';
 
 interface ChildComponentProps {
   user: User;

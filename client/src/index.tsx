@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/header';
-import { User } from './dtos/user.dto';
-import { getUser } from './query/users';
-import { ultimateAccessToken } from './spotify/spotify';
-import CallBack from './app/callback';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AuthDefault from './app/authDefault';
 import AuthJoinRoom from './app/authJoinRoom';
+import CallBack from './app/callback';
 import NoAuthDefault from './app/noAuthDefault';
 import NoAuthJoinRoom from './app/noAuthJoinRoom';
+import Header from './components/header';
+import { User } from './dtos/user.dto';
+import './index.css';
+import { getUser } from './query/users';
+import reportWebVitals from './reportWebVitals';
+import { ultimateAccessToken } from './spotify/spotify';
 
 export default function App() {
   const [login, setLogin] = useState('loggedOutState');

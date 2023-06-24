@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
-import { addUpdateUser } from '../query/users';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { joinRoom } from '../query/rooms';
+import { addUpdateUser } from '../query/users';
+import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
 
 const CallBack: React.FC = () => {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
-  const tempRoom = searchParams.get('room');
+  const tempRoom = localStorage.getItem('roomId');
+  localStorage.removeItem('roomId');
   const isRoom = typeof tempRoom === 'string';
   const code = searchParams.get('code');
   if (!code) throw new Error('no code');
@@ -21,7 +22,11 @@ const CallBack: React.FC = () => {
         console.log(user);
         if (isRoom) {
           console.log('joining room');
-          joinRoom(user.id, tempRoom);
+          try {
+            joinRoom(user.id, tempRoom);
+          } catch (error) {
+            console.error(error);
+          }
         }
       })
       .then(() => {

@@ -5,6 +5,7 @@ import UserView from '../components/userView';
 import RoomView from '../components/roomView';
 import { getRoomsByUser } from '../query/users';
 import { Room } from '../dtos/room.dto';
+import Button from '@mui/material/Button';
 
 interface ChildComponentProps {
   user: User;
@@ -15,6 +16,7 @@ const AuthDefault: React.FC<ChildComponentProps> = (props) => {
   const [roomList, setRoomList] = useState({} as Room[]);
   const [userViewStatus, setUserViewStatus] = useState(false);
   const [roomViewStatus, setRoomViewStatus] = useState(false);
+  const [displayRoom, setDisplayRoom] = useState(false);
   useEffect(() => {
     const containerFunction = async () => {
       if (user?.topArtists?.length > 0) {
@@ -31,14 +33,30 @@ const AuthDefault: React.FC<ChildComponentProps> = (props) => {
     containerFunction();
   });
 
+  const toggleRoomView = () => {
+    if (displayRoom) {
+      setDisplayRoom(false);
+    } else {
+      setDisplayRoom(true);
+    }
+  };
+
   return (
     <div>
       {userViewStatus ? <UserView user={user} /> : <div>No Data Found</div>}
-      <h1>Rooms</h1>
-      {roomViewStatus ? (
-        <RoomView roomList={roomList} />
+      <Button variant="contained" onClick={toggleRoomView} title="Show Rooms">
+        Rooms
+      </Button>
+      {displayRoom ? (
+        <div>
+          {roomViewStatus ? (
+            <RoomView roomList={roomList} />
+          ) : (
+            <div>No Data Found</div>
+          )}
+        </div>
       ) : (
-        <div>No Data Found</div>
+        <div></div>
       )}
       <JoinRoomButton userId={user?.id} />
     </div>
