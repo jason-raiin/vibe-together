@@ -6,7 +6,7 @@ import AuthJoinRoom from './app/authJoinRoom';
 import CallBack from './app/callback';
 import NoAuthDefault from './app/noAuthDefault';
 import NoAuthJoinRoom from './app/noAuthJoinRoom';
-import Header from './components/header';
+import Header from './components_old/header';
 import { User } from './dtos/user.dto';
 import './index.css';
 import { getUser } from './query/users';

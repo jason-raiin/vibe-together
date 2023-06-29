@@ -58,9 +58,11 @@ export const refreshAccessToken = async (
     const response = await axios.post(SPOTIFY_TOKEN_URL, data, config);
     const { access_token, refresh_token, expires_in } = response.data;
 
+    /*
     console.log('Access Token: ', access_token);
     console.log('Refresh Token: ', refresh_token);
     console.log('Expires In: ', expires_in);
+    */
 
     localStorage.setItem('accessToken', access_token);
     localStorage.setItem('refreshToken', refresh_token);
@@ -143,6 +145,9 @@ export const getUserFromSpotify = async (
       topArtists,
       topTracks,
     };
+
+    localStorage.setItem('id', id);
+
     return user;
   } catch (error) {
     console.error('Failed to get user:', error);

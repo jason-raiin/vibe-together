@@ -3,7 +3,7 @@ import React from 'react';
 import { LOGIN_URL_PARAMS } from '../spotify/constants';
 import './styles.css';
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <div className="Default">
       <h1>Music Room</h1>
@@ -14,3 +14,5 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default HomePage;

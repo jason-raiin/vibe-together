@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../dtos/user.dto';
-import JoinRoomButton from '../components/joinRoomButton';
-import UserView from '../components/userView';
-import RoomView from '../components/roomView';
+import JoinRoomButton from '../components_old/joinRoomButton';
+import UserView from '../components_old/userView';
+import RoomView from '../components_old/roomView';
 import { getRoomsByUser } from '../query/users';
 import { Room } from '../dtos/room.dto';
 import Button from '@mui/material/Button';

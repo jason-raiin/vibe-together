@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import React from 'react';
-import JoinRoomButton from '../components/joinRoomButton';
+import JoinRoomButton from '../components_old/joinRoomButton';
 import { LOGIN_URL_PARAMS } from '../spotify/constants';
 
 interface ChildComponentProps {
