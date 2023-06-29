@@ -10,7 +10,7 @@ import Header from './components/header';
 import { User } from './dtos/user.dto';
 import './index.css';
 import { getUser } from './query/users';
-import reportWebVitals from './reportWebVitals';
+import { reportWebVitals } from './reportWebVitals';
 import { ultimateAccessToken } from './spotify/spotify';
 
 export default function App() {

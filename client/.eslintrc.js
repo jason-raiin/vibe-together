@@ -3,11 +3,7 @@ module.exports = {
     node: true,
     browser: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -18,5 +14,8 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint/eslint-plugin'],
   ignorePatterns: ['.eslintrc.js'],
-  rules: {},
+  rules: {
+    'react/prop-types': 0,
+    'no-unused-vars': 0,
+  },
 };
