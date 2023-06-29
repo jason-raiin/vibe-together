@@ -126,7 +126,8 @@ export const getUserFromSpotify = async (
     });
     const topTracks: Track[] = [];
     for (const track of topTracksResponse.data.items) {
-      const { id, name, href, external_urls, artists, images } = track;
+      const { id, name, href, external_urls, artists, album } = track;
+      const { images } = album;
       const url = external_urls.spotify;
       const artistsLean: Artist[] = [];
       for (const artist of artists) {

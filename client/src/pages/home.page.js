@@ -5,7 +5,7 @@ import './styles.css';
 
 const HomePage = () => {
   return (
-    <div className="Default">
+    <div className="standard">
       <h1>Music Room</h1>
       <p>Connect and Compare Your Music Tastes</p>
       <Button variant="contained" href={`${LOGIN_URL_PARAMS}`}>

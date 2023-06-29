@@ -1,17 +1,37 @@
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from '@mui/material';
 import React from 'react';
+import './styles.css';
 
-const ArtistList = (props) => {
-  const artistList = props.artists?.slice(0, 10).map((artist) => {
+const ArtistList = ({ artists }) => {
+  const artistList = artists?.slice(0, 10).map((artist, index) => {
     return (
-      <li key={artist.id}>
-        <a href={artist.url}>{artist.name}</a>
-      </li>
+      <TableRow key={artist.id}>
+        <TableCell>{index + 1}</TableCell>
+        <TableCell sx={{ width: 1 / 5 }}>
+          <img src={artist.images[0]?.url} width="100%" />
+        </TableCell>
+        <TableCell>
+          <a href={artist.url}>{artist.name}</a>
+        </TableCell>
+      </TableRow>
     );
   });
 
   return (
     <div>
-      <ol>{artistList}</ol>
+      <h2>Top Artists</h2>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>{artistList}</TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
