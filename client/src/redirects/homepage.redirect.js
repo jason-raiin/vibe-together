@@ -4,7 +4,7 @@ import { joinRoom } from '../query/rooms';
 import { addUpdateUser } from '../query/users';
 import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
 
-export const HomePageRedirect = (props) => {
+export default function HomePageRedirect(props) {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -20,4 +20,4 @@ export const HomePageRedirect = (props) => {
   }, []);
 
   return <div></div>;
-};
+}

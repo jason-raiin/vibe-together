@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { LOGIN_URL_PARAMS } from '../spotify/constants';
+import { LOGIN_URI } from '../components/constants';
 
 const NoAuthJoinRoom: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -10,7 +10,7 @@ const NoAuthJoinRoom: React.FC = () => {
 
   return (
     <div>
-      <Button variant="contained" href={`${LOGIN_URL_PARAMS}`}>
+      <Button variant="contained" href={`${LOGIN_URI}`}>
         Redirect to Spotify Login
       </Button>
     </div>

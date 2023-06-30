@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { reportWebVitals } from './reportWebVitals';
 import HomePage from './pages/home.page';
-import { HomePageRedirect } from './redirects/homepage.redirect';
+import HomePageRedirect from './redirects/homepage.redirect';
 import UserPage from './pages/user.page';
 import RoomPage from './pages/room.page';
 

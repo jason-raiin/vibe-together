@@ -4,6 +4,10 @@ import ArtistList from '../components/artists.component';
 import TrackList from '../components/tracks.component';
 import { Grid } from '@mui/material';
 import RoomList from '../components/rooms.component';
+import {
+  CreateRoomButton,
+  JoinRoomButton,
+} from '../components/button.component';
 
 const UserPage = () => {
   const [user, setUser] = useState({});
@@ -18,6 +22,8 @@ const UserPage = () => {
 
   return (
     <div className="standard">
+      <CreateRoomButton />
+      <JoinRoomButton />
       <RoomList rooms={rooms} />
       <Grid container spacing={5} padding={5}>
         <Grid item xs={12} sm={6}>
