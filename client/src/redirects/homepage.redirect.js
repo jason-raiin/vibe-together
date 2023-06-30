@@ -1,24 +1,7 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { addUpdateUser } from '../query/users';
-import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
+import { useNavigate } from 'react-router-dom';
 
-export default function HomePageRedirect({ setAccessToken }) {
+export default function HomePageRedirect() {
   const navigate = useNavigate();
-
-  const [searchParams] = useSearchParams();
-  const code = searchParams.get('code');
-  // console.log('Code: ', code);
-
-  useEffect(() => {
-    getAccessToken(code)
-      .then((accessToken) => {
-        setAccessToken(accessToken);
-        return getUserFromSpotify(accessToken);
-      })
-      .then((user) => addUpdateUser(user))
-      .then(() => navigate('/'));
-  }, []);
-
-  return <div></div>;
+  useEffect(() => navigate('/'));
 }

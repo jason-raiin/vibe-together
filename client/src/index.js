@@ -3,13 +3,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { reportWebVitals } from './reportWebVitals';
 import HomePage from './pages/home.page';
-import HomePageRedirect from './redirects/homepage.redirect';
+import CallbackRedirect from './redirects/callback.redirect';
 import UserPage from './pages/user.page';
 import RoomPage from './pages/room.page';
 import CreateRoomPage from './pages/create.page';
 import JoinRoomPage from './pages/join.page';
 import { ultimateAccessToken } from './spotify/spotify';
 import Header from './components/header.component';
+import HomePageRedirect from './redirects/homepage.redirect';
 
 export default function App() {
   const [loggedIn, setLoginState] = useState(false);
@@ -37,7 +38,7 @@ export default function App() {
           />
           <Route
             path="callback"
-            element={<HomePageRedirect setAccessToken={setAccessToken} />}
+            element={<CallbackRedirect setAccessToken={setAccessToken} />}
           />
           <Route path="room" element={<RoomPage />} />
           <Route path="create" element={<CreateRoomPage userId={userId} />} />
@@ -45,8 +46,8 @@ export default function App() {
           {/*  <Route
           path="join-room"
           element={loggedIn ? <JoinRoomRedirect /> : <SpotifyLoginRedirect />}
-        />
-        <Route path="*" element={<NoPage />} /> */}
+        />*/}
+          <Route path="*" element={<HomePageRedirect />} />
         </Routes>
       </BrowserRouter>
     </div>
