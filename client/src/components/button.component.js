@@ -24,7 +24,7 @@ export function CreateRoomButton() {
 }
 
 export function LoginButton() {
-  return BasicButton(LOGIN_URI, 'LOGIN');
+  return BasicButton(LOGIN_URI, 'Login');
 }
 
 export function CopyLinkButton({ roomId }) {
@@ -52,6 +52,14 @@ export function JoinRoomCodeButton({ idSubmitHandler }) {
   return (
     <Button variant="contained" onClick={idSubmitHandler}>
       Join
+    </Button>
+  );
+}
+
+export function LogoutButton({ logout }) {
+  return (
+    <Button variant="contained" onClick={logout} href="/">
+      Log Out
     </Button>
   );
 }

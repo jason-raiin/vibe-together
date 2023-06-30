@@ -9,37 +9,47 @@ import RoomPage from './pages/room.page';
 import CreateRoomPage from './pages/create.page';
 import JoinRoomPage from './pages/join.page';
 import { ultimateAccessToken } from './spotify/spotify';
+import Header from './components/header.component';
 
 export default function App() {
   const [loggedIn, setLoginState] = useState(false);
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem('accessToken'),
+  );
   const [userId, setUserId] = useState('');
 
-  const accessToken = localStorage.getItem('accessToken');
   useEffect(() => {
+    if (!accessToken) return setLoginState(false);
     ultimateAccessToken(accessToken).then(({ id, result }) => {
       setLoginState(result);
       setUserId(id);
     });
-  });
+  }, [accessToken]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path=""
-          element={loggedIn ? <UserPage userId={userId} /> : <HomePage />}
-        />
-        <Route path="callback" element={<HomePageRedirect />} />
-        <Route path="room" element={<RoomPage />} />
-        <Route path="create" element={<CreateRoomPage userId={userId} />} />
-        <Route path="join" element={<JoinRoomPage userId={userId} />} />
-        {/*  <Route
+    <div>
+      <Header loggedIn={loggedIn} setAccessToken={setAccessToken} />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path=""
+            element={loggedIn ? <UserPage userId={userId} /> : <HomePage />}
+          />
+          <Route
+            path="callback"
+            element={<HomePageRedirect setAccessToken={setAccessToken} />}
+          />
+          <Route path="room" element={<RoomPage />} />
+          <Route path="create" element={<CreateRoomPage userId={userId} />} />
+          <Route path="join" element={<JoinRoomPage userId={userId} />} />
+          {/*  <Route
           path="join-room"
           element={loggedIn ? <JoinRoomRedirect /> : <SpotifyLoginRedirect />}
         />
         <Route path="*" element={<NoPage />} /> */}
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

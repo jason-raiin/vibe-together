@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addUpdateUser } from '../query/users';
 import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
 
-export default function HomePageRedirect(props) {
+export default function HomePageRedirect({ setAccessToken }) {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -12,7 +12,10 @@ export default function HomePageRedirect(props) {
 
   useEffect(() => {
     getAccessToken(code)
-      .then((accessToken) => getUserFromSpotify(accessToken))
+      .then((accessToken) => {
+        setAccessToken(accessToken);
+        return getUserFromSpotify(accessToken);
+      })
       .then((user) => addUpdateUser(user))
       .then(() => navigate('/'));
   }, []);
