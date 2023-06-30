@@ -13,7 +13,7 @@ const ArtistList = ({ artists }) => {
     return (
       <TableRow key={artist.id}>
         <TableCell>{index + 1}</TableCell>
-        <TableCell width="20%">
+        <TableCell sx={{ width: { xs: '30%', sm: '20%' } }}>
           <img src={artist.images[0]?.url} width="100%" />
         </TableCell>
         <TableCell>

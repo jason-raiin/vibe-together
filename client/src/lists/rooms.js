@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './styles.css';
 import {
-  Button,
+  Box,
   Paper,
   Table,
   TableBody,
@@ -45,38 +45,43 @@ export default function RoomList({ rooms }) {
   });
 
   return (
-    <div className="center">
+    <Box>
       <h2>Your Rooms</h2>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Room Name</TableCell>
-              <TableCell align="center">Pals</TableCell>
-              <TableCell align="center">View</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {roomList}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: height * emptyRows }}>
-                <TableCell colSpan={6} />
+      <Box display="flex" justifyContent="center">
+        <TableContainer
+          component={Paper}
+          sx={{ width: { xs: '100%', sm: '50%' } }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Room Name</TableCell>
+                <TableCell align="center">Pals</TableCell>
+                <TableCell align="center">View</TableCell>
               </TableRow>
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                count={rooms.length}
-                rowsPerPage={rowsPerPage}
-                rowsPerPageOptions={[]}
-                page={page}
-                onPageChange={handleChangePage}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
-    </div>
+            </TableHead>
+            <TableBody>
+              {roomList}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: height * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  count={rooms.length}
+                  rowsPerPage={rowsPerPage}
+                  rowsPerPageOptions={[]}
+                  page={page}
+                  onPageChange={handleChangePage}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Box>
   );
 }

@@ -18,23 +18,19 @@ const UserPage = ({ userId }) => {
   return (
     <div className="standard">
       <Grid container columns={2} spacing={5} padding={5}>
-        <Grid item sm={1}>
-          <Box display="flex" justifyContent="right">
-            <CreateRoomButton />
-          </Box>
+        <Grid item sm={1} display="flex" justifyContent="right">
+          <CreateRoomButton />
         </Grid>
 
-        <Grid item sm={1}>
-          <Box display="flex" justifyContent="left">
-            <JoinRoomButton />
-          </Box>
+        <Grid item sm={1} display="flex" justifyContent="left">
+          <JoinRoomButton />
         </Grid>
 
         <Grid item sm={2}>
           <RoomList rooms={rooms} />
         </Grid>
 
-        <Grid item xs={2} sm={1}>
+        <Grid item xs={2} sm={1} display="flex">
           <ArtistList artists={user.topArtists} />
         </Grid>
         <Grid item xs={2} sm={1}>
