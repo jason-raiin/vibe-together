@@ -8,8 +8,8 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-const TrackList = (props) => {
-  const trackList = props.tracks?.slice(0, 10).map((track, index) => {
+const TrackList = ({ tracks }) => {
+  const trackList = tracks?.slice(0, 10).map((track, index) => {
     const artistList = track.artists?.map((artist) => {
       return (
         <li key={artist.id}>
@@ -17,6 +17,7 @@ const TrackList = (props) => {
         </li>
       );
     });
+
     return (
       <TableRow key={track.id}>
         <TableCell>{index + 1}</TableCell>
