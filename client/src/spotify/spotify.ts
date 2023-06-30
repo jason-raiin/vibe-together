@@ -24,9 +24,11 @@ export const getAccessToken = async (code: string): Promise<string> => {
     const response = await axios.post(SPOTIFY_TOKEN_URL, payload, config);
     const { access_token, refresh_token, expires_in } = response.data;
 
+    /*
     console.log('Access Token: ', access_token);
     console.log('Refresh Token: ', refresh_token);
     console.log('Expires In: ', expires_in);
+    */
 
     localStorage.setItem('accessToken', access_token);
     localStorage.setItem('refreshToken', refresh_token);
@@ -56,9 +58,11 @@ export const refreshAccessToken = async (
     const response = await axios.post(SPOTIFY_TOKEN_URL, data, config);
     const { access_token, refresh_token, expires_in } = response.data;
 
+    /*
     console.log('Access Token: ', access_token);
     console.log('Refresh Token: ', refresh_token);
     console.log('Expires In: ', expires_in);
+    */
 
     localStorage.setItem('accessToken', access_token);
     localStorage.setItem('refreshToken', refresh_token);
@@ -122,7 +126,8 @@ export const getUserFromSpotify = async (
     });
     const topTracks: Track[] = [];
     for (const track of topTracksResponse.data.items) {
-      const { id, name, href, external_urls, artists, images } = track;
+      const { id, name, href, external_urls, artists, album } = track;
+      const { images } = album;
       const url = external_urls.spotify;
       const artistsLean: Artist[] = [];
       for (const artist of artists) {
@@ -141,6 +146,9 @@ export const getUserFromSpotify = async (
       topArtists,
       topTracks,
     };
+
+    localStorage.setItem('id', id);
+
     return user;
   } catch (error) {
     console.error('Failed to get user:', error);
