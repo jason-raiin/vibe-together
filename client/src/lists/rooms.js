@@ -12,8 +12,7 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { ROOM_URI } from './constants';
-import { VisibilityOutlined } from '@mui/icons-material';
+import { ViewRoomButton } from '../components/button';
 
 export default function RoomList({ rooms }) {
   const [page, setPage] = useState(0);
@@ -39,9 +38,7 @@ export default function RoomList({ rooms }) {
         <TableCell>{room.name}</TableCell>
         <TableCell align="center">{room.users.length}</TableCell>
         <TableCell align="center">
-          <Button href={`${ROOM_URI}${room.id}`}>
-            <VisibilityOutlined />
-          </Button>
+          <ViewRoomButton roomId={room.id} />
         </TableCell>
       </TableRow>
     );
@@ -55,7 +52,7 @@ export default function RoomList({ rooms }) {
           <TableHead>
             <TableRow>
               <TableCell>Room Name</TableCell>
-              <TableCell align="center">Members</TableCell>
+              <TableCell align="center">Pals</TableCell>
               <TableCell align="center">View</TableCell>
             </TableRow>
           </TableHead>

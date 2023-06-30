@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import { reportWebVitals } from './reportWebVitals';
-import HomePage from './pages/home.page';
-import CallbackRedirect from './redirects/callback.redirect';
-import UserPage from './pages/user.page';
-import RoomPage from './pages/room.page';
-import CreateRoomPage from './pages/create.page';
-import JoinRoomPage from './pages/join.page';
+import HomePage from './pages/home';
+import CallbackRedirect from './redirects/callback';
+import UserPage from './pages/user';
+import RoomPage from './pages/room';
+import CreateRoomPage from './pages/createRoom';
+import JoinRoomPage from './pages/joinRoom';
 import { ultimateAccessToken } from './spotify/spotify';
-import Header from './components/header.component';
-import HomePageRedirect from './redirects/homepage.redirect';
+import Header from './components/header';
+import NoPageRedirect from './redirects/nopage';
 
 export default function App() {
   const [loggedIn, setLoginState] = useState(false);
@@ -47,7 +47,7 @@ export default function App() {
           path="join-room"
           element={loggedIn ? <JoinRoomRedirect /> : <SpotifyLoginRedirect />}
         />*/}
-          <Route path="*" element={<HomePageRedirect />} />
+          <Route path="*" element={<NoPageRedirect />} />
         </Routes>
       </BrowserRouter>
     </div>

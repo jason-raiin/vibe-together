@@ -5,7 +5,9 @@ import {
   JOIN_CODE_URI,
   JOIN_ROOM_URI,
   LOGIN_URI,
+  ROOM_URI,
 } from './constants';
+import { VisibilityOutlined } from '@mui/icons-material';
 
 function BasicButton(url, text) {
   return (
@@ -27,17 +29,24 @@ export function LoginButton() {
   return BasicButton(LOGIN_URI, 'Login');
 }
 
-export function CopyLinkButton({ roomId }) {
+export function ViewRoomButton({ roomId }) {
+  return BasicButton(`${ROOM_URI}${roomId}`, <VisibilityOutlined />);
+}
+
+function OnClickButton(onClick, url, text) {
   return (
-    <Button
-      variant="contained"
-      onClick={() => {
-        navigator.clipboard.writeText(JOIN_CODE_URI + roomId);
-      }}
-    >
-      Copy Link
+    <Button variant="contained" href={url} onClick={onClick}>
+      {text}
     </Button>
   );
+}
+
+export function CopyLinkButton({ roomId }) {
+  const copy = () => {
+    navigator.clipboard.writeText(JOIN_CODE_URI + roomId);
+  };
+
+  return OnClickButton(copy, '', 'Copy Link');
 }
 
 export function SubmitNameButton({ nameSubmitHandler }) {

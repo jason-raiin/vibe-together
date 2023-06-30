@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ArtistList from '../components/artists.component';
-import TrackList from '../components/tracks.component';
+import ArtistList from '../lists/artists';
+import TrackList from '../lists/tracks';
 import { Grid } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { getRoom } from '../query/rooms';

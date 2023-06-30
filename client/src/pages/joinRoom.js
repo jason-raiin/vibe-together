@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { joinRoom } from '../query/rooms';
 import { useNavigate } from 'react-router-dom';
-import { JoinRoomCodeButton } from '../components/button.component';
-import { RoomIdInputField } from '../components/field.component';
+import { JoinRoomCodeButton } from '../components/button';
+import { RoomIdInputField } from '../components/field';
 import { Box, Grid } from '@mui/material';
 
 export default function JoinRoomPage({ userId }) {

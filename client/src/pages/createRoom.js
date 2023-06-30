@@ -1,11 +1,8 @@
 import { Box, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { newRoom } from '../query/rooms';
-import {
-  CopyLinkButton,
-  SubmitNameButton,
-} from '../components/button.component';
-import { RoomIdField, RoomNameField } from '../components/field.component';
+import { CopyLinkButton, SubmitNameButton } from '../components/button';
+import { RoomIdField, RoomNameField } from '../components/field';
 
 export default function CreateRoomPage({ userId }) {
   const [name, setName] = useState('');

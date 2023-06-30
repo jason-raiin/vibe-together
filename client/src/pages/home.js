@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import React from 'react';
 import './styles.css';
-import { LoginButton } from '../components/button.component';
+import { LoginButton } from '../components/button';
 
 const HomePage = () => {
   return (

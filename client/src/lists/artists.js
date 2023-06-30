@@ -7,14 +7,13 @@ import {
   TableRow,
 } from '@mui/material';
 import React from 'react';
-import './styles.css';
 
 const ArtistList = ({ artists }) => {
   const artistList = artists?.slice(0, 10).map((artist, index) => {
     return (
       <TableRow key={artist.id}>
         <TableCell>{index + 1}</TableCell>
-        <TableCell sx={{ width: 1 / 5 }}>
+        <TableCell width="20%">
           <img src={artist.images[0]?.url} width="100%" />
         </TableCell>
         <TableCell>

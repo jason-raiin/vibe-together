@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { LogoutButton } from './button.component';
+import { LogoutButton } from './button';
 
 export default function Header({ loggedIn, setAccessToken }) {
   const logout = () => {
