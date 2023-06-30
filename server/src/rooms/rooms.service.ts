@@ -58,6 +58,7 @@ export class RoomsService {
 
     if (room.users.includes(userId))
       throw new BadRequestException('User is already in!');
+
     room.users.push(userId);
 
     const result = await room.save();

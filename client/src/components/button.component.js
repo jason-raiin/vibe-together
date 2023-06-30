@@ -1,8 +1,13 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import { CREATE_ROOM_URI, JOIN_ROOM_URI, LOGIN_URI } from './constants';
+import {
+  CREATE_ROOM_URI,
+  JOIN_CODE_URI,
+  JOIN_ROOM_URI,
+  LOGIN_URI,
+} from './constants';
 
-function button(url, text) {
+function BasicButton(url, text) {
   return (
     <Button variant="contained" href={url}>
       {text}
@@ -11,13 +16,42 @@ function button(url, text) {
 }
 
 export function JoinRoomButton() {
-  return button(JOIN_ROOM_URI, 'Join Room');
+  return BasicButton(JOIN_ROOM_URI, 'Join Room');
 }
 
 export function CreateRoomButton() {
-  return button(CREATE_ROOM_URI, 'Create Room');
+  return BasicButton(CREATE_ROOM_URI, 'Create Room');
 }
 
 export function LoginButton() {
-  return button(LOGIN_URI, 'LOGIN');
+  return BasicButton(LOGIN_URI, 'LOGIN');
+}
+
+export function CopyLinkButton({ roomId }) {
+  return (
+    <Button
+      variant="contained"
+      onClick={() => {
+        navigator.clipboard.writeText(JOIN_CODE_URI + roomId);
+      }}
+    >
+      Copy Link
+    </Button>
+  );
+}
+
+export function SubmitNameButton({ nameSubmitHandler }) {
+  return (
+    <Button variant="contained" onClick={nameSubmitHandler}>
+      Create
+    </Button>
+  );
+}
+
+export function JoinRoomCodeButton({ idSubmitHandler }) {
+  return (
+    <Button variant="contained" onClick={idSubmitHandler}>
+      Join
+    </Button>
+  );
 }

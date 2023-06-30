@@ -9,15 +9,13 @@ import {
   JoinRoomButton,
 } from '../components/button.component';
 
-const UserPage = () => {
+const UserPage = ({ userId }) => {
   const [user, setUser] = useState({});
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    const id = localStorage.getItem('id');
-
-    getUser(id).then((_user) => setUser(_user));
-    getRoomsByUser(id).then((_rooms) => setRooms(_rooms));
+    getUser(userId).then((_user) => setUser(_user));
+    getRoomsByUser(userId).then((_rooms) => setRooms(_rooms));
   }, []);
 
   return (

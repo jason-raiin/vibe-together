@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { joinRoom } from '../query/rooms';
 import { addUpdateUser } from '../query/users';
 import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
 
@@ -15,7 +14,6 @@ export default function HomePageRedirect(props) {
     getAccessToken(code)
       .then((accessToken) => getUserFromSpotify(accessToken))
       .then((user) => addUpdateUser(user))
-      .then(() => props.login())
       .then(() => navigate('/'));
   }, []);
 
