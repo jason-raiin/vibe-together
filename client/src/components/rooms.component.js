@@ -24,7 +24,8 @@ export default function RoomList({ rooms }) {
   const [height, setHeight] = useState(0);
   const rowReference = useRef(null);
   useEffect(() => {
-    setHeight(rowReference.current?.clientHeight);
+    const currHeight = rowReference.current?.clientHeight;
+    setHeight(currHeight ? currHeight : 0);
   });
 
   const rowsPerPage = 5;
