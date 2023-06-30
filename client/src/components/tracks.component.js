@@ -22,7 +22,7 @@ const TrackList = ({ tracks }) => {
       <TableRow key={track.id}>
         <TableCell>{index + 1}</TableCell>
         <TableCell sx={{ width: 1 / 5 }}>
-          <img src={track.images[0]?.url} width="100%" />
+          <img src={tracks.images ? track.images[0]?.url : ''} width="100%" />
         </TableCell>
         <TableCell>
           <a href={track.url}>{track.name}</a>

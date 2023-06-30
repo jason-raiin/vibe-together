@@ -5,6 +5,7 @@ import { reportWebVitals } from './reportWebVitals';
 import HomePage from './pages/home.page';
 import { HomePageRedirect } from './redirects/homepage.redirect';
 import UserPage from './pages/user.page';
+import RoomPage from './pages/room.page';
 
 export default function App() {
   const [loggedIn, setLoginState] = useState(false);
@@ -16,6 +17,7 @@ export default function App() {
       <Routes>
         <Route path="" element={loggedIn ? <UserPage /> : <HomePage />} />
         <Route path="callback" element={<HomePageRedirect login={login} />} />
+        <Route path="room" element={<RoomPage />} />
         {/*  <Route
           path="join"
           element={loggedIn ? <JoinRoomRedirect /> : <SpotifyLoginRedirect />}
