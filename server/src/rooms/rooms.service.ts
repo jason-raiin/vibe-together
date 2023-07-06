@@ -30,7 +30,7 @@ export class RoomsService {
   ): Promise<{ roomId: string; name: string }> {
     if (!name) throw new BadRequestException('Name cannot be empty!');
 
-    const roomId = randomBytes(16).toString('hex');
+    const roomId = randomBytes(3).toString('hex').toUpperCase();
     const newRoom = new this.roomModel({ id: roomId, name });
 
     const user = await this.userService.getUser(userId);
