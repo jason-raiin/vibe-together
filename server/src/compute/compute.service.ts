@@ -1,12 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { Genre } from 'src/dtos/genre.dto';
 import { Item, Artist, Track } from 'src/dtos/item.dto';
 import { UserDocument } from 'src/users/users.schema';
 
 @Injectable()
 export class ComputeService {
-  async processRoomTopItems(
-    usersDetails: UserDocument[],
-  ): Promise<{ artists: Artist[]; tracks: Track[] }> {
+  processUserTopGenres(topArtists: Artist[]) {
+    const topGenresMap = new Map<string, Genre>();
+    for (const artist of topArtists) {
+      for (const genre of artist.genres) {
+        const genreEntry = topGenresMap.get(genre);
+        const occurrences = genreEntry ? genreEntry.occurrences + 1 : 1;
+        topGenresMap.set(genre, { genre, occurrences });
+      }
+    }
+
+    const topGenres = [...topGenresMap.values()].sort(
+      (a, b) => b.occurrences - a.occurrences,
+    );
+
+    return topGenres;
+  }
+
+  processRoomTopItems(usersDetails: UserDocument[]) {
     const artists: Artist[] = [];
     const tracks: Track[] = [];
 
@@ -53,10 +69,7 @@ export class ComputeService {
     return { artists, tracks };
   }
 
-  async processRoomTopGenres(
-    topArtists: Artist[],
-    topTracks: Track[],
-  ): Promise<string[]> {
-    return [];
+  async processRoomTopGenres(topArtists: Artist[], topTracks: Track[]) {
+    return;
   }
 }

@@ -98,9 +98,8 @@ export class RoomsService {
   async updateRoom(roomId: string): Promise<RoomDocument> {
     const room = await this.getRoom(roomId);
     const usersDetails = await this.getRoomUserDetails(roomId);
-    const { artists, tracks } = await this.computeService.processRoomTopItems(
-      usersDetails,
-    );
+    const { artists, tracks } =
+      this.computeService.processRoomTopItems(usersDetails);
 
     const topArtists = artists.slice(0, ARRAY_LIMIT);
     const topTracks = tracks.slice(0, ARRAY_LIMIT);
