@@ -1,4 +1,4 @@
 export class Genre {
-  genre: string;
+  name: string;
   occurrences: number;
 }

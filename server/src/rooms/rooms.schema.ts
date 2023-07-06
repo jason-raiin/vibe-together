@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Genre } from 'src/dtos/genre.dto';
 import { Artist, Track } from 'src/dtos/item.dto';
 
 export type RoomDocument = Room & Document;
@@ -20,6 +21,9 @@ export class Room {
 
   @Prop()
   topTracks: Track[];
+
+  @Prop()
+  topGenres: Genre[];
 }
 
 export const RoomSchema = SchemaFactory.createForClass(Room);
