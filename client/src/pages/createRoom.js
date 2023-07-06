@@ -1,7 +1,11 @@
 import { Box, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { newRoom } from '../query/rooms';
-import { CopyLinkButton, SubmitNameButton } from '../components/button';
+import {
+  CopyLinkButton,
+  GoToRoomButton,
+  SubmitNameButton,
+} from '../components/button';
 import { RoomIdField, RoomNameField } from '../components/field';
 
 export default function CreateRoomPage({ userId }) {
@@ -43,6 +47,13 @@ export default function CreateRoomPage({ userId }) {
             <CopyLinkButton roomId={roomId} />
           </Box>
         </Grid>
+        {submitted && (
+          <Grid item sm={2}>
+            <Box display="flex" justifyContent="center">
+              <GoToRoomButton roomId={roomId} />
+            </Box>
+          </Grid>
+        )}
       </Grid>
     </div>
   );

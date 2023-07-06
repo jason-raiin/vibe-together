@@ -33,6 +33,10 @@ export function ViewRoomButton({ roomId }) {
   return BasicButton(`${ROOM_URI}${roomId}`, <VisibilityOutlined />);
 }
 
+export function GoToRoomButton({ roomId }) {
+  return BasicButton(`${ROOM_URI}${roomId}`, 'Go to your Room');
+}
+
 function OnClickButton(onClick, url, text) {
   return (
     <Button variant="contained" href={url} onClick={onClick}>
