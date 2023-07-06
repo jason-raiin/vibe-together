@@ -26,7 +26,7 @@ export function CreateRoomButton() {
 }
 
 export function LoginButton() {
-  return BasicButton(LOGIN_URI, 'Login');
+  return BasicButton(LOGIN_URI, 'Login to Spotify');
 }
 
 export function ViewRoomButton({ roomId }) {

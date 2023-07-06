@@ -69,16 +69,6 @@ export class RoomsService {
     return updatedRoom;
   }
 
-  async isRoomJoinable(roomId: string, userId: string): Promise<boolean> {
-    const room = await this.getRoom(roomId);
-    const user = await this.userService.getUser(userId);
-
-    if (!room || !user) return false;
-    if (userId in room.users) return false;
-
-    return true;
-  }
-
   async getRoom(roomId: string): Promise<RoomDocument> {
     const room = await this.roomModel.findOne({ id: roomId });
     if (!room) throw new BadRequestException('No such room!');
