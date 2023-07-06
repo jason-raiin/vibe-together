@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './users.schema';
 import { UsersController } from './users.controller';
-import { SpotifyModule } from 'src/spotify/spotify.module';
+import { ComputeModule } from 'src/compute/compute.module';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { SpotifyModule } from 'src/spotify/spotify.module';
       [{ name: User.name, schema: UserSchema }],
       'core',
     ),
-    SpotifyModule,
+    ComputeModule,
   ],
   providers: [UsersService],
   controllers: [UsersController],

@@ -1,12 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { Genre } from 'src/dtos/genre.dto';
 import { Item, Artist, Track } from 'src/dtos/item.dto';
 import { UserDocument } from 'src/users/users.schema';
 
 @Injectable()
 export class ComputeService {
-  async processRoomTopItems(
-    usersDetails: UserDocument[],
-  ): Promise<{ artists: Artist[]; tracks: Track[] }> {
+  processTopGenres(topArtists: Artist[]) {
+    const genres: Genre[] = [];
+    for (const artist of topArtists) {
+      const occurrences = artist.occurrences ? artist.occurrences : 1;
+      for (const name of artist.genres) {
+        const existingGenre = genres.find((genre, genreIndex) => {
+          if (name === genre.name) {
+            genres[genreIndex].occurrences += occurrences;
+            return true;
+          }
+        });
+
+        if (!existingGenre) {
+          const newGenre = { name, occurrences };
+          genres.push(newGenre);
+        }
+      }
+    }
+
+    genres.sort((a, b) => b.occurrences - a.occurrences);
+
+    return genres;
+  }
+
+  processRoomTopItems(usersDetails: UserDocument[]) {
     const artists: Artist[] = [];
     const tracks: Track[] = [];
 
@@ -15,14 +38,14 @@ export class ComputeService {
         const existingArtist = artists.find((artist, artistIndex) => {
           if (artist.id === userTopArtist.id) {
             artists[artistIndex].rank += rank - 10;
-            artists[artistIndex].shared += 1;
+            artists[artistIndex].occurrences += 1;
             return true;
           }
         });
 
         if (!existingArtist) {
           userTopArtist.rank = rank;
-          userTopArtist.shared = 1;
+          userTopArtist.occurrences = 1;
           artists.push(userTopArtist);
         }
       }
@@ -31,32 +54,28 @@ export class ComputeService {
         const existingTrack = tracks.find((track, trackIndex) => {
           if (track.id === userTopTrack.id) {
             tracks[trackIndex].rank += rank - 10;
-            tracks[trackIndex].shared += 1;
+            tracks[trackIndex].occurrences += 1;
             return true;
           }
         });
 
         if (!existingTrack) {
           userTopTrack.rank = rank;
-          userTopTrack.shared = 1;
+          userTopTrack.occurrences = 1;
           tracks.push(userTopTrack);
         }
       }
     }
 
     const sortTop = (x: Item, y: Item) =>
-      x.shared - y.shared === 0 ? x.rank - y.rank : y.shared - x.shared;
+      x.occurrences - y.occurrences === 0
+        ? x.rank - y.rank
+        : y.occurrences - x.occurrences;
 
     artists.sort(sortTop);
     tracks.sort(sortTop);
+    const genres = this.processTopGenres(artists);
 
-    return { artists, tracks };
-  }
-
-  async processRoomTopGenres(
-    topArtists: Artist[],
-    topTracks: Track[],
-  ): Promise<string[]> {
-    return [];
+    return { artists, tracks, genres };
   }
 }

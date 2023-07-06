@@ -5,7 +5,7 @@ export abstract class Item {
   url: string;
   images: [];
   rank?: number;
-  shared?: number;
+  occurrences?: number;
 }
 
 export class Artist extends Item {
