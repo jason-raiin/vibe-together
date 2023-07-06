@@ -74,7 +74,8 @@ export class ComputeService {
 
     artists.sort(sortTop);
     tracks.sort(sortTop);
+    const genres = this.processTopGenres(artists);
 
-    return { artists, tracks };
+    return { artists, tracks, genres };
   }
 }
