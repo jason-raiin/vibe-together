@@ -3,6 +3,8 @@
   text-align: center;
   align-items: center;
   align-self: center;
+  justify-content: center;
+  color: aliceblue;
 }
 
 .left {

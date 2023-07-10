@@ -1,7 +1,8 @@
-import React from 'react';
+import { Grid, Link } from '@mui/material';
 import Box from '@mui/material/Box';
+import Image from 'mui-image';
+import React from 'react';
 import { LogoutButton } from './button';
-import { Link } from '@mui/material';
 import { APP_URI } from './constants';
 
 export default function Header({ loggedIn, setAccessToken }) {
@@ -13,18 +14,21 @@ export default function Header({ loggedIn, setAccessToken }) {
 
   return (
     <Box fontFamily="sans-serif">
-      <Box display="flex" justifyContent="space-between">
-        <Box paddingLeft="3%" display="flex" justifyContent="left">
-          <Link href={APP_URI} color="black" underline="none">
-            <h1>VibeTogether</h1>
-          </Link>
-        </Box>
-        {loggedIn && (
-          <Box m={2} display="flex" justifyContent="right">
-            <LogoutButton logout={logout} />
-          </Box>
-        )}
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs display="flex" />
+        <Grid item display="flex" justifyItems="center" alignItems="center">
+          <img src={require('../assets/blue.png')} height="100" />
+          <Link href={APP_URI} color="black" underline="none"></Link>
+        </Grid>
+        <Grid item xs display="flex">
+          {' '}
+          {loggedIn && (
+            <Box m={2} display="flex" justifyContent="right">
+              <LogoutButton logout={logout} />
+            </Box>
+          )}
+        </Grid>
+      </Grid>
     </Box>
   );
 }

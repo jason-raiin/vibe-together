@@ -1,5 +1,6 @@
-import React from 'react';
+import { VisibilityOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import React from 'react';
 import {
   CREATE_ROOM_URI,
   JOIN_CODE_URI,
@@ -7,11 +8,29 @@ import {
   LOGIN_URI,
   ROOM_URI,
 } from './constants';
-import { VisibilityOutlined } from '@mui/icons-material';
 
 function BasicButton(url, text) {
   return (
     <Button variant="contained" href={url}>
+      {text}
+    </Button>
+  );
+}
+
+function SpotifyButton(url, text) {
+  return (
+    <Button
+      variant="contained"
+      href={url}
+      sx={{
+        borderRadius: 888,
+        paddingLeft: 2,
+        paddingRight: 2,
+        paddingTop: 1,
+        paddingBottom: 1,
+        backgroundColor: '#1db954',
+      }}
+    >
       {text}
     </Button>
   );
@@ -26,7 +45,7 @@ export function CreateRoomButton() {
 }
 
 export function LoginButton() {
-  return BasicButton(LOGIN_URI, 'Login to Spotify');
+  return SpotifyButton(LOGIN_URI, 'Login to Spotify');
 }
 
 export function ViewRoomButton({ roomId }) {
