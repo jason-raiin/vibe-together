@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import { reportWebVitals } from './reportWebVitals';
-import HomePage from './pages/home';
-import CallbackRedirect from './redirects/callback';
-import UserPage from './pages/user';
-import RoomPage from './pages/room';
-import CreateRoomPage from './pages/createRoom';
-import JoinRoomPage from './pages/joinRoom';
-import { ultimateAccessToken } from './spotify/spotify';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/header';
+import { wallpaper } from './components/wallpaper';
+import CreateRoomPage from './pages/createRoom';
+import HomePage from './pages/home';
+import JoinRoomPage from './pages/joinRoom';
+import RoomPage from './pages/room';
+import UserPage from './pages/user';
+import CallbackRedirect from './redirects/callback';
 import NoPageRedirect from './redirects/nopage';
+import { reportWebVitals } from './reportWebVitals';
+import { ultimateAccessToken } from './spotify/spotify';
+import './themes/bluetheme.css';
 
 export default function App() {
   const [loggedIn, setLoginState] = useState(false);
@@ -29,6 +31,7 @@ export default function App() {
 
   return (
     <div>
+      <style>{wallpaper}</style>
       <Header loggedIn={loggedIn} setAccessToken={setAccessToken} />
       <BrowserRouter>
         <Routes>
@@ -46,7 +49,7 @@ export default function App() {
           {/*  <Route
           path="join-room"
           element={loggedIn ? <JoinRoomRedirect /> : <SpotifyLoginRedirect />}
-        />*/}
+  /> */}
           <Route path="*" element={<NoPageRedirect />} />
         </Routes>
       </BrowserRouter>
