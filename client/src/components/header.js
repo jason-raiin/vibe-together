@@ -13,11 +13,11 @@ export default function Header({ loggedIn, setAccessToken }) {
   };
 
   return (
-    <Box fontFamily="sans-serif">
+    <Box fontFamily="sans-serif" className="stickyHeader">
       <Grid container spacing={2}>
         <Grid item xs display="flex" />
         <Grid item display="flex" justifyItems="center" alignItems="center">
-          <img src={require('../assets/blue.png')} height="100" />
+          <img src={require('../assets/bluelogo.png')} height="100" />
           <Link href={APP_URI} color="black" underline="none"></Link>
         </Grid>
         <Grid item xs display="flex">

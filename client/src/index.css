@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'republika';
+  src: url(./fonts/R4EXPUI_.ttf) format('truetype');
+}

@@ -38,7 +38,7 @@ const HomePage = () => {
           border={3}
           borderColor="#011D3F55"
           sx={{
-            backgroundColor: '#21368555',
+            backgroundColor: '#21368500',
             paddingTop: 2,
             paddingBottom: 3,
             borderRadius: 3,

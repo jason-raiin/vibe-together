@@ -16,7 +16,7 @@ const ArtistList = ({ artists }) => {
         <TableCell sx={{ width: { xs: '30%', sm: '20%' } }}>
           <img src={artist.images[0]?.url} width="100%" />
         </TableCell>
-        <TableCell>
+        <TableCell className="listFont">
           <a href={artist.url}>{artist.name}</a>
         </TableCell>
       </TableRow>
@@ -26,8 +26,8 @@ const ArtistList = ({ artists }) => {
   return (
     <div>
       <h2>Top Artists</h2>
-      <TableContainer component={Paper}>
-        <Table>
+      <TableContainer>
+        <Table className="listContainer">
           <TableBody>{artistList}</TableBody>
         </Table>
       </TableContainer>

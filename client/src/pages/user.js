@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { getRoomsByUser, getUser } from '../query/users';
-import ArtistList from '../lists/artists';
-import TrackList from '../lists/tracks';
 import { Box, Grid } from '@mui/material';
-import RoomList from '../lists/rooms';
+import React, { useEffect, useState } from 'react';
 import { CreateRoomButton, JoinRoomButton } from '../components/button';
+import ArtistList from '../lists/artists';
+import RoomList from '../lists/rooms';
+import TrackList from '../lists/tracks';
+import { getRoomsByUser, getUser } from '../query/users';
 
 const UserPage = ({ userId }) => {
   const [user, setUser] = useState({});

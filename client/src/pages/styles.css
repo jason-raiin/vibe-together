@@ -1,10 +1,50 @@
 .standard {
-  font-family: sans-serif;
+  font-family: 'republika', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
   text-align: center;
   align-items: center;
   align-self: center;
   justify-content: center;
   color: aliceblue;
+}
+
+@font-face {
+  font-family: 'republika';
+  src: url(../fonts/R4EXPUI_.ttf) format('truetype');
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+}
+
+.listContainer {
+  font-family: 'republika';
+  color: white !important;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(125, 125, 125, 0.5),
+    rgba(255, 255, 255, 0.8)
+  );
+  backdrop-filter: 'blur(10px)';
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
+}
+
+.listFont {
+  color: white;
+  font-family: 'republika';
+  font-size: larger !important;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+  text-decoration: none;
 }
 
 .left {
