@@ -56,9 +56,14 @@ export class ComputeService {
       },
     );
 
-    let averageFeatures: AudioFeatures;
-    for (const [feature, value] of Object.entries(totalFeatures))
-      averageFeatures[feature] = value / topTrackIds.length;
+    const averageFeatures = new AudioFeatures();
+    for (const [feature, value] of Object.entries(totalFeatures)) {
+      if (feature === 'loudness') {
+        averageFeatures[feature] = (value / topTrackIds.length / 60 + 1) * 100;
+      } else {
+        averageFeatures[feature] = (value / topTrackIds.length) * 100;
+      }
+    }
 
     return averageFeatures;
   }

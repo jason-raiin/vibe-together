@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { SPOTIFY_API_URL, SPOTIFY_TOKEN_URL } from './spotify.constants';
-import { Track } from 'src/dtos/item.dto';
 import { AudioFeatures } from 'src/dtos/features.dto';
 
 @Injectable()
@@ -39,30 +38,17 @@ export class SpotifyService {
     return access_token;
   }
 
-  async getArtist(id: string) {
-    const accessToken = await this.getClientAccessToken();
-    const url = `${SPOTIFY_API_URL}/artists/${id}`;
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    };
-
-    const response = await axios.get(url, { headers });
-    const artist = response.data;
-    return artist;
-  }
-
   async getTracksFeatures(trackIds: string[]): Promise<AudioFeatures[]> {
     const accessToken = await this.getClientAccessToken();
     const trackIdsString = trackIds.join(',');
 
-    const url = `${SPOTIFY_API_URL}/audio-features/${trackIdsString}`;
+    const url = `${SPOTIFY_API_URL}/audio-features?ids=${trackIdsString}`;
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     };
 
     const response = await axios.get(url, { headers });
-    return response.data['tracks'];
+    return response.data['audio_features'];
   }
 }
