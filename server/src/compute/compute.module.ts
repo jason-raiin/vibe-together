@@ -3,6 +3,7 @@ import { ComputeService } from './compute.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Room, RoomSchema } from 'src/rooms/rooms.schema';
 import { User, UserSchema } from 'src/users/users.schema';
+import { SpotifyModule } from 'src/spotify/spotify.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { User, UserSchema } from 'src/users/users.schema';
       ],
       'core',
     ),
+    SpotifyModule,
   ],
   providers: [ComputeService],
   exports: [ComputeService],

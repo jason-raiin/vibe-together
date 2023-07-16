@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Genre } from 'src/dtos/genre.dto';
 import { Item, Artist, Track } from 'src/dtos/item.dto';
-import { UserDocument } from 'src/users/users.schema';
+import { SpotifyService } from 'src/spotify/spotify.service';
+import { User } from 'src/users/users.schema';
 
 @Injectable()
 export class ComputeService {
+  constructor(private spotifyService: SpotifyService) {}
+
   processTopGenres(topArtists: Artist[]) {
     const genres: Genre[] = [];
     for (const artist of topArtists) {
@@ -29,7 +32,14 @@ export class ComputeService {
     return genres;
   }
 
-  processRoomTopItems(usersDetails: UserDocument[]) {
+  async processTrackFeatures(topTracks: Track[]) {
+    const topTrackIds = topTracks.map((track) => track.id);
+    const trackDetails = await this.spotifyService.getTracksFeatures(
+      topTrackIds,
+    );
+  }
+
+  processRoomTopItems(usersDetails: User[]) {
     const artists: Artist[] = [];
     const tracks: Track[] = [];
 
