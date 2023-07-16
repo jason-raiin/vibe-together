@@ -34,7 +34,7 @@ export class ComputeService {
 
   async processTrackFeatures(topTracks: Track[]) {
     const topTrackIds = topTracks.map((track) => track.id);
-    const trackDetails = await this.spotifyService.getTracksFeatures(
+    const tracksFeatures = await this.spotifyService.getTracksFeatures(
       topTrackIds,
     );
   }

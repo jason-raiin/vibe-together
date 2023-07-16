@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { SPOTIFY_API_URL, SPOTIFY_TOKEN_URL } from './spotify.constants';
 import { Track } from 'src/dtos/item.dto';
+import { AudioFeatures } from 'src/dtos/features.dto';
 
 @Injectable()
 export class SpotifyService {
@@ -51,7 +52,7 @@ export class SpotifyService {
     return artist;
   }
 
-  async getTracksFeatures(trackIds: string[]): Promise<[]> {
+  async getTracksFeatures(trackIds: string[]): Promise<AudioFeatures[]> {
     const accessToken = await this.getClientAccessToken();
     const trackIdsString = trackIds.join(',');
 
