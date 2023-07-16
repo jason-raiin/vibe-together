@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { AudioFeatures } from 'src/dtos/features.dto';
 import { Genre } from 'src/dtos/genre.dto';
 import { Item, Artist, Track } from 'src/dtos/item.dto';
 import { SpotifyService } from 'src/spotify/spotify.service';
@@ -37,6 +38,29 @@ export class ComputeService {
     const tracksFeatures = await this.spotifyService.getTracksFeatures(
       topTrackIds,
     );
+
+    const totalFeatures = tracksFeatures.reduce(
+      (features: AudioFeatures, track) => ({
+        acousticness: features.acousticness + track.acousticness,
+        danceability: features.danceability + track.danceability,
+        energy: features.energy + track.energy,
+        loudness: features.loudness + track.loudness,
+        valence: features.valence + track.valence,
+      }),
+      {
+        acousticness: 0,
+        danceability: 0,
+        energy: 0,
+        loudness: 0,
+        valence: 0,
+      },
+    );
+
+    let averageFeatures: AudioFeatures;
+    for (const [feature, value] of Object.entries(totalFeatures))
+      averageFeatures[feature] = value / topTrackIds.length;
+
+    return averageFeatures;
   }
 
   processRoomTopItems(usersDetails: User[]) {
