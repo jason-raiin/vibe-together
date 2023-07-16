@@ -68,11 +68,11 @@ export class ComputeService {
     return averageFeatures;
   }
 
-  processRoomTopItems(usersDetails: User[]) {
+  processRoomTopItems(users: User[]) {
     const artists: Artist[] = [];
     const tracks: Track[] = [];
 
-    for (const user of usersDetails) {
+    for (const user of users) {
       for (const [rank, userTopArtist] of user.topArtists.entries()) {
         const existingArtist = artists.find((artist, artistIndex) => {
           if (artist.id === userTopArtist.id) {
@@ -116,5 +116,30 @@ export class ComputeService {
     const genres = this.processTopGenres(artists);
 
     return { artists, tracks, genres };
+  }
+
+  processRoomTrackFeatures(users: User[]) {
+    const totalFeatures = users.reduce(
+      (features: AudioFeatures, user) => ({
+        acousticness: features.acousticness + user.trackFeatures.acousticness,
+        danceability: features.danceability + user.trackFeatures.danceability,
+        energy: features.energy + user.trackFeatures.energy,
+        loudness: features.loudness + user.trackFeatures.loudness,
+        valence: features.valence + user.trackFeatures.valence,
+      }),
+      {
+        acousticness: 0,
+        danceability: 0,
+        energy: 0,
+        loudness: 0,
+        valence: 0,
+      },
+    );
+
+    const averageFeatures = new AudioFeatures();
+    for (const [feature, value] of Object.entries(totalFeatures))
+      averageFeatures[feature] = Math.round(value / users.length);
+
+    return averageFeatures;
   }
 }
