@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { AudioFeatures } from 'src/dtos/features.dto';
 import { Genre } from 'src/dtos/genre.dto';
 import { Artist, Track } from 'src/dtos/item.dto';
 
@@ -27,6 +28,9 @@ export class User {
 
   @Prop()
   topGenres: Genre[];
+
+  @Prop()
+  trackFeatures: AudioFeatures;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
