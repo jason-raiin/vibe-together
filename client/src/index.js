@@ -43,7 +43,7 @@ export default function App() {
             path="callback"
             element={<CallbackRedirect setAccessToken={setAccessToken} />}
           />
-          <Route path="room" element={<RoomPage />} />
+          <Route path="room" element={<RoomPage userId={userId} />} />
           <Route path="create" element={<CreateRoomPage userId={userId} />} />
           <Route path="join" element={<JoinRoomPage userId={userId} />} />
           {/*  <Route
