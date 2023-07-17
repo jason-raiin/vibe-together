@@ -16,6 +16,9 @@ export class UsersService {
     if (!user) throw new BadRequestException('No user provided');
 
     user.topGenres = this.computeService.processTopGenres(user.topArtists);
+    user.trackFeatures = await this.computeService.processTrackFeatures(
+      user.topTracks,
+    );
     const result = await this.userModel.updateOne({ id: user.id }, user);
 
     if (result.matchedCount === 0) {

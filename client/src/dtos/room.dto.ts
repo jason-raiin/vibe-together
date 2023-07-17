@@ -1,3 +1,5 @@
+import { AudioFeatures } from './features.dto';
+import { Genre } from './genre.dto';
 import { Item } from './item.dto';
 
 export interface Room {
@@ -6,4 +8,6 @@ export interface Room {
   users: string[];
   topArtists: Item[];
   topTracks: Item[];
+  topGenres?: Genre[];
+  trackFeatures?: AudioFeatures;
 }

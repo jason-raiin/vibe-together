@@ -100,6 +100,8 @@ export class RoomsService {
     const usersDetails = await this.getRoomUserDetails(roomId);
     const { artists, tracks, genres } =
       this.computeService.processRoomTopItems(usersDetails);
+    const trackFeatures =
+      this.computeService.processRoomTrackFeatures(usersDetails);
 
     const topArtists = artists.slice(0, ARRAY_LIMIT);
     const topTracks = tracks.slice(0, ARRAY_LIMIT);
@@ -108,6 +110,7 @@ export class RoomsService {
     room.topArtists = topArtists;
     room.topTracks = topTracks;
     room.topGenres = topGenres;
+    room.trackFeatures = trackFeatures;
 
     room.save();
 

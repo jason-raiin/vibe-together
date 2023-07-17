@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { AudioFeatures } from 'src/dtos/features.dto';
 import { Genre } from 'src/dtos/genre.dto';
 import { Item, Artist, Track } from 'src/dtos/item.dto';
-import { UserDocument } from 'src/users/users.schema';
+import { SpotifyService } from 'src/spotify/spotify.service';
+import { User } from 'src/users/users.schema';
+import { BLANK_AUDIO_FEATURES, SCALE } from './constants';
 
 @Injectable()
 export class ComputeService {
+  constructor(private spotifyService: SpotifyService) {}
+
   processTopGenres(topArtists: Artist[]) {
     const genres: Genre[] = [];
     for (const artist of topArtists) {
@@ -29,11 +34,40 @@ export class ComputeService {
     return genres;
   }
 
-  processRoomTopItems(usersDetails: UserDocument[]) {
+  async processTrackFeatures(topTracks: Track[]) {
+    const topTrackIds = topTracks.map((track) => track.id);
+    const tracksFeatures = await this.spotifyService.getTracksFeatures(
+      topTrackIds,
+    );
+
+    const totalFeatures = tracksFeatures.reduce(
+      (features: AudioFeatures, track) => {
+        const tempFeatures = new AudioFeatures();
+        for (const [feature, value] of Object.entries(features))
+          tempFeatures[feature] = value + track[feature];
+        return tempFeatures;
+      },
+      BLANK_AUDIO_FEATURES,
+    );
+
+    const averageFeatures = new AudioFeatures();
+    for (const [feature, value] of Object.entries(totalFeatures)) {
+      if (feature === 'loudness') {
+        averageFeatures[feature] =
+          (value / topTrackIds.length / 60 + 1) * SCALE;
+      } else {
+        averageFeatures[feature] = (value / topTrackIds.length) * SCALE;
+      }
+    }
+
+    return averageFeatures;
+  }
+
+  processRoomTopItems(users: User[]) {
     const artists: Artist[] = [];
     const tracks: Track[] = [];
 
-    for (const user of usersDetails) {
+    for (const user of users) {
       for (const [rank, userTopArtist] of user.topArtists.entries()) {
         const existingArtist = artists.find((artist, artistIndex) => {
           if (artist.id === userTopArtist.id) {
@@ -77,5 +111,20 @@ export class ComputeService {
     const genres = this.processTopGenres(artists);
 
     return { artists, tracks, genres };
+  }
+
+  processRoomTrackFeatures(users: User[]) {
+    const totalFeatures = users.reduce((features: AudioFeatures, user) => {
+      const tempFeatures = new AudioFeatures();
+      for (const [feature, value] of Object.entries(features))
+        tempFeatures[feature] = value + user[feature];
+      return tempFeatures;
+    }, BLANK_AUDIO_FEATURES);
+
+    const averageFeatures = new AudioFeatures();
+    for (const [feature, value] of Object.entries(totalFeatures))
+      averageFeatures[feature] = Math.round(value / users.length);
+
+    return averageFeatures;
   }
 }
