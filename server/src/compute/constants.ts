@@ -5,4 +5,5 @@ export const BLANK_AUDIO_FEATURES = {
   energy: 0,
   loudness: 0,
   valence: 0,
+  tempo: 0,
 };

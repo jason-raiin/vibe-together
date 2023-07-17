@@ -55,6 +55,8 @@ export class ComputeService {
       if (feature === 'loudness') {
         averageFeatures[feature] =
           (value / topTrackIds.length / 60 + 1) * SCALE;
+      } else if (feature === 'tempo') {
+        averageFeatures[feature] = (value / topTrackIds.length / 250) * SCALE;
       } else {
         averageFeatures[feature] = (value / topTrackIds.length) * SCALE;
       }

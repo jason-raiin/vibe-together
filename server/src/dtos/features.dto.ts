@@ -4,4 +4,5 @@ export class AudioFeatures {
   energy: number;
   loudness: number;
   valence: number;
+  tempo: number;
 }
