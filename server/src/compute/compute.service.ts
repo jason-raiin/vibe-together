@@ -4,6 +4,7 @@ import { Genre } from 'src/dtos/genre.dto';
 import { Item, Artist, Track } from 'src/dtos/item.dto';
 import { SpotifyService } from 'src/spotify/spotify.service';
 import { User } from 'src/users/users.schema';
+import { BLANK_AUDIO_FEATURES, SCALE } from './constants';
 
 @Injectable()
 export class ComputeService {
@@ -40,28 +41,22 @@ export class ComputeService {
     );
 
     const totalFeatures = tracksFeatures.reduce(
-      (features: AudioFeatures, track) => ({
-        acousticness: features.acousticness + track.acousticness,
-        danceability: features.danceability + track.danceability,
-        energy: features.energy + track.energy,
-        loudness: features.loudness + track.loudness,
-        valence: features.valence + track.valence,
-      }),
-      {
-        acousticness: 0,
-        danceability: 0,
-        energy: 0,
-        loudness: 0,
-        valence: 0,
+      (features: AudioFeatures, track) => {
+        const tempFeatures = new AudioFeatures();
+        for (const [feature, value] of Object.entries(features))
+          tempFeatures[feature] = value + track[feature];
+        return tempFeatures;
       },
+      BLANK_AUDIO_FEATURES,
     );
 
     const averageFeatures = new AudioFeatures();
     for (const [feature, value] of Object.entries(totalFeatures)) {
       if (feature === 'loudness') {
-        averageFeatures[feature] = (value / topTrackIds.length / 60 + 1) * 100;
+        averageFeatures[feature] =
+          (value / topTrackIds.length / 60 + 1) * SCALE;
       } else {
-        averageFeatures[feature] = (value / topTrackIds.length) * 100;
+        averageFeatures[feature] = (value / topTrackIds.length) * SCALE;
       }
     }
 
@@ -119,22 +114,12 @@ export class ComputeService {
   }
 
   processRoomTrackFeatures(users: User[]) {
-    const totalFeatures = users.reduce(
-      (features: AudioFeatures, user) => ({
-        acousticness: features.acousticness + user.trackFeatures.acousticness,
-        danceability: features.danceability + user.trackFeatures.danceability,
-        energy: features.energy + user.trackFeatures.energy,
-        loudness: features.loudness + user.trackFeatures.loudness,
-        valence: features.valence + user.trackFeatures.valence,
-      }),
-      {
-        acousticness: 0,
-        danceability: 0,
-        energy: 0,
-        loudness: 0,
-        valence: 0,
-      },
-    );
+    const totalFeatures = users.reduce((features: AudioFeatures, user) => {
+      const tempFeatures = new AudioFeatures();
+      for (const [feature, value] of Object.entries(features))
+        tempFeatures[feature] = value + user[feature];
+      return tempFeatures;
+    }, BLANK_AUDIO_FEATURES);
 
     const averageFeatures = new AudioFeatures();
     for (const [feature, value] of Object.entries(totalFeatures))
