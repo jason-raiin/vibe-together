@@ -119,13 +119,13 @@ export class ComputeService {
     const totalFeatures = users.reduce((features: AudioFeatures, user) => {
       const tempFeatures = new AudioFeatures();
       for (const [feature, value] of Object.entries(features))
-        tempFeatures[feature] = value + user[feature];
+        tempFeatures[feature] = value + user.trackFeatures[feature];
       return tempFeatures;
     }, BLANK_AUDIO_FEATURES);
 
     const averageFeatures = new AudioFeatures();
     for (const [feature, value] of Object.entries(totalFeatures))
-      averageFeatures[feature] = Math.round(value / users.length);
+      averageFeatures[feature] = value / users.length;
 
     return averageFeatures;
   }
