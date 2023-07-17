@@ -44,6 +44,7 @@ const radar = (trackFeatures) => {
 
   const featureData = features.map((f, i) => {
     let angle = Math.PI / 2 + (2 * Math.PI * i) / features.length;
+    console.log(angle);
     return {
       name: f,
       angle: angle,
@@ -73,6 +74,7 @@ const radar = (trackFeatures) => {
     .join((enter) =>
       enter
         .append('text')
+        .attr('text-anchor', 'middle')
         .attr('x', (d) => d.label_coord.x)
         .attr('y', (d) => d.label_coord.y)
         .text((d) => d.name),
