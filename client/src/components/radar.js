@@ -1,6 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import './radar.css';
+
+const GRAPH_COLORS = ['darkorange', 'gray', 'navy'];
+const AXIS_COLOR = 'black';
+const CIRCLE_COLOR = { line: 'gray', fill: 'none' };
 
 export default function RadarDiagram({ trackFeatures }) {
   useEffect(() => radar(trackFeatures), []);
@@ -31,8 +35,8 @@ const radar = (trackFeatures) => {
         .append('circle')
         .attr('cx', width / 2)
         .attr('cy', height / 2)
-        .attr('fill', 'none')
-        .attr('stroke', 'gray')
+        .attr('fill', CIRCLE_COLOR.fill)
+        .attr('stroke', CIRCLE_COLOR.line)
         .attr('r', (d) => radialScale(d)),
     );
 
@@ -64,7 +68,7 @@ const radar = (trackFeatures) => {
         .attr('y1', height / 2)
         .attr('x2', (d) => d.line_coord.x)
         .attr('y2', (d) => d.line_coord.y)
-        .attr('stroke', 'black'),
+        .attr('stroke', AXIS_COLOR),
     );
 
   // draw axis label
@@ -84,7 +88,7 @@ const radar = (trackFeatures) => {
     .line()
     .x((d) => d.x)
     .y((d) => d.y);
-  let colors = ['darkorange', 'gray', 'navy'];
+  let colors = GRAPH_COLORS;
 
   const getPathCoordinates = (data_point) => {
     let coordinates = [];
