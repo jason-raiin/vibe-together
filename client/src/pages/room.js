@@ -20,15 +20,14 @@ const RoomPage = ({ userId }) => {
   useEffect(() => {
     getUser(userId).then((_user) => setUser(_user));
   }, [userId]);
-  console.log(user.trackFeatures);
 
   return (
     <div className="standard">
       <Grid container columns={2} spacing={5} padding={5}>
-        <Grid itme sm={2} display="flex" justifyContent="center">
+        <Grid item sm={2} display="flex" justifyContent="center">
           {room.trackFeatures && user.trackFeatures && (
             <RadarDiagram
-              trackFeatures={[room.trackFeatures, user.trackFeatures]}
+              trackFeatures={[user.trackFeatures, room.trackFeatures]}
             />
           )}
         </Grid>

@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import './radar.css';
 
-const GRAPH_COLORS = ['darkorange', 'gray', 'navy'];
+const GRAPH_COLORS = ['darkorange', 'navy'];
 const AXIS_COLOR = 'black';
 const CIRCLE_COLOR = { line: 'gray', fill: 'none' };
+const TOOLTIPS = ['You', 'Room'];
 
 export default function RadarDiagram({ trackFeatures }) {
   useEffect(() => radar(trackFeatures), []);
@@ -48,7 +49,6 @@ const radar = (trackFeatures) => {
 
   const featureData = features.map((f, i) => {
     let angle = Math.PI / 2 + (2 * Math.PI * i) / features.length;
-    console.log(angle);
     return {
       name: f,
       angle: angle,
@@ -100,6 +100,14 @@ const radar = (trackFeatures) => {
     return coordinates;
   };
 
+  var tooltip = d3
+    .select('body')
+    .append('div')
+    .style('position', 'absolute')
+    .style('z-index', '10')
+    .style('visibility', 'hidden')
+    .style('background', '');
+
   svg
     .selectAll('path')
     .data(data)
@@ -112,6 +120,20 @@ const radar = (trackFeatures) => {
         .attr('stroke', (_, i) => colors[i])
         .attr('fill', (_, i) => colors[i])
         .attr('stroke-opacity', 1)
-        .attr('opacity', 0.5),
+        .attr('opacity', 0.5)
+        .attr('name', (_, i) => TOOLTIPS[i])
+        .on('mouseover', (event) => {
+          tooltip
+            .text(event.srcElement.attributes.name.nodeValue)
+            .style('visibility', 'visible');
+        })
+        .on('mousemove', function (event) {
+          return tooltip
+            .style('top', event.pageY - 10 + 'px')
+            .style('left', event.pageX + 10 + 'px');
+        })
+        .on('mouseout', function () {
+          return tooltip.style('visibility', 'hidden');
+        }),
     );
 };
