@@ -30,6 +30,7 @@ const radar = (trackFeatures) => {
   const radialScale = d3.scaleLinear().domain([0, 10]).range([0, 250]);
   const ticks = [2, 4, 6, 8, 10];
 
+  // draw radial circles
   svg
     .selectAll('circle')
     .data(ticks)
@@ -88,13 +89,14 @@ const radar = (trackFeatures) => {
         .text((d) => d.name),
     );
 
-  let line = d3
+  const line = d3
     .line()
     .x((d) => d.x)
     .y((d) => d.y);
-  let colors = GRAPH_COLORS;
+  const colors = GRAPH_COLORS;
 
-  const getPathCoordinates = (data_point) => {
+  // calculate paths of radar region
+  const pathData = data.map((data_point) => {
     let coordinates = [];
     for (var i = 0; i < features.length; i++) {
       let ft_name = features[i];
@@ -102,19 +104,9 @@ const radar = (trackFeatures) => {
       coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
     }
     return coordinates;
-  };
+  });
 
-  const pathData = data.map((d) => getPathCoordinates(d));
-
-  const tooltip = d3
-    .select('body')
-    .append('div')
-    .style('position', 'absolute')
-    .style('z-index', '10')
-    .style('visibility', 'hidden')
-    .style('font-family', FONT.family)
-    .style('font-size', FONT.size);
-
+  // draw radar region
   svg
     .selectAll('path')
     .data(pathData)
@@ -128,22 +120,34 @@ const radar = (trackFeatures) => {
         .attr('stroke', (_, i) => colors[i])
         .attr('fill', (_, i) => colors[i])
         .attr('stroke-opacity', 1)
-        .attr('opacity', GRAPH_OPACITY[0])
-        .on('mouseover', (event, d) => {
-          const i = pathData.indexOf(d);
-          const path = d3.select('#radar' + i);
-          path.attr('opacity', 0.7);
-          return tooltip.text(path.attr('name')).style('visibility', 'visible');
-        })
-        .on('mousemove', function (event, d) {
-          return tooltip
-            .style('top', event.pageY - 10 + 'px')
-            .style('left', event.pageX + 10 + 'px');
-        })
-        .on('mouseout', function (event, d) {
-          const i = pathData.indexOf(d);
-          d3.select('#radar' + i).attr('opacity', GRAPH_OPACITY[0]);
-          return tooltip.style('visibility', 'hidden');
-        }),
+        .attr('opacity', GRAPH_OPACITY[0]),
     );
+
+  const tooltip = d3
+    .select('body')
+    .append('div')
+    .style('position', 'absolute')
+    .style('z-index', '10')
+    .style('visibility', 'hidden')
+    .style('font-family', FONT.family)
+    .style('font-size', FONT.size);
+
+  // mouseover events
+  d3.select('path')
+    .on('mouseover', (event, d) => {
+      const i = pathData.indexOf(d);
+      const path = d3.select('#radar' + i);
+      path.attr('opacity', 0.7);
+      return tooltip.text(path.attr('name')).style('visibility', 'visible');
+    })
+    .on('mousemove', function (event, d) {
+      return tooltip
+        .style('top', event.pageY - 10 + 'px')
+        .style('left', event.pageX + 10 + 'px');
+    })
+    .on('mouseout', function (event, d) {
+      const i = pathData.indexOf(d);
+      d3.select('#radar' + i).attr('opacity', GRAPH_OPACITY[0]);
+      return tooltip.style('visibility', 'hidden');
+    });
 };
