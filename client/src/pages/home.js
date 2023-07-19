@@ -3,54 +3,28 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import React from 'react';
 import { LoginButton } from '../components/button';
-import './styles.css';
+import './pagestyles.css';
 
 const HomePage = () => {
   return (
     <>
       <div
-        className="standard"
+        className="standard-box"
         style={{
           display: 'flex',
+          height: '30vh',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '70vh',
+          marginLeft: '15vh',
+          marginRight: '15vh',
+          marginTop: '5vh',
+          marginBottom: '5vh',
         }}
       >
-        {/*
-      <Grid
-          container
-          spacing={2}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid
-            item
-            container
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-      >*/}
-        <Box
-          alignItems="center"
-          justifyContent="center"
-          border={3}
-          borderColor="#011D3F55"
-          sx={{
-            backgroundColor: '#21368500',
-            paddingTop: 2,
-            paddingBottom: 3,
-            borderRadius: 3,
-            paddingLeft: 2,
-            paddingRight: 2,
-          }}
-        >
-          <Stack spacing={2}>
-            <p>Connect and Compare Your Music Tastes Today</p>
-            <LoginButton />
-          </Stack>
-        </Box>
+        <Stack spacing={2} alignItems="center" justifyContent="center">
+          <h1>Connect and Compare Your Music Tastes Today</h1>
+          <LoginButton />
+        </Stack>
       </div>
     </>
   );

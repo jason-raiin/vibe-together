@@ -13,11 +13,17 @@ export default function CallbackRedirect({ setAccessToken }) {
   useEffect(() => {
     getAccessToken(code)
       .then((accessToken) => {
-        setAccessToken(accessToken);
+        console.log(accessToken);
         return getUserFromSpotify(accessToken);
       })
       .then((user) => addUpdateUser(user))
-      .then(() => navigate('/'));
+      .then((stuff) => {
+        if (!stuff) {
+          navigate('/whitelist');
+        } else {
+          navigate('/');
+        }
+      });
   }, []);
 
   return <div></div>;

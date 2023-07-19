@@ -1,6 +1,8 @@
 import { VisibilityOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import React from 'react';
+import './componentstyles.css';
+
 import {
   CREATE_ROOM_URI,
   JOIN_CODE_URI,
@@ -11,7 +13,7 @@ import {
 
 function BasicButton(url, text) {
   return (
-    <Button variant="contained" href={url}>
+    <Button variant="contained" href={url} className="basic-button">
       {text}
     </Button>
   );
@@ -19,18 +21,7 @@ function BasicButton(url, text) {
 
 function SpotifyButton(url, text) {
   return (
-    <Button
-      variant="contained"
-      href={url}
-      sx={{
-        borderRadius: 888,
-        paddingLeft: 2,
-        paddingRight: 2,
-        paddingTop: 1,
-        paddingBottom: 1,
-        backgroundColor: '#1db954',
-      }}
-    >
+    <Button variant="contained" href={url} className="spotify-button">
       {text}
     </Button>
   );
@@ -88,9 +79,22 @@ export function JoinRoomCodeButton({ idSubmitHandler }) {
   );
 }
 
+export function SubmitEmailButton({ emailSubmitHandler }) {
+  return (
+    <Button variant="contained" onClick={emailSubmitHandler}>
+      Submit Email
+    </Button>
+  );
+}
+
 export function LogoutButton({ logout }) {
   return (
-    <Button variant="contained" onClick={logout} href="/">
+    <Button
+      variant="contained"
+      onClick={logout}
+      href="/"
+      className="basic-button"
+    >
       Log Out
     </Button>
   );

@@ -1,6 +1,17 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 
+export function EmailField({ emailInputHandler }) {
+  return (
+    <TextField
+      id="outlined-basic"
+      label="Enter your email address to register"
+      variant="outlined"
+      onChange={emailInputHandler}
+    />
+  );
+}
+
 export function RoomNameField({ nameInputHandler, submitted }) {
   return (
     <TextField

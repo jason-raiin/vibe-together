@@ -1,5 +1,3 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './styles.css';
 import {
   Box,
   Paper,
@@ -12,7 +10,9 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
 import { ViewRoomButton } from '../components/button';
+import './liststyles.css';
 
 export default function RoomList({ rooms }) {
   const [page, setPage] = useState(0);
@@ -48,11 +48,8 @@ export default function RoomList({ rooms }) {
     <Box>
       <h2>Your Rooms</h2>
       <Box display="flex" justifyContent="center">
-        <TableContainer
-          component={Paper}
-          sx={{ width: { xs: '100%', sm: '50%' } }}
-        >
-          <Table>
+        <TableContainer sx={{ width: { xs: '100%', sm: '50%' } }}>
+          <Table className="listContainer">
             <TableHead>
               <TableRow>
                 <TableCell>Room Name</TableCell>

@@ -1,30 +1,23 @@
 import {
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableRow,
-  Paper,
 } from '@mui/material';
 import React from 'react';
+import './liststyles.css';
 
 const TrackList = ({ tracks }) => {
   const trackList = tracks?.slice(0, 10).map((track, index) => {
-    // const artistList = track.artists?.map((artist) => {
-    //   return (
-    //     <li key={artist.id}>
-    //       <a href={artist.url}>{artist.name}</a>
-    //     </li>
-    //   );
-    // });
-
     return (
       <TableRow key={track.id}>
         <TableCell>{index + 1}</TableCell>
         <TableCell sx={{ width: { xs: '30%', sm: '20%' } }}>
           <img src={track.images[0]?.url} width="100%" />
         </TableCell>
-        <TableCell>
+        <TableCell className="listFont">
           <a href={track.url}>{track.name}</a>
         </TableCell>
         {/* <TableCell>
@@ -37,8 +30,8 @@ const TrackList = ({ tracks }) => {
   return (
     <div>
       <h2>Top Tracks</h2>
-      <TableContainer component={Paper}>
-        <Table>
+      <TableContainer>
+        <Table className="listContainer">
           <TableBody>{trackList}</TableBody>
         </Table>
       </TableContainer>
