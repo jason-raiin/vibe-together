@@ -2,9 +2,13 @@ import { Box, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { CreateRoomButton, JoinRoomButton } from '../components/button';
 import ArtistList from '../lists/artists';
-import RoomList from '../lists/rooms';
+
 import TrackList from '../lists/tracks';
-import { getRoomsByUser, getUser } from '../query/users';
+import { Grid } from '@mui/material';
+import RoomList from '../lists/rooms';
+import { CreateRoomButton, JoinRoomButton } from '../components/button';
+import RadarDiagram from '../components/radar';
+
 
 const UserPage = ({ userId }) => {
   const [user, setUser] = useState({});
@@ -18,6 +22,11 @@ const UserPage = ({ userId }) => {
   return (
     <div className="standard">
       <Grid container columns={2} spacing={5} padding={5}>
+        <Grid item sm={2} display="flex" justifyContent="center">
+          {user.trackFeatures && (
+            <RadarDiagram trackFeatures={[user.trackFeatures]} />
+          )}
+        </Grid>
         <Grid item sm={1} display="flex" justifyContent="right">
           <CreateRoomButton />
         </Grid>
