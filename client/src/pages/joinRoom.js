@@ -1,9 +1,9 @@
+import { Box, Grid } from '@mui/material';
 import React, { useState } from 'react';
-import { joinRoom } from '../query/rooms';
 import { useNavigate } from 'react-router-dom';
 import { JoinRoomCodeButton } from '../components/button';
 import { RoomIdInputField } from '../components/field';
-import { Box, Grid } from '@mui/material';
+import { joinRoom } from '../query/rooms';
 
 export default function JoinRoomPage({ userId }) {
   const [roomId, setRoomId] = useState('');
@@ -21,7 +21,19 @@ export default function JoinRoomPage({ userId }) {
   };
 
   return (
-    <div className="standard">
+    <div
+      className="standard-box"
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '15vh',
+        marginRight: '15vh',
+        marginTop: '5vh',
+        marginBottom: '5vh',
+        paddingTop: '10vh',
+        paddingBottom: '10vh',
+      }}
+    >
       <h2>Join your friend&#39;s room!</h2>
       <Grid container spacing={5} columns={2}>
         <Grid item sm={1}>

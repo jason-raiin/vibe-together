@@ -1,12 +1,12 @@
 import { Box, Grid } from '@mui/material';
 import React, { useState } from 'react';
-import { newRoom } from '../query/rooms';
 import {
   CopyLinkButton,
   GoToRoomButton,
   SubmitNameButton,
 } from '../components/button';
 import { RoomIdField, RoomNameField } from '../components/field';
+import { newRoom } from '../query/rooms';
 
 export default function CreateRoomPage({ userId }) {
   const [name, setName] = useState('');
@@ -21,7 +21,19 @@ export default function CreateRoomPage({ userId }) {
   };
 
   return (
-    <div className="standard">
+    <div
+      className="standard-box"
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '15vh',
+        marginRight: '15vh',
+        marginTop: '5vh',
+        marginBottom: '5vh',
+        paddingTop: '10vh',
+        paddingBottom: '10vh',
+      }}
+    >
       <h2>Create your Room!</h2>
       <Grid container spacing={5} columns={2}>
         <Grid item sm={1}>
