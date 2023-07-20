@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/header';
-import { wallpaper } from './components/wallpaper';
+import './indexstyles.css';
 import CreateRoomPage from './pages/createRoom';
 import HomePage from './pages/home';
 import JoinRoomPage from './pages/joinRoom';
 import RoomPage from './pages/room';
 import UserPage from './pages/user';
+import WhiteListPage from './pages/whitelist';
 import CallbackRedirect from './redirects/callback';
 import NoPageRedirect from './redirects/nopage';
 import { reportWebVitals } from './reportWebVitals';
 import { ultimateAccessToken } from './spotify/spotify';
-import './themes/bluetheme.css';
 
 export default function App() {
   const [loggedIn, setLoginState] = useState(false);
@@ -31,7 +31,6 @@ export default function App() {
 
   return (
     <div>
-      <style>{wallpaper}</style>
       <Header loggedIn={loggedIn} setAccessToken={setAccessToken} />
       <BrowserRouter>
         <Routes>
@@ -39,6 +38,7 @@ export default function App() {
             path=""
             element={loggedIn ? <UserPage userId={userId} /> : <HomePage />}
           />
+          <Route path="whitelist" element={<WhiteListPage />} />
           <Route
             path="callback"
             element={<CallbackRedirect setAccessToken={setAccessToken} />}

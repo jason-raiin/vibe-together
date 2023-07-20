@@ -31,7 +31,7 @@ const RoomPage = ({ userId }) => {
         <Grid item sm={1} display="flex" justifyContent="center">
           {room.trackFeatures && user.trackFeatures && (
             <RadarDiagram
-              trackFeatures={[room.trackFeatures, user.trackFeatures]}
+              trackFeatures={[user.trackFeatures, room.trackFeatures]}
             />
           )}
         </Grid>

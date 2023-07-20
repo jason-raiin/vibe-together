@@ -1,11 +1,23 @@
-import { Grid } from '@mui/material';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import React from 'react';
-import { LoginButton } from '../components/button';
-import './pagestyles.css';
+import { Stack } from '@mui/system';
+import React, { useState } from 'react';
+import { SubmitEmailButton } from '../components/button';
+import { EmailField } from '../components/field';
 
-const HomePage = () => {
+const WhiteListPage = () => {
+  const [email, setEmail] = useState('');
+  const [invalid, setInvalid] = useState(false);
+
+  const emailInputHandler = (event) => {
+    setEmail(event.target.field);
+    setInvalid(false);
+  };
+
+  const submitEmailHandler = async () => {
+    if (!email) {
+      setInvalid(true);
+      return;
+    }
+  };
   return (
     <>
       <div
@@ -62,8 +74,22 @@ const HomePage = () => {
             }}
           >
             <Stack spacing={2} alignItems="center" justifyContent="center">
-              <h1>Connect and Compare Your Music Tastes Today</h1>
-              <LoginButton />
+              <p>
+                Sorry, as our website is still in beta, you will need to submit
+              </p>
+              <p>
+                the email account you use for Spotify so that we can whitelist
+                it.
+              </p>
+              <EmailField emailInputHandler={emailInputHandler} />
+              <SubmitEmailButton submitEmailHandler={submitEmailHandler} />
+              <p>
+                Click{' '}
+                <a className="inTextLink" href="/">
+                  here
+                </a>{' '}
+                to return to the homepage.
+              </p>
             </Stack>
           </div>
         </Stack>
@@ -72,4 +98,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default WhiteListPage;

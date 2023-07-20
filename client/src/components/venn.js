@@ -3,9 +3,9 @@ import * as venn from 'venn.js';
 import * as d3 from 'd3';
 import './venn.css';
 
-const FONT = { family: 'sans-serif', size: '12px' };
+const FONT = { family: 'sans-serif', size: '15px' };
 const CIRCLE_COLORS = ['palegoldenrod', 'paleturquoise', 'palevioletred'];
-const DEFAULT_OPACITY = 0.4;
+const DEFAULT_OPACITY = 0.7;
 const CIRCLE_SIZE = { L: 5, M: 1, S: 0.2 };
 
 export default function VennDiagram({ usersDetails, roomGenres }) {
@@ -51,7 +51,7 @@ const sets = (usersDetails, roomGenres) => {
 
 const vennChart = (sets) => {
   // draw default venn diagram
-  const chart = venn.VennDiagram();
+  const chart = venn.VennDiagram().width(500).height(500);
   const div = d3.select('#venn');
   div.datum(sets).call(chart);
 
@@ -79,7 +79,7 @@ const vennChart = (sets) => {
   // text label styles
   d3.selectAll('#venn .venn-circle text')
     .style('fill', 'black')
-    .style('font-size', '24px')
+    .style('font-size', FONT.size)
     .style('font-weight', '50');
 
   // add a tooltip
@@ -89,7 +89,6 @@ const vennChart = (sets) => {
     .style('position', 'absolute')
     .style('z-index', '10')
     .style('visibility', 'hidden')
-    .style('font-family', FONT.family)
     .style('font-size', FONT.size);
 
   // highlights on mouseover
