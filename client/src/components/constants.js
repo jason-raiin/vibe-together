@@ -7,4 +7,4 @@ export const LOGIN_URI = `${SPOTIFY_LOGIN_URL}?client_id=${CLIENT_ID}&response_t
 export const ROOM_URI = `/room?id=`;
 export const JOIN_ROOM_URI = `/join`;
 export const CREATE_ROOM_URI = `/create`;
-export const JOIN_CODE_URI = `/join-room?id=`;
+export const JOIN_CODE_URI = `${APP_URI}/join-room?id=`;
