@@ -33,7 +33,7 @@ const sets = (usersDetails, roomGenres) => {
   }));
 
   const userGenreSet = usersDetails.flatMap(({ displayName, topGenres }) => {
-    const userTop20Genres = topGenres.slice(0, 20).map((genre) => genre.name);
+    const userTop20Genres = topGenres.slice(0, 5).map((genre) => genre.name);
     const multiGenreSet = userTop20Genres.filter((genre) =>
       roomTop3Genres.includes(genre),
     );
