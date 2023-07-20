@@ -23,3 +23,10 @@ export const getRoom = async (roomId: string) => {
     return data;
   } catch (error) {}
 };
+
+export const getRoomDetails = async (roomId: string) => {
+  try {
+    const { data } = await axios.get(`${BACKEND_URI}/room/${roomId}/details`);
+    return data;
+  } catch (error) {}
+};
