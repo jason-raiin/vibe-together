@@ -7,7 +7,7 @@ const GRAPH_OPACITY = [0.5, 0.75];
 const AXIS_COLOR = 'white';
 const CIRCLE_COLOR = { stroke: 'white', fill: 'none' };
 const TOOLTIPS = ['You', 'Room'];
-const FONT = { family: 'sans-serif', size: '16px', color: '#97b690' };
+const FONT = { family: 'republika', size: '16px', color: '#97b690' };
 
 export default function RadarDiagram({ trackFeatures }) {
   useEffect(() => radar(trackFeatures), []);
@@ -130,15 +130,15 @@ const radar = (trackFeatures) => {
     .style('z-index', '10')
     .style('visibility', 'hidden')
     .style('font-family', FONT.family)
-    .style('font-size', FONT.size);
+    .style('font-size', FONT.size)
+    .style('color', '#FFFFFF');
 
   // mouseover events
-  d3.selectAll('path')
+  d3.selectAll('#radar path')
     .on('mouseover', (event, d) => {
       const i = pathData.indexOf(d);
       const path = d3.select('#radar' + i);
       path.attr('opacity', 0.7);
-      console.log(path.attr('name'));
       return tooltip.text(path.attr('name')).style('visibility', 'visible');
     })
     .on('mousemove', function (event, d) {
