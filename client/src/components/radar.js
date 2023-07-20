@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import React, { useEffect, useRef } from 'react';
 import './radar.css';
 
 export default function RadarDiagram({ trackFeatures }) {
@@ -32,7 +32,7 @@ const radar = (trackFeatures) => {
         .attr('cx', width / 2)
         .attr('cy', height / 2)
         .attr('fill', 'none')
-        .attr('stroke', 'gray')
+        .attr('stroke', 'white')
         .attr('r', (d) => radialScale(d)),
     );
 
@@ -64,7 +64,7 @@ const radar = (trackFeatures) => {
         .attr('y1', height / 2)
         .attr('x2', (d) => d.line_coord.x)
         .attr('y2', (d) => d.line_coord.y)
-        .attr('stroke', 'black'),
+        .attr('stroke', 'white'),
     );
 
   // draw axis label
@@ -77,6 +77,7 @@ const radar = (trackFeatures) => {
         .attr('text-anchor', 'middle')
         .attr('x', (d) => d.label_coord.x)
         .attr('y', (d) => d.label_coord.y)
+        .attr('fill', '#97b690')
         .text((d) => d.name),
     );
 
@@ -84,7 +85,7 @@ const radar = (trackFeatures) => {
     .line()
     .x((d) => d.x)
     .y((d) => d.y);
-  let colors = ['darkorange', 'gray', 'navy'];
+  let colors = ['#ff00ff', '#00ffff', 'navy'];
 
   const getPathCoordinates = (data_point) => {
     let coordinates = [];

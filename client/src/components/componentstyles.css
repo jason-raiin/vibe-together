@@ -1,5 +1,6 @@
 .spotify-button {
   background-color: #97b690 !important;
+  color: white !important;
   border-radius: 888;
   padding-left: 2;
   padding-right: 2;
@@ -9,20 +10,34 @@
 }
 
 .spotify-button:hover {
+  color: black !important;
   background-color: #ffffff !important;
 }
 
 .basic-button {
+  color: white !important;
   background-color: #97b690 !important;
 }
 
 .basic-button:hover {
+  color: black !important;
   background-color: #ffffff !important;
 }
 .sticky-header {
   position: sticky;
+  padding-top: 6vh;
+  padding-bottom: 1vh;
   top: 0;
   z-index: 999;
-  background-color: black !important;
-  padding-bottom: 1vh;
+  background: rgb(15, 8, 26) !important;
+}
+.basic-field {
+  background-color: #97b69065;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: white !important;
+}
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
 }

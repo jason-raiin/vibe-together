@@ -3,6 +3,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  tableCellClasses,
   TableContainer,
   TableRow,
 } from '@mui/material';
@@ -12,7 +13,7 @@ const ArtistList = ({ artists }) => {
   const artistList = artists?.slice(0, 10).map((artist, index) => {
     return (
       <TableRow key={artist.id}>
-        <TableCell>{index + 1}</TableCell>
+        <TableCell className="listFont">{index + 1}</TableCell>
         <TableCell sx={{ width: { xs: '30%', sm: '20%' } }}>
           <img src={artist.images[0]?.url} width="100%" />
         </TableCell>
@@ -27,7 +28,10 @@ const ArtistList = ({ artists }) => {
     <div>
       <h2>Top Artists</h2>
       <TableContainer>
-        <Table className="listContainer">
+        <Table
+          className="listContainer"
+          sx={{ [`& .${tableCellClasses.root}`]: { borderBottom: 'none' } }}
+        >
           <TableBody>{artistList}</TableBody>
         </Table>
       </TableContainer>

@@ -13,11 +13,23 @@
     rgba(255, 255, 255, 0.1)
   );
   backdrop-filter: 'blur(10px)';
-  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
 }
 
 .listFont {
-  color: white;
+  color: white !important;
   font-family: 'republika';
   font-size: larger !important;
+}
+
+.listFont > a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.listFont > a:hover {
+  color: #97b690 !important;
+}
+
+.listFont > TableCell {
+  color: white !important;
 }

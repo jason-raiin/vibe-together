@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
 import React from 'react';
+import './componentstyles.css';
 
 export function EmailField({ emailInputHandler }) {
   return (
@@ -8,6 +9,7 @@ export function EmailField({ emailInputHandler }) {
       label="Enter your email address to register"
       variant="outlined"
       onChange={emailInputHandler}
+      className="basic-field"
     />
   );
 }
@@ -20,6 +22,7 @@ export function RoomNameField({ nameInputHandler, submitted }) {
       variant="outlined"
       onChange={nameInputHandler}
       InputProps={{ readOnly: submitted }}
+      className="basic-field"
     />
   );
 }
@@ -32,6 +35,7 @@ export function RoomIdField({ roomId }) {
       label="Room Code"
       variant="outlined"
       InputProps={{ readOnly: true }}
+      className="basic-field"
     />
   );
 }
@@ -43,6 +47,7 @@ export function RoomIdInputField({ idInputHandler }) {
       label="Room Code"
       variant="outlined"
       onChange={idInputHandler}
+      className="basic-field"
     />
   );
 }

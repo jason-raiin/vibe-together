@@ -9,6 +9,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  tableCellClasses,
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { ViewRoomButton } from '../components/button';
@@ -35,8 +36,10 @@ export default function RoomList({ rooms }) {
   const roomList = rooms?.slice(firstRow, lastRow).map((room) => {
     return (
       <TableRow key={room.id} ref={rowReference}>
-        <TableCell>{room.name}</TableCell>
-        <TableCell align="center">{room.users.length}</TableCell>
+        <TableCell className="listFont">{room.name}</TableCell>
+        <TableCell className="listFont" align="center">
+          {room.users.length}
+        </TableCell>
         <TableCell align="center">
           <ViewRoomButton roomId={room.id} />
         </TableCell>
@@ -49,12 +52,19 @@ export default function RoomList({ rooms }) {
       <h2>Your Rooms</h2>
       <Box display="flex" justifyContent="center">
         <TableContainer sx={{ width: { xs: '100%', sm: '50%' } }}>
-          <Table className="listContainer">
+          <Table
+            className="listContainer"
+            sx={{ [`& .${tableCellClasses.root}`]: { borderBottom: 'none' } }}
+          >
             <TableHead>
               <TableRow>
-                <TableCell>Room Name</TableCell>
-                <TableCell align="center">Pals</TableCell>
-                <TableCell align="center">View</TableCell>
+                <TableCell className="listFont">Room Name</TableCell>
+                <TableCell className="listFont" align="center">
+                  Pals
+                </TableCell>
+                <TableCell className="listFont" align="center">
+                  View
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -68,6 +78,7 @@ export default function RoomList({ rooms }) {
             <TableFooter>
               <TableRow>
                 <TablePagination
+                  className="listFont"
                   count={rooms.length}
                   rowsPerPage={rowsPerPage}
                   rowsPerPageOptions={[]}
