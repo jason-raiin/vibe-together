@@ -133,11 +133,12 @@ const radar = (trackFeatures) => {
     .style('font-size', FONT.size);
 
   // mouseover events
-  d3.select('path')
+  d3.selectAll('path')
     .on('mouseover', (event, d) => {
       const i = pathData.indexOf(d);
       const path = d3.select('#radar' + i);
       path.attr('opacity', 0.7);
+      console.log(path.attr('name'));
       return tooltip.text(path.attr('name')).style('visibility', 'visible');
     })
     .on('mousemove', function (event, d) {
