@@ -44,7 +44,6 @@ const radar = (trackFeatures) => {
 
   const featureData = features.map((f, i) => {
     let angle = Math.PI / 2 + (2 * Math.PI * i) / features.length;
-    console.log(angle);
     return {
       name: f,
       angle: angle,

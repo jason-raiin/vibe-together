@@ -8,6 +8,6 @@ export interface Room {
   users: string[];
   topArtists: Item[];
   topTracks: Item[];
-  topGenres?: Genre[];
-  trackFeatures?: AudioFeatures;
+  topGenres: Genre[];
+  trackFeatures: AudioFeatures;
 }

@@ -7,23 +7,45 @@ const FONT = { family: 'sans-serif', size: '12px' };
 const COLORS = ['palegoldenrod', 'paleturquoise', 'palevioletred'];
 const DEFAULT_OPACITY = 0.4;
 
-export default function VennDiagram() {
-  useEffect(() => vennChart());
+export default function VennDiagram({ usersDetails, roomGenres }) {
+  useEffect(() => sets(usersDetails, roomGenres), []);
+  useEffect(() => vennChart(), []);
 
   return <div id="venn"></div>;
 }
 
+const sets = (usersDetails, roomGenres) => {
+  const genreSet = roomGenres
+    .map(({ name }) => ({ sets: [name], size: 5 }))
+    .slice(0, 2);
+
+  const userSet = usersDetails.map(({ displayName, images }) => ({
+    sets: [displayName],
+    size: 0.2,
+    images,
+  }));
+
+  const intersectionSet = usersDetails.flatMap(({ displayName, topGenres }) => {
+    return [];
+  });
+
+  const sets = genreSet.concat(userSet, intersectionSet);
+  console.log(sets);
+};
+
 const vennChart = () => {
   const sets = [
-    { sets: ['A'], size: 2 },
-    { sets: ['B'], size: 2 },
-    { sets: ['C'], size: 3 },
+    { sets: ['A'], size: 5 },
+    { sets: ['B'], size: 5 },
+    { sets: ['C'], size: 5 },
     { sets: ['D'], size: 0.2 },
     { sets: ['A', 'B'], size: 1 },
     { sets: ['A', 'C'], size: 1 },
     { sets: ['B', 'C'], size: 1 },
+    { sets: ['A', 'D'], size: 1 },
+    { sets: ['B', 'D'], size: 1 },
     { sets: ['C', 'D'], size: 1 },
-    { sets: ['A', 'B', 'C'], size: 1 },
+    { sets: ['A', 'B', 'C', 'D'], size: 1 },
   ];
 
   // draw default venn diagram

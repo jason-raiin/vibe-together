@@ -20,13 +20,10 @@ const UserPage = ({ userId }) => {
   return (
     <div className="standard">
       <Grid container columns={2} spacing={5} padding={5}>
-        <Grid item sm={1} display="flex" justifyContent="center">
+        <Grid item sm={2} display="flex" justifyContent="center">
           {user.trackFeatures && (
             <RadarDiagram trackFeatures={[user.trackFeatures]} />
           )}
-        </Grid>
-        <Grid item sm={1} display="flex" justifyContent="center">
-          <VennDiagram />
         </Grid>
         <Grid item sm={1} display="flex" justifyContent="right">
           <CreateRoomButton />
