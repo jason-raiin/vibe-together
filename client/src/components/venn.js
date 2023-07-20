@@ -4,8 +4,9 @@ import * as d3 from 'd3';
 import './venn.css';
 
 const FONT = { family: 'sans-serif', size: '12px' };
-const COLORS = ['palegoldenrod', 'paleturquoise', 'palevioletred'];
+const CIRCLE_COLORS = ['palegoldenrod', 'paleturquoise', 'palevioletred'];
 const DEFAULT_OPACITY = 0.4;
+const CIRCLE_SIZE = { L: 5, M: 1, S: 0.2 };
 
 export default function VennDiagram({ usersDetails, roomGenres }) {
   useEffect(() => vennChart(sets(usersDetails, roomGenres)), []);
@@ -17,17 +18,17 @@ const sets = (usersDetails, roomGenres) => {
   const roomTop3Genres = roomGenres.slice(0, 3).map((genre) => genre.name);
   const genreSet = roomTop3Genres.map((genre) => ({
     sets: [genre],
-    size: 5,
+    size: CIRCLE_SIZE.L,
   }));
 
   const intersectionSet = roomTop3Genres.map((genre, index) => ({
     sets: [genre, roomTop3Genres[(index + 1) % 3]],
-    size: 1,
+    size: CIRCLE_SIZE.M,
   }));
 
   const userSet = usersDetails.map(({ displayName, images }) => ({
     sets: [displayName],
-    size: 0.2,
+    size: CIRCLE_SIZE.S,
     images,
   }));
 
@@ -38,10 +39,10 @@ const sets = (usersDetails, roomGenres) => {
     );
     const singleGenreSet = multiGenreSet.map((genre) => ({
       sets: [genre, displayName],
-      size: 1,
+      size: CIRCLE_SIZE.S,
     }));
     multiGenreSet.push(displayName);
-    return [...singleGenreSet, { sets: multiGenreSet, size: 1 }];
+    return [...singleGenreSet, { sets: multiGenreSet, size: CIRCLE_SIZE.S }];
   });
 
   const sets = [...genreSet, ...userSet, ...intersectionSet, ...userGenreSet];
@@ -49,21 +50,6 @@ const sets = (usersDetails, roomGenres) => {
 };
 
 const vennChart = (sets) => {
-  // console.log(sets);
-  // console.log([
-  //   { sets: ['A'], size: 5 },
-  //   { sets: ['B'], size: 5 },
-  //   { sets: ['C'], size: 5 },
-  //   { sets: ['D'], size: 0.2 },
-  //   { sets: ['A', 'B'], size: 1 },
-  //   { sets: ['C', 'A'], size: 1 },
-  //   { sets: ['B', 'C'], size: 1 },
-  //   { sets: ['A', 'D'], size: 1 },
-  //   { sets: ['B', 'D'], size: 1 },
-  //   { sets: ['C', 'D'], size: 1 },
-  //   { sets: ['B', 'D', 'C', 'A'], size: 1 },
-  // ]);
-
   // draw default venn diagram
   const chart = venn.VennDiagram();
   const div = d3.select('#venn');
@@ -71,9 +57,11 @@ const vennChart = (sets) => {
 
   // circle styles
   d3.selectAll('#venn .venn-circle path')
-    .style('fill', (_, i) => (i < COLORS.length ? COLORS[i] : 'grey'))
+    .style('fill', (_, i) =>
+      i < CIRCLE_COLORS.length ? CIRCLE_COLORS[i] : 'grey',
+    )
     .style('fill-opacity', DEFAULT_OPACITY)
-    .style('stroke', (_, i) => COLORS[i])
+    .style('stroke', (_, i) => CIRCLE_COLORS[i])
     .style('stroke-opacity', 0);
 
   // TODO: user images
@@ -104,7 +92,7 @@ const vennChart = (sets) => {
     .style('font-family', FONT.family)
     .style('font-size', FONT.size);
 
-  // add listeners to all the groups to display tooltip on mouseover
+  // highlights on mouseover
   div
     .selectAll('g')
     .on('mouseover', function (event, d) {
@@ -112,7 +100,7 @@ const vennChart = (sets) => {
       venn.sortAreas(div, d);
 
       // Display a tooltip with the current size
-      tooltip.text(d.size + ' users').style('visibility', 'visible');
+      // tooltip.text(d.size + ' users').style('visibility', 'visible');
 
       // highlight the current path
       const selection = d3.select(this).transition('tooltip').duration(200);
@@ -130,7 +118,7 @@ const vennChart = (sets) => {
     })
 
     .on('mouseout', function (event, d) {
-      tooltip.style('visibility', 'hidden');
+      // tooltip.style('visibility', 'hidden');
       const selection = d3.select(this).transition('tooltip').duration(200);
       selection
         .select('path')
