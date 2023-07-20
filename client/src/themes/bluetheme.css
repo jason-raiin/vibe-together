@@ -1,5 +1,6 @@
 /* Adjusts to any size window <3 */
 
+/*
 :root {
   --c1: hsl(219, 79%, 66%);
   --c2: hsl(319, 100%, 60%);
@@ -8,7 +9,7 @@
   --c5: hsl(0, 67%, 55%);
   --c6: hsl(213, 96%, 11%);
   --c2hsl: 319, 100%, 60%;
-}
+}*/
 
 @property --outrun {
   syntax: '<number>';

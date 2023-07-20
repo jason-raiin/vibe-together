@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { Artist, Item, Track } from '../dtos/item.dto';
+import { User } from '../dtos/user.dto';
 import {
   AUTH_STRING,
   REDIRECT_URI,
   RETRIEVE_LIMIT,
   SPOTIFY_TOKEN_URL,
 } from './constants';
-import { User } from '../dtos/user.dto';
-import { Artist, Item, Track } from '../dtos/item.dto';
 
 export const getAccessToken = async (code: string): Promise<string> => {
   try {
@@ -152,6 +152,8 @@ export const getUserFromSpotify = async (
     return user;
   } catch (error) {
     console.error('Failed to get user:', error);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   }
 
   return {} as User;

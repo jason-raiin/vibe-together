@@ -1,14 +1,16 @@
 import axios from 'axios';
-import { BACKEND_URI } from './constants';
-import { User } from '../dtos/user.dto';
 import { Room } from '../dtos/room.dto';
+import { User } from '../dtos/user.dto';
+import { BACKEND_URI } from './constants';
 
 export const addUpdateUser = async (user: User) => {
   try {
     const payload = { user };
     await axios.post(`${BACKEND_URI}/user/`, payload);
+    return true;
   } catch (error) {
     console.error('Failed to add/update new user:', error);
+    return false;
   }
 };
 

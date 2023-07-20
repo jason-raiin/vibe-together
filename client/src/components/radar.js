@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
 import * as d3 from 'd3';
+import React, { useEffect, useRef } from 'react';
 import './radar.css';
 
-const GRAPH_COLORS = ['darkorange', 'navy'];
+const GRAPH_COLORS = ['#ff00ff', '#00ffff'];
 const GRAPH_OPACITY = [0.5, 0.75];
-const AXIS_COLOR = 'black';
-const CIRCLE_COLOR = { line: 'gray', fill: 'none' };
+const AXIS_COLOR = 'white';
+const CIRCLE_COLOR = { stroke: 'white', fill: 'none' };
 const TOOLTIPS = ['You', 'Room'];
-const FONT = { family: 'sans-serif', size: '16px' };
+const FONT = { family: 'sans-serif', size: '16px', color: '#97b690' };
 
 export default function RadarDiagram({ trackFeatures }) {
   useEffect(() => radar(trackFeatures), []);
@@ -40,7 +40,7 @@ const radar = (trackFeatures) => {
         .attr('cx', width / 2)
         .attr('cy', height / 2)
         .attr('fill', CIRCLE_COLOR.fill)
-        .attr('stroke', CIRCLE_COLOR.line)
+        .attr('stroke', CIRCLE_COLOR.stroke)
         .attr('r', (d) => radialScale(d)),
     );
 
@@ -84,8 +84,7 @@ const radar = (trackFeatures) => {
         .attr('text-anchor', 'middle')
         .attr('x', (d) => d.label_coord.x)
         .attr('y', (d) => d.label_coord.y)
-        .style('font-family', FONT.family)
-        .style('font-size', FONT.size)
+        .attr('fill', '#97b690')
         .text((d) => d.name),
     );
 
@@ -93,6 +92,7 @@ const radar = (trackFeatures) => {
     .line()
     .x((d) => d.x)
     .y((d) => d.y);
+
   const colors = GRAPH_COLORS;
 
   // calculate paths of radar region
