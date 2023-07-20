@@ -8,16 +8,22 @@ const COLORS = ['palegoldenrod', 'paleturquoise', 'palevioletred'];
 const DEFAULT_OPACITY = 0.4;
 
 export default function VennDiagram({ usersDetails, roomGenres }) {
-  useEffect(() => sets(usersDetails, roomGenres), []);
-  useEffect(() => vennChart(), []);
+  useEffect(() => vennChart(sets(usersDetails, roomGenres)), []);
 
   return <div id="venn"></div>;
 }
 
 const sets = (usersDetails, roomGenres) => {
-  const genreSet = roomGenres
-    .map(({ name }) => ({ sets: [name], size: 5 }))
-    .slice(0, 2);
+  const roomTop3Genres = roomGenres.slice(0, 3).map((genre) => genre.name);
+  const genreSet = roomTop3Genres.map((genre) => ({
+    sets: [genre],
+    size: 5,
+  }));
+
+  const intersectionSet = roomTop3Genres.map((genre, index) => ({
+    sets: [genre, roomTop3Genres[(index + 1) % 3]],
+    size: 1,
+  }));
 
   const userSet = usersDetails.map(({ displayName, images }) => ({
     sets: [displayName],
@@ -25,28 +31,38 @@ const sets = (usersDetails, roomGenres) => {
     images,
   }));
 
-  const intersectionSet = usersDetails.flatMap(({ displayName, topGenres }) => {
-    return [];
+  const userGenreSet = usersDetails.flatMap(({ displayName, topGenres }) => {
+    const userTop20Genres = topGenres.slice(0, 20).map((genre) => genre.name);
+    const multiGenreSet = userTop20Genres.filter((genre) =>
+      roomTop3Genres.includes(genre),
+    );
+    const singleGenreSet = multiGenreSet.map((genre) => ({
+      sets: [genre, displayName],
+      size: 1,
+    }));
+    multiGenreSet.push(displayName);
+    return [...singleGenreSet, { sets: multiGenreSet, size: 1 }];
   });
 
-  const sets = genreSet.concat(userSet, intersectionSet);
-  console.log(sets);
+  const sets = [...genreSet, ...userSet, ...intersectionSet, ...userGenreSet];
+  return sets;
 };
 
-const vennChart = () => {
-  const sets = [
-    { sets: ['A'], size: 5 },
-    { sets: ['B'], size: 5 },
-    { sets: ['C'], size: 5 },
-    { sets: ['D'], size: 0.2 },
-    { sets: ['A', 'B'], size: 1 },
-    { sets: ['A', 'C'], size: 1 },
-    { sets: ['B', 'C'], size: 1 },
-    { sets: ['A', 'D'], size: 1 },
-    { sets: ['B', 'D'], size: 1 },
-    { sets: ['C', 'D'], size: 1 },
-    { sets: ['A', 'B', 'C', 'D'], size: 1 },
-  ];
+const vennChart = (sets) => {
+  // console.log(sets);
+  // console.log([
+  //   { sets: ['A'], size: 5 },
+  //   { sets: ['B'], size: 5 },
+  //   { sets: ['C'], size: 5 },
+  //   { sets: ['D'], size: 0.2 },
+  //   { sets: ['A', 'B'], size: 1 },
+  //   { sets: ['C', 'A'], size: 1 },
+  //   { sets: ['B', 'C'], size: 1 },
+  //   { sets: ['A', 'D'], size: 1 },
+  //   { sets: ['B', 'D'], size: 1 },
+  //   { sets: ['C', 'D'], size: 1 },
+  //   { sets: ['B', 'D', 'C', 'A'], size: 1 },
+  // ]);
 
   // draw default venn diagram
   const chart = venn.VennDiagram();
