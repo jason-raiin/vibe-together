@@ -1,12 +1,9 @@
-import { Grid, Grid, Stack } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { CopyLinkButton } from '../components/button';
 import { RoomIdField } from '../components/field';
-import {
-  default as RadarDiagram,
-  default as RadarDiagram,
-} from '../components/radar';
+import { default as RadarDiagram } from '../components/radar';
 import VennDiagram from '../components/venn';
 import ArtistList from '../lists/artists';
 import TrackList from '../lists/tracks';
@@ -36,13 +33,12 @@ const RoomPage = ({ userId }) => {
         className="standard-outer-window"
         style={{
           display: 'flex',
-          height: '30vh',
           alignItems: 'center',
           justifyContent: 'center',
-          marginLeft: '15vh',
-          marginRight: '15vh',
           marginTop: '5vh',
           marginBottom: '5vh',
+          marginLeft: '5vw',
+          marginRight: '5vw',
         }}
       >
         <Stack spacing={0} sx={{ width: '100%' }}>
@@ -79,14 +75,20 @@ const RoomPage = ({ userId }) => {
             className="standard-inner-window"
             style={{
               display: 'flex',
-              height: '30vh',
               alignItems: 'center',
               justifyContent: 'center',
               width: '100%',
             }}
           >
-            <Stack spacing={2} alignItems="center" justifyContent="center">
-              <h1>this room is looking a little empty, add more friends now</h1>
+            <Stack
+              spacing={5}
+              alignItems="center"
+              justifyContent="center"
+              className="standard-stack"
+            >
+              <h1>
+                {room.name} is looking a little empty, add some friends here?
+              </h1>
               <div style={{ display: 'flex', gap: '1vh' }}>
                 <RoomIdField roomId={id} />
                 <CopyLinkButton roomId={id} />

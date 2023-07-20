@@ -19,7 +19,10 @@ export default function Header({ loggedIn, setAccessToken }) {
         <Grid item xs display="flex" />
         <Grid item display="flex" justifyItems="center" alignItems="center">
           <Link href={APP_URI} color="black" underline="none">
-            <img src={require('../assets/greenlogo.png')} height="100" />
+            <img
+              src={require('../assets/greenlogo.png')}
+              className="header-image"
+            />
           </Link>
         </Grid>
         <Grid item xs display="flex">

@@ -1,7 +1,4 @@
 .standard {
-  font-family: 'republika', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-    sans-serif;
   text-align: center;
   align-items: center;
   align-self: center;
@@ -10,9 +7,6 @@
 }
 
 .standard-box {
-  font-family: 'republika', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-    sans-serif;
   text-align: center;
   align-items: center;
   align-self: center;
@@ -28,21 +22,16 @@
   backdrop-filter: 'blur(10px)';
   margin-top: '5vh';
   margin-bottom: '5vh';
-  margin-left: '15vh';
-  margin-right: '15vh';
+  margin-left: '15vw';
+  margin-right: '15vw';
 }
 
 .standard-inner-window {
-  font-family: 'republika', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-    sans-serif;
   text-align: center;
   align-items: center;
   align-self: center;
   justify-content: center;
   color: aliceblue;
-  display: 'flex';
-  height: '30vh';
   background-image: linear-gradient(
     to bottom right,
     rgba(30, 13, 46, 0.829),
@@ -50,13 +39,12 @@
   );
   backdrop-filter: 'blur(10px)';
   margin-top: 0.5vh;
+  padding-bottom: 5vh;
+  padding-top: 5vh;
   border: 0.3vh solid #97b690;
 }
 
 .standard-outer-window {
-  font-family: 'republika', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-    sans-serif;
   text-align: center;
   align-items: center;
   align-self: center;
@@ -64,16 +52,27 @@
   color: aliceblue;
   background-color: #97b69055;
   backdrop-filter: 'blur(10px)';
-  padding-top: 3vh;
-  padding-bottom: 3.5vh;
-  padding-left: 2vh;
-  padding-right: 2vh;
+  padding-top: 1vh;
+  padding-bottom: 1.5vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
   border: 0.3vh solid #97b690;
 }
 
-@font-face {
-  font-family: 'republika';
-  src: url(../fonts/R4EXPUI_.ttf) format('truetype');
+.header-image {
+  max-height: 100px;
+  width: 100%;
+}
+
+.standard-stack > h1 {
+  font-size: calc(1rem + 1vw) !important;
+  font-family: 'republika' !important;
+}
+
+.standard-stack > p {
+  font-size: calc(1rem + 0.5vw) !important;
+  font-family: 'montserrat-light' !important;
+  overflow-wrap: break-word;
 }
 
 a.inTextLink {

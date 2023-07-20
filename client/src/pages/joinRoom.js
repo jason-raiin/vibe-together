@@ -25,13 +25,12 @@ export default function JoinRoomPage({ userId }) {
       className="standard-outer-window"
       style={{
         display: 'flex',
-        height: '30vh',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: '15vh',
-        marginRight: '15vh',
         marginTop: '5vh',
         marginBottom: '5vh',
+        marginLeft: '5vw',
+        marginRight: '5vw',
       }}
     >
       <Stack spacing={0} sx={{ width: '100%' }}>
@@ -68,19 +67,23 @@ export default function JoinRoomPage({ userId }) {
           className="standard-inner-window"
           style={{
             display: 'flex',
-            height: '30vh',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
           }}
         >
-          <Stack spacing={2} alignItems="center" justifyContent="center">
-            <h2>Join your friend&#39;s room!</h2>
+          <Stack
+            spacing={5}
+            alignItems="center"
+            justifyContent="center"
+            className="standard-stack"
+          >
+            <h1>Join your friend&#39;s room!</h1>
             <div style={{ display: 'flex', gap: '1vh' }}>
               <RoomIdInputField idInputHandler={idInputHandler} />
               <JoinRoomCodeButton idSubmitHandler={idSubmitHandler} />
             </div>
-            {invalid && <div>Invalid Room Code!</div>}
+            {invalid && <p>Invalid Room Code!</p>}
           </Stack>
         </div>
       </Stack>

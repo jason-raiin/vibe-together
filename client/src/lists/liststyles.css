@@ -5,7 +5,7 @@
 }
 
 .listContainer {
-  font-family: 'republika';
+  font-family: 'republika' !important;
   color: white !important;
   background-image: linear-gradient(
     to bottom right,
@@ -17,12 +17,13 @@
 
 .listFont {
   color: white !important;
-  font-family: 'republika';
   font-size: larger !important;
+  font-family: 'montserrat-light' !important;
 }
 
 .listFont > a {
   color: white !important;
+  font-family: 'montserrat-light' !important;
   text-decoration: none !important;
 }
 
@@ -32,4 +33,10 @@
 
 .listFont > TableCell {
   color: white !important;
+  font-family: 'montserrat-light' !important;
+}
+
+.listHeaderFont {
+  font-family: 'republika' !important;
+  font-size: calc(1rem + 0.5vw);
 }

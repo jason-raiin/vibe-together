@@ -25,13 +25,12 @@ export default function CreateRoomPage({ userId }) {
       className="standard-outer-window"
       style={{
         display: 'flex',
-        height: '40vh',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: '15vh',
-        marginRight: '15vh',
         marginTop: '5vh',
         marginBottom: '5vh',
+        marginLeft: '5vw',
+        marginRight: '5vw',
       }}
     >
       <Stack spacing={0} sx={{ width: '100%' }}>
@@ -68,15 +67,18 @@ export default function CreateRoomPage({ userId }) {
           className="standard-inner-window"
           style={{
             display: 'flex',
-            height: '40vh',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
           }}
         >
-          {' '}
-          <Stack spacing={3} alignItems="center" justifyContent="center">
-            <h2>Create your Room!</h2>
+          <Stack
+            spacing={5}
+            alignItems="center"
+            justifyContent="center"
+            className="standard-stack"
+          >
+            <h1>Create your Room</h1>
             <div style={{ display: 'flex', gap: '1vh' }}>
               <RoomNameField
                 nameInputHandler={nameInputHandler}

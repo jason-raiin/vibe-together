@@ -6,10 +6,11 @@ export function EmailField({ emailInputHandler }) {
   return (
     <TextField
       id="outlined-basic"
-      label="Enter your email address to register"
+      label="Enter your email address"
       variant="outlined"
       onChange={emailInputHandler}
       className="basic-field"
+      sx={{ input: { color: '#97b690' } }}
     />
   );
 }
@@ -23,6 +24,7 @@ export function RoomNameField({ nameInputHandler, submitted }) {
       onChange={nameInputHandler}
       InputProps={{ readOnly: submitted }}
       className="basic-field"
+      sx={{ input: { color: '#97b690' } }}
     />
   );
 }
@@ -36,6 +38,7 @@ export function RoomIdField({ roomId }) {
       variant="outlined"
       InputProps={{ readOnly: true }}
       className="basic-field"
+      sx={{ input: { color: '#97b690' } }}
     />
   );
 }
@@ -48,6 +51,7 @@ export function RoomIdInputField({ idInputHandler }) {
       variant="outlined"
       onChange={idInputHandler}
       className="basic-field"
+      sx={{ input: { color: '#97b690' } }}
     />
   );
 }

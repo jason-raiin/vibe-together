@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
-import './radar.css';
+import './componentstyles.css';
 
 const GRAPH_COLORS = ['#ff00ff', '#00ffff'];
 const GRAPH_OPACITY = [0.5, 0.75];
@@ -85,6 +85,8 @@ const radar = (trackFeatures) => {
         .attr('x', (d) => d.label_coord.x)
         .attr('y', (d) => d.label_coord.y)
         .attr('fill', '#97b690')
+        .attr('font-family', 'republika')
+        .attr('font-size', 'calc(1rem + 0.5vw)')
         .text((d) => d.name),
     );
 

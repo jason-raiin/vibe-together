@@ -21,16 +21,13 @@ const TrackList = ({ tracks }) => {
         <TableCell className="listFont">
           <a href={track.url}>{track.name}</a>
         </TableCell>
-        {/* <TableCell>
-          <ul className="no-bullets">{artistList}</ul>
-        </TableCell> */}
       </TableRow>
     );
   });
 
   return (
     <div>
-      <h2>Top Tracks</h2>
+      <h2 className="listHeaderFont">Top Tracks</h2>
       <TableContainer>
         <Table
           className="listContainer"
