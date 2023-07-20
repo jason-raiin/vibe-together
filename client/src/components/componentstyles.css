@@ -1,7 +1,7 @@
 .spotify-button {
   background-color: #97b690 !important;
   color: white !important;
-  border-radius: 888;
+  border-radius: 0px !important;
   padding-left: 2;
   padding-right: 2;
   padding-top: 1;
@@ -17,6 +17,7 @@
 .basic-button {
   color: white !important;
   background-color: #97b690 !important;
+  border-radius: 0px !important;
 }
 
 .basic-button:hover {
@@ -40,4 +41,8 @@
 }
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: white !important;
+  border-radius: 0px !important;
+}
+.MuiInputLabel-root {
+  color: white !important;
 }
