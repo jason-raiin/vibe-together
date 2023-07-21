@@ -26,7 +26,7 @@ const ArtistList = ({ artists }) => {
 
   return (
     <div>
-      <h2>Top Artists</h2>
+      <h2 className="listHeaderFont">Top Artists</h2>
       <TableContainer>
         <Table
           className="listContainer"

@@ -18,6 +18,31 @@ code {
   src: url(./fonts/R4EXPUI_.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'montserrat-extralight';
+  src: url(./fonts/Montserrat-ExtraLight.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'montserrat-light';
+  src: url(./fonts/Montserrat-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'montserrat-medium';
+  src: url(./fonts/Montserrat-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'montserrat-regular';
+  src: url(./fonts/Montserrat-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'montserrat-semibold';
+  src: url(./fonts/Montserrat-SemiBold.ttf) format('truetype');
+}
+
 /*
 .color-picker > fieldset {
   border: 0;

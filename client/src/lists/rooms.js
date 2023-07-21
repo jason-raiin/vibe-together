@@ -49,7 +49,7 @@ export default function RoomList({ rooms }) {
 
   return (
     <Box>
-      <h2>Your Rooms</h2>
+      <h2 className="listHeaderFont">Your Rooms</h2>
       <Box display="flex" justifyContent="center">
         <TableContainer sx={{ width: { xs: '100%', sm: '50%' } }}>
           <Table

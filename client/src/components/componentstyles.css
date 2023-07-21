@@ -7,6 +7,7 @@
   padding-top: 1;
   padding-bottom: 1;
   width: 20%;
+  font-family: 'montserrat-semibold' !important;
 }
 
 .spotify-button:hover {
@@ -18,6 +19,7 @@
   color: white !important;
   background-color: #97b690 !important;
   border-radius: 0px !important;
+  font-family: 'montserrat-semibold' !important;
 }
 
 .basic-button:hover {
@@ -25,7 +27,6 @@
   background-color: #ffffff !important;
 }
 .sticky-header {
-  position: sticky;
   padding-top: 6vh;
   padding-bottom: 1vh;
   top: 0;
@@ -40,9 +41,18 @@
   color: white !important;
 }
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: white !important;
+  border-color: #ffffff00 !important;
   border-radius: 0px !important;
 }
 .MuiInputLabel-root {
   color: white !important;
+  font-family: 'montserrat-medium' !important;
+}
+#radar {
+  background-color: rgba(255, 255, 255, 0);
+}
+#venn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

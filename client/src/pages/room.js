@@ -1,12 +1,14 @@
+import { Grid, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { CopyLinkButton } from '../components/button';
+import { RoomIdField } from '../components/field';
+import { default as RadarDiagram } from '../components/radar';
+import VennDiagram from '../components/venn';
 import ArtistList from '../lists/artists';
 import TrackList from '../lists/tracks';
-import { Grid } from '@mui/material';
-import { useSearchParams } from 'react-router-dom';
 import { getRoom, getRoomDetails } from '../query/rooms';
-import RadarDiagram from '../components/radar';
 import { getUser } from '../query/users';
-import VennDiagram from '../components/venn';
 
 const RoomPage = ({ userId }) => {
   const [room, setRoom] = useState({});
@@ -27,6 +29,74 @@ const RoomPage = ({ userId }) => {
 
   return (
     <div className="standard">
+      <div
+        className="standard-outer-window"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '5vh',
+          marginBottom: '5vh',
+          marginLeft: '5vw',
+          marginRight: '5vw',
+        }}
+      >
+        <Stack spacing={0} sx={{ width: '100%' }}>
+          <div style={{ display: 'flex', gap: '1vh' }}>
+            <div
+              style={{
+                height: '2.5vh',
+                width: '2.5vh',
+                border: '0.5vh solid #97b690',
+                borderRadius: '2.5vh',
+                backgroundColor: '#ee5250',
+              }}
+            />
+            <div
+              style={{
+                height: '2.5vh',
+                width: '2.5vh',
+                border: '0.5vh solid #97b690',
+                borderRadius: '2.5vh',
+                backgroundColor: '#5cfcf4',
+              }}
+            />
+            <div
+              style={{
+                height: '2.5vh',
+                width: '2.5vh',
+                border: '0.5vh solid #97b690',
+                borderRadius: '2.5vh',
+                backgroundColor: '#fff69d',
+              }}
+            />
+          </div>
+          <div
+            className="standard-inner-window"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+            }}
+          >
+            <Stack
+              spacing={5}
+              alignItems="center"
+              justifyContent="center"
+              className="standard-stack"
+            >
+              <h1>
+                {room.name} is looking a little empty, add some friends here?
+              </h1>
+              <div style={{ display: 'flex', gap: '1vh' }}>
+                <RoomIdField roomId={id} />
+                <CopyLinkButton roomId={id} />
+              </div>
+            </Stack>
+          </div>
+        </Stack>
+      </div>
       <Grid container columns={2} spacing={5} padding={5}>
         <Grid item sm={1} display="flex" justifyContent="center">
           {room.trackFeatures && user.trackFeatures && (
