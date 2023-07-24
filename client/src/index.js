@@ -11,6 +11,7 @@ import UserPage from './pages/user';
 import WhiteListPage from './pages/whitelist';
 import CallbackRedirect from './redirects/callback';
 import NoPageRedirect from './redirects/nopage';
+import SpotifyLoginRedirect from './redirects/spotifylogin';
 import { reportWebVitals } from './reportWebVitals';
 import { ultimateAccessToken } from './spotify/spotify';
 
@@ -21,13 +22,17 @@ export default function App() {
   );
   const [userId, setUserId] = useState('');
 
-  useEffect(() => {
-    if (!accessToken) return setLoginState(false);
-    ultimateAccessToken(accessToken).then(({ id, result }) => {
-      setLoginState(result);
-      setUserId(id);
-    });
-  }, [accessToken]);
+  function refreshLoginStatus() {
+    useEffect(() => {
+      if (!accessToken) return setLoginState(false);
+      ultimateAccessToken(accessToken).then(({ id, result }) => {
+        setLoginState(result);
+        setUserId(id);
+      });
+    }, [accessToken, loggedIn]);
+  }
+
+  refreshLoginStatus();
 
   return (
     <div>
@@ -36,7 +41,7 @@ export default function App() {
         <Routes>
           <Route
             path=""
-            element={loggedIn ? <UserPage userId={userId} /> : <HomePage />}
+            element={loggedIn ? <UserPage userId={userId} /> : <HomePage />} //<NewHomePage userId={userId} loggedIn={loggedIn} />}
           />
           <Route path="whitelist" element={<WhiteListPage />} />
           <Route
@@ -45,11 +50,16 @@ export default function App() {
           />
           <Route path="room" element={<RoomPage userId={userId} />} />
           <Route path="create" element={<CreateRoomPage userId={userId} />} />
-          <Route path="join" element={<JoinRoomPage userId={userId} />} />
-          {/*  <Route
-          path="join-room"
-          element={loggedIn ? <JoinRoomRedirect /> : <SpotifyLoginRedirect />}
-  /> */}
+          <Route
+            path="join"
+            element={
+              loggedIn ? (
+                <JoinRoomPage userId={userId} />
+              ) : (
+                <SpotifyLoginRedirect />
+              )
+            }
+          />
           <Route path="*" element={<NoPageRedirect />} />
         </Routes>
       </BrowserRouter>
