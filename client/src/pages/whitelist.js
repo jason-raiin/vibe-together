@@ -6,13 +6,14 @@ import { requestWhitelist } from '../query/whitelist';
 
 const WhiteListPage = () => {
   const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
-  const emailInputHandler = (event) => {
-    setEmail(event.target.field);
-  };
-
+  const emailInputHandler = (event) => setEmail(event.target.value);
   const submitEmailHandler = async () => {
-    if (email) await requestWhitelist(email, Date());
+    if (email) {
+      await requestWhitelist(email, Date());
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -89,8 +90,9 @@ const WhiteListPage = () => {
                 }}
               >
                 <EmailField emailInputHandler={emailInputHandler} />
-                <SubmitEmailButton submitEmailHandler={submitEmailHandler} />
+                <SubmitEmailButton emailSubmitHandler={submitEmailHandler} />
               </div>
+              {submitted && <p>Email has been submitted for whitelisting!</p>}
               <p>
                 Click{' '}
                 <a className="inTextLink" href="/">

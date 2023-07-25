@@ -97,7 +97,7 @@ export function SubmitEmailButton({ emailSubmitHandler }) {
     <Button
       variant="contained"
       onClick={emailSubmitHandler}
-      className={'spotify-button'}
+      className="spotify-button"
     >
       Submit Email
     </Button>

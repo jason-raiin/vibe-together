@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type WhitelistRequestDocument = WhitelistRequest & Document;
 
-@Schema()
+@Schema({ collection: 'whitelist_requests' })
 export class WhitelistRequest {
   @Prop()
   email: string;

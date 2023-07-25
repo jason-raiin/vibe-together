@@ -6,7 +6,10 @@ export class WhitelistController {
   constructor(private whitelistService: WhitelistService) {}
 
   @Post()
-  async requestWhitelist(@Body() email: string, @Body() timestamp: Date) {
+  async requestWhitelist(
+    @Body('email') email: string,
+    @Body('timestamp') timestamp: Date,
+  ) {
     return await this.whitelistService.requestWhitelist(email, timestamp);
   }
 }

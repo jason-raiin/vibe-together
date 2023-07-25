@@ -1,4 +1,3 @@
-import { TempleHinduSharp } from '@mui/icons-material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { joinRoom } from '../query/rooms';
@@ -20,7 +19,7 @@ export default function CallbackRedirect({ setAccessToken }) {
     getAccessToken(code)
       .then((accessToken) => {
         setAccessToken(accessToken);
-        console.log(accessToken);
+        // console.log(accessToken);
         return getUserFromSpotify(accessToken);
       })
       .then((user) => {
@@ -28,7 +27,7 @@ export default function CallbackRedirect({ setAccessToken }) {
         return addUpdateUser(user);
       })
       .then((stuff) => {
-        console.log(stuff);
+        // console.log(stuff);
         if (!stuff) {
           navigate('/whitelist');
         } else {
