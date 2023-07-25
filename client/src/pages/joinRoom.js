@@ -1,4 +1,4 @@
-import { Box, Grid, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { JoinRoomCodeButton } from '../components/button';

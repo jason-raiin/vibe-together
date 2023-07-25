@@ -2,22 +2,20 @@ import { Stack } from '@mui/system';
 import React, { useState } from 'react';
 import { SubmitEmailButton } from '../components/button';
 import { EmailField } from '../components/field';
+import { requestWhitelist } from '../query/whitelist';
 
 const WhiteListPage = () => {
   const [email, setEmail] = useState('');
-  const [invalid, setInvalid] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const emailInputHandler = (event) => {
-    setEmail(event.target.field);
-    setInvalid(false);
-  };
-
+  const emailInputHandler = (event) => setEmail(event.target.value);
   const submitEmailHandler = async () => {
-    if (!email) {
-      setInvalid(true);
-      return;
+    if (email) {
+      await requestWhitelist(email, Date());
+      setSubmitted(true);
     }
   };
+
   return (
     <>
       <div
@@ -92,8 +90,9 @@ const WhiteListPage = () => {
                 }}
               >
                 <EmailField emailInputHandler={emailInputHandler} />
-                <SubmitEmailButton submitEmailHandler={submitEmailHandler} />
+                <SubmitEmailButton emailSubmitHandler={submitEmailHandler} />
               </div>
+              {submitted && <p>Email has been submitted for whitelisting!</p>}
               <p>
                 Click{' '}
                 <a className="inTextLink" href="/">

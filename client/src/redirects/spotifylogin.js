@@ -9,7 +9,7 @@ export default function SpotifyLoginRedirect() {
   const [searchParams] = useSearchParams();
   const roomId = searchParams.get('room');
   if (roomId != null) localStorage.setItem('roomId', roomId);
-  console.log(roomId);
+  // console.log(roomId);
 
   return (
     <div
