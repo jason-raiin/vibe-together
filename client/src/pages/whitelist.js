@@ -2,22 +2,19 @@ import { Stack } from '@mui/system';
 import React, { useState } from 'react';
 import { SubmitEmailButton } from '../components/button';
 import { EmailField } from '../components/field';
+import { requestWhitelist } from '../query/whitelist';
 
 const WhiteListPage = () => {
   const [email, setEmail] = useState('');
-  const [invalid, setInvalid] = useState(false);
 
   const emailInputHandler = (event) => {
     setEmail(event.target.field);
-    setInvalid(false);
   };
 
   const submitEmailHandler = async () => {
-    if (!email) {
-      setInvalid(true);
-      return;
-    }
+    if (email) await requestWhitelist(email, Date());
   };
+
   return (
     <>
       <div
