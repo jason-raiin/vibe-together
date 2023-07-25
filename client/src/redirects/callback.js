@@ -35,11 +35,17 @@ export default function CallbackRedirect({ setAccessToken }) {
           if (isRoom) {
             try {
               joinRoom(userState.id, tempRoom);
-              navigate(`/room?id=${tempRoom}`);
             } catch (error) {
               console.error(error);
+              navigate('/');
             }
           }
+        }
+      })
+      .then(() => {
+        if (isRoom) {
+          navigate(`/room?id=${tempRoom}`);
+        } else {
           navigate('/');
         }
       });
