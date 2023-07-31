@@ -11,14 +11,3 @@ export const userStub = (): User => ({
   topTracks: [],
   trackFeatures: new AudioFeatures(),
 });
-
-export const user2Stub = (): User => ({
-  id: 'spotify_id2',
-  displayName: 'display_name2',
-  images: [],
-  url: 'spotify_url2',
-  topArtists: [],
-  topGenres: [],
-  topTracks: [],
-  trackFeatures: new AudioFeatures(),
-});
