@@ -30,23 +30,18 @@ export default function CallbackRedirect({ setAccessToken }) {
       .then((stuff) => {
         console.log(stuff);
         if (!stuff) {
+          console.log('navigating');
           navigate('/whitelist');
         } else {
           if (isRoom) {
             try {
               joinRoom(userState.id, tempRoom);
+              navigate(`/room?id=${tempRoom}`);
             } catch (error) {
               console.error(error);
               navigate('/');
             }
           }
-        }
-      })
-      .then(() => {
-        if (isRoom) {
-          navigate(`/room?id=${tempRoom}`);
-        } else {
-          navigate('/');
         }
       });
   }, []);
