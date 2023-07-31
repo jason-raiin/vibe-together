@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { JOIN_CODE_URI } from '../components/constants';
 import { joinRoom } from '../query/rooms';
 import { addUpdateUser } from '../query/users';
 import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
@@ -7,7 +8,6 @@ import { getAccessToken, getUserFromSpotify } from '../spotify/spotify';
 export default function CallbackRedirect({ setAccessToken }) {
   const navigate = useNavigate();
 
-  const [userState, setUserState] = useState({});
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
   const tempRoom = localStorage.getItem('roomId');
@@ -23,24 +23,16 @@ export default function CallbackRedirect({ setAccessToken }) {
         return getUserFromSpotify(accessToken);
       })
       .then((user) => {
-        setUserState(user);
         return addUpdateUser(user);
       })
       .then((stuff) => {
-        // console.log(stuff);
         if (!stuff) {
-          console.log('navigating');
           navigate('/whitelist');
+        }
+        if (isRoom) {
+          navigate(`${JOIN_CODE_URI}${tempRoom}`);
         } else {
-          if (isRoom) {
-            try {
-              joinRoom(userState.id, tempRoom);
-              navigate(`/room?id=${tempRoom}`);
-            } catch (error) {
-              console.error(error);
-              navigate('/');
-            }
-          }
+          navigate('/');
         }
       });
   }, []);

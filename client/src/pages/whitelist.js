@@ -92,7 +92,6 @@ const WhiteListPage = () => {
                 <EmailField emailInputHandler={emailInputHandler} />
                 <SubmitEmailButton emailSubmitHandler={submitEmailHandler} />
               </div>
-              {invalid && <p>Invalid Email!</p>}
               {submitted && <p>Email has been submitted for whitelisting!</p>}
               <p>
                 Click{' '}

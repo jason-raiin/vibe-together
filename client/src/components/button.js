@@ -4,6 +4,7 @@ import React from 'react';
 import './componentstyles.css';
 
 import {
+  APP_URI,
   CREATE_ROOM_URI,
   JOIN_CODE_URI,
   JOIN_ROOM_URI,
@@ -62,7 +63,7 @@ function OnClickButton(onClick, url, text) {
 
 export function CopyLinkButton({ roomId }) {
   const copy = () => {
-    navigator.clipboard.writeText(JOIN_CODE_URI + roomId);
+    navigator.clipboard.writeText(APP_URI + JOIN_CODE_URI + roomId);
   };
 
   return OnClickButton(copy, '', 'Copy Link');
