@@ -7,6 +7,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SpotifyModule } from './spotify/spotify.module';
 import { ComputeModule } from './compute/compute.module';
+import { WhitelistModule } from './whitelist/whitelist.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ComputeModule } from './compute/compute.module';
     }),
     SpotifyModule,
     ComputeModule,
+    WhitelistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
