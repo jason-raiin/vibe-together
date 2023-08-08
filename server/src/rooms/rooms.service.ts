@@ -24,10 +24,7 @@ export class RoomsService {
     private computeService: ComputeService,
   ) {}
 
-  async createNewRoom(
-    userId: string,
-    name: string,
-  ): Promise<{ roomId: string; name: string }> {
+  async createNewRoom(userId: string, name: string): Promise<Room> {
     if (!name) throw new BadRequestException('Name cannot be empty!');
 
     const roomId = randomBytes(3).toString('hex').toUpperCase();
@@ -41,9 +38,7 @@ export class RoomsService {
     if (!result)
       throw new ServiceUnavailableException('Write to database failed!');
 
-    this.updateRoom(roomId);
-
-    return { roomId, name };
+    return await this.updateRoom(roomId);
   }
 
   async addNewUserToRoom(

@@ -11,17 +11,20 @@ import { WhitelistModule } from './whitelist/whitelist.module';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    RoomsModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get('CORE_DB_URI'),
+        uri:
+          configService.get('NODE_ENV') === 'test'
+            ? configService.get('TEST_DB_URI')
+            : configService.get('CORE_DB_URI'),
       }),
       connectionName: 'core',
     }),
+    UsersModule,
+    RoomsModule,
     SpotifyModule,
     ComputeModule,
     WhitelistModule,

@@ -12,6 +12,6 @@ export class WhitelistService {
 
   async requestWhitelist(email: string, timestamp: Date) {
     const request = new this.whitelistRequestModel({ email, timestamp });
-    await request.save();
+    return await request.save();
   }
 }
